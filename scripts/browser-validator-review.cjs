@@ -185,7 +185,7 @@ async function matrix(){
    if(name==='overview'){
     const metrics=await page.locator('#overview-summary').boundingBox(),attention=await page.locator('#review-heading').boundingBox(),gallery=await page.locator('.workspace-scene').boundingBox();
     assert.equal(await page.locator('#overview-summary .metric').count(),3);assert.ok(metrics.y+metrics.height<gallery.y,'Metrics before gallery');
-    if(width===1440){assert.ok(metrics.y+metrics.height<=900,'Three metrics in viewport');assert.ok(attention.y+attention.height<=900,'Attention begins in viewport');assert.equal(await page.locator('.campaign-desktop table').first().evaluate(table=>table.scrollWidth<=table.closest('.table-wrap').clientWidth+1),true,'All six overview columns fit without internal scrolling');}
+    if(width===1440){assert.ok(metrics.y+metrics.height<=900,'Three metrics in viewport');assert.ok(gallery.y<900,'Dossier collection begins in viewport');assert.ok(gallery.y+gallery.height<=attention.y,'Detailed analysis follows the dossier collection');assert.equal(await page.locator('.campaign-desktop table').first().evaluate(table=>table.scrollWidth<=table.closest('.table-wrap').clientWidth+1),true,'All six overview columns fit without internal scrolling');}
    }
   });}finally{await ctx.close();}
  }

@@ -9,7 +9,7 @@
   <script src="/static/theme.js?v=17"></script>
   <link rel="stylesheet" href="/static/tokens.css?v=2">
   <link rel="stylesheet" href="/static/style.css?v=21">
-  <link rel="stylesheet" href="/static/arc.css?v=58">
+  <link rel="stylesheet" href="/static/arc.css?v=59">
   <script defer src="/static/scene.js?v=19"></script>
   <script defer src="/static/period-context.js?v=1"></script>
   <script defer src="/static/demo-examples.js?v=1"></script>
@@ -49,9 +49,9 @@
   </div>
   <section id="overview-summary" aria-label="Resultados do período" hidden></section>
   </header>
+  {% if page == 'overview' %}{% include '_workspace_scene.html' %}{% endif %}
   <div id="message" role="status" aria-live="polite" tabindex="-1"></div>
   <div id="content" aria-busy="true">Carregando…</div>
-  {% if page == 'overview' %}{% include '_workspace_scene.html' %}{% endif %}
   <footer>Nenhuma alteração é feita nos anúncios por este painel.</footer>
 </main></body></html>
 

@@ -46,10 +46,10 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
           return {sceneHeight:scene.height, sceneTop:scene.top, sceneBottom:scene.bottom, resultTop:document.querySelector('.page-header').getBoundingClientRect().top, viewport:innerHeight,
             coverBottom:document.querySelector('.dossier[data-active=true]').getBoundingClientRect().bottom,
             captionBottom:document.querySelector('.scene-caption a').getBoundingClientRect().bottom,
-            contentBottom:document.querySelector('#content').getBoundingClientRect().bottom,
+            contentTop:document.querySelector('#content').getBoundingClientRect().top,
             metricsBottom:document.querySelector('#overview-summary').getBoundingClientRect().bottom};
         });
-        assert.ok(hierarchy.resultTop < hierarchy.sceneTop && hierarchy.contentBottom <= hierarchy.sceneTop+1, 'Results and analysis precede the gallery');
+        assert.ok(hierarchy.resultTop < hierarchy.sceneTop && hierarchy.sceneBottom <= hierarchy.contentTop+1, 'Context and metrics precede gallery; detailed analysis follows');
         assert.ok(hierarchy.metricsBottom < hierarchy.sceneTop, 'Metrics are reached before the gallery at every width');
         assert.ok(hierarchy.coverBottom < hierarchy.sceneBottom && hierarchy.captionBottom < hierarchy.sceneBottom, 'Selected cover and action fit inside the gallery');
         if(width <= 600) assert.ok(hierarchy.sceneHeight <= 560, `Opening scene at ${width}: ${hierarchy.sceneHeight}`);
@@ -57,7 +57,7 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
           const sizes=await page.locator('.scene-control').evaluateAll(buttons=>buttons.map(e=>e.getBoundingClientRect().height));
           assert.ok(Math.abs(sizes[0]-sizes[1])<1,'Paired controls keep equal height when a label wraps');
         }
-        assert.ok(await page.locator('#content + .workspace-scene').count(), 'Gallery follows analysis in DOM reading order');
+        assert.ok(await page.locator('.page-header + .workspace-scene').count(), 'Gallery immediately follows the data header in DOM reading order');
         measurements.push({width,theme,...hierarchy});
         await page.screenshot({path:`${output}/overview-${width}-${theme}.png`,fullPage:true});
         await page.screenshot({path:`${output}/opening-${width}-${theme}.png`});
@@ -110,7 +110,8 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
     }
     const active = () => page.locator('.dossier[data-active=true]').getAttribute('data-title');
     await page.locator('.scene-results').click();
-    assert.ok(await page.locator('#results').evaluate(e=>Math.abs(e.getBoundingClientRect().top-20)<2),'Results anchor reaches the data header');
+    await page.waitForFunction(()=>Math.abs(document.getElementById('results').getBoundingClientRect().top-20)<2);
+    assert.ok(await page.locator('#results').evaluate(e=>document.activeElement===e),'Indicator anchor retains native focus and scrolling');
     assert.equal(await active(),'Campanhas');
     assert.equal(await page.locator('[data-scene-next]').getAttribute('aria-label'),'Próximo dossiê: Insights de IA');
     assert.equal(await page.locator('[data-scene-prev-title]').textContent(),'Relatórios');
@@ -172,15 +173,15 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
     await page.waitForFunction(() => document.getElementById('content').getAttribute('aria-busy') === 'false');
     assert.equal(await page.locator('.workspace-scene').count(),1,'Refresh preserves exactly one scene');
     assert.equal(await active(),'Orçamento','Refresh preserves the selected destination');
-    assert.equal(await page.locator('#content + .workspace-scene').count(),1);
+    assert.equal(await page.locator('.page-header + .workspace-scene').count(),1);
     failDashboard = true;
     await page.locator('.period-picker summary').click();
     await page.locator('#refresh').click();
     await page.locator('#retry-load').waitFor();
-    assert.equal(await page.locator('#content + .workspace-scene').count(),1,'Error keeps gallery links outside failed content');
+    assert.equal(await page.locator('.page-header + .workspace-scene').count(),1,'Error keeps gallery links before and outside failed content');
     failDashboard = false;
     await page.locator('#retry-load').click();
-    await page.locator('#content + .workspace-scene').waitFor();
+    await page.locator('.page-header + .workspace-scene').waitFor();
     assert.equal(await active(),'Orçamento','Retry retains selection and restores visual position');
     assert.equal(await page.locator('[data-scene-next]').isEnabled(),true);
     checks.push('Refresh/error/retry retain exactly one scene, selected destination and native controls');
@@ -193,7 +194,7 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
     await page.keyboard.press('Enter'); await page.waitForURL(url=>url.pathname==='/painel/campaigns');
     assert.equal(new URL(page.url()).searchParams.get('start'),'2026-09-01');assert.equal(new URL(page.url()).searchParams.get('end'),'2026-09-30');
     assert.equal(await page.locator('.workspace-scene').count(),0);
-    checks.push('Results precede gallery; cover/action fit inside scene; upward results anchor; native caption and Enter navigation retain scope/period; previous/next; focus centering; local arrows; Home/End; wrap; reduced motion; instant keyboard; 280ms pointer');
+    checks.push('Context and metrics precede gallery; analysis follows; cover/action fit inside scene; indicator anchor; native caption and Enter navigation retain scope/period; previous/next; focus centering; local arrows; Home/End; wrap; reduced motion; instant keyboard; 280ms pointer');
     await context.close();
     // With JS disabled the gallery is a simple, scrollable collection of native links.
     const plain = await browser.newContext({javaScriptEnabled:false,httpCredentials:{username:'admin',password:env.ADMIN_PASSWORD},viewport:{width:390,height:844}});
@@ -203,10 +204,10 @@ const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHas
     assert.equal(await nojs.locator('.scene-control:visible').count(),0);
     await nojs.locator('.dossier[href="/painel/reports"]').click(); await nojs.waitForURL('**/painel/reports');
     checks.push('Without JavaScript: all five native links remain usable; controls hidden');
-    assert.deepEqual(errors,[]); assert.equal(blockedMutations,0);assert.deepEqual(unexpected,[]);
     const after=hashes(),changedDuringRun=sourceFiles.filter(file=>before[file]!==after[file]);
     fs.writeFileSync(`${output}/manifest.json`,JSON.stringify({before,after,changedDuringRun},null,2));
     fs.writeFileSync(`${output}/results.json`,JSON.stringify({checks,measurements,palettes,errors,blockedMutations,unexpected,realApiRequests:0,changedDuringRun},null,2));
     console.log(JSON.stringify({checks,errors,blockedMutations},null,2));
+    assert.deepEqual(errors,[]); assert.equal(blockedMutations,0);assert.deepEqual(unexpected,[]);
   } finally { await browser.close(); }
 })();

@@ -15,11 +15,17 @@ a publicação pública será uma decisão separada. [Documentação](docs/READM
 
 </details>
 
-O Resumo começa pelos indicadores e pontos para revisar. A coleção de dossiês
-continua abaixo da análise como navegação complementar. Campanhas, orçamento,
+O Resumo começa pelo contexto e pelos indicadores. A coleção de dossiês aparece
+logo depois, antes das análises detalhadas. Campanhas, orçamento,
 relatórios e análises também permanecem no menu principal.
 
-Marco atual: **v0.1.5**, manutenção visual v58. Datas de indicadores agora aparecem
+Marco atual: **v0.1.6**, reposicionamento visual v59. Capas, arte, interação 3D,
+fontes e temas preservados. A coleção começa na primeira tela de 1440×900 com
+o conjunto sintético documentado. Consulte a [decisão e evidências](docs/DOSSIER-POSITION-V59.md),
+o [parecer independente](docs/THE-CRITIC-DOSSIER-V59.md) e o
+[PDF da entrega](docs/releases/LegalGrowth_Dossies_v0.1.6.pdf).
+
+Base preservada da **v0.1.5/v58**. Datas de indicadores aparecem
 nos cartões; avisos demonstrativos foram reduzidos e o CSS de conexão consolidado,
 com paridade verificada nos dois temas. Consulte a [manutenção v58](docs/MAINTENANCE-V58.md),
 o [parecer independente](docs/THE-CRITIC-MAINTENANCE-V58.md), a

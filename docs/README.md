@@ -18,6 +18,9 @@
 
 ## Design atual
 
+- [Dossiês em evidência v59](DOSSIER-POSITION-V59.md): posição, comparação, testes e mentoria.
+- [Parecer independente v59](THE-CRITIC-DOSSIER-V59.md).
+- [PDF da entrega v0.1.6](releases/LegalGrowth_Dossies_v0.1.6.pdf).
 - [Fonte de verdade visual](../DESIGN.md).
 - [Relatório da entrega em PDF](releases/LegalGrowth_Revisao_Implementada_v0.1.4.pdf).
 - [Revisão externa v57](VALIDATOR-REVIEW.md): implementação atual, testes, código explicado e exercício.

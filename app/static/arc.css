@@ -29,7 +29,7 @@ body[data-page=strategy],body[data-page=news] { --folio-tab:#8dbfb8; }
 body[data-page=settings],body[data-page=contracts] { --folio-tab:#b7beb0; }
 /* The frame belongs to the navigation scene, never to reports or data. */
 .workspace-scene { color:var(--scene-ink); background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--bg) 70%,transparent),transparent 75%),var(--scene-bg); border:1px solid var(--line); border-radius:4px; box-shadow:none; position:relative; overflow:hidden; isolation:isolate; margin-bottom:40px; }
-.scene-masthead { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:24px 32px 0; font-size:13px; color:var(--scene-muted); position:relative; z-index:10; }
+.scene-masthead { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 32px 0; font-size:13px; color:var(--scene-muted); position:relative; z-index:10; }
 .scene-results { display:inline-flex; align-items:center; gap:10px; min-height:var(--control-height); color:var(--scene-ink); white-space:nowrap; text-underline-offset:4px; }
 #results { scroll-margin-top:20px; }
 .scene-masthead h2 { color:var(--scene-ink); font-family:var(--font-display); font-size:28px; font-weight:400; line-height:1.15; margin:0; letter-spacing:-.025em; }
@@ -71,8 +71,8 @@ body[data-page=settings],body[data-page=contracts] { --folio-tab:#b7beb0; }
 .dossier-insights .dossier-art { width:72%; left:30%; top:34%; }
 .dossier-strategy .dossier-title { top:auto; bottom:18%; font-size:13.8cqi; letter-spacing:-.04em; }
 .dossier-strategy .dossier-art { width:110%; left:-5%; top:17%; }
-.scene-ready .scene-gallery { position:relative; display:block; height:444px; padding:0; overflow:visible; perspective:1300px; }
-.scene-ready .dossier { position:absolute; left:50%; top:20px; margin-left:-144px; transform:translateX(calc(var(--offset) * 320px)) translateY(calc(var(--distance) * 9px)) translateZ(calc(var(--distance) * -125px)) rotateY(calc(var(--offset) * -22deg)) rotateZ(calc(var(--offset) * 8deg)); transition:transform 280ms cubic-bezier(.22,1,.36,1); }
+.scene-ready .scene-gallery { position:relative; display:block; height:424px; padding:0; overflow:visible; perspective:1300px; }
+.scene-ready .dossier { position:absolute; left:50%; top:16px; margin-left:-144px; transform:translateX(calc(var(--offset) * 320px)) translateY(calc(var(--distance) * 9px)) translateZ(calc(var(--distance) * -125px)) rotateY(calc(var(--offset) * -22deg)) rotateZ(calc(var(--offset) * 8deg)); transition:transform 280ms cubic-bezier(.22,1,.36,1); }
 .scene-ready:has(:focus-visible) .dossier { transition:none; }
 .scene-footer { display:grid; grid-template-columns:155px minmax(0,1fr) 155px; align-items:center; gap:16px; max-width:780px; margin:auto; padding:0 32px 24px; position:relative; z-index:10; }
 .scene-caption { text-align:center; grid-column:2; }
@@ -182,7 +182,7 @@ input::file-selector-button { display:block; margin:0 0 8px; padding:6px 8px; }
 
 footer { font-size:12px; }
 @media(min-width:1800px) {
-.scene-ready .dossier { top:20px; }
+.scene-ready .dossier { top:16px; }
 .workspace-scene { margin-inline:0; } }
 @media(max-width:1180px) {
 .app-navigation { padding-inline:28px; }
@@ -240,9 +240,9 @@ main { padding:20px 16px; }
 .workspace-scene { margin-inline:0; border-width:1px; border-radius:4px; margin-bottom:28px; }
 .scene-masthead { padding:16px 16px 0; font-size:13px; flex-wrap:wrap; gap:4px 8px; }
 .scene-masthead h2 { font-size:clamp(20px,6vw,24px); }
-.scene-ready .scene-gallery { height:330px; perspective:1000px; }
+.scene-ready .scene-gallery { height:312px; perspective:1000px; }
 .dossier { width:208px; height:284px; flex-basis:208px; }
-.scene-ready .dossier { margin-left:-104px; top:20px; transform:translateX(calc(var(--offset) * 204px)) translateY(calc(var(--distance) * 6px)) translateZ(calc(var(--distance) * -125px)) rotateY(calc(var(--offset) * -22deg)) rotateZ(calc(var(--offset) * 8deg)); }
+.scene-ready .dossier { margin-left:-104px; top:12px; transform:translateX(calc(var(--offset) * 204px)) translateY(calc(var(--distance) * 6px)) translateZ(calc(var(--distance) * -125px)) rotateY(calc(var(--offset) * -22deg)) rotateZ(calc(var(--offset) * 8deg)); }
 .dossier-imprint { font-size:11px; padding-bottom:5px; }
 .dossier-subtitle { font-size:12px; }
 .scene-footer { padding:0 16px 16px; gap:6px 12px; grid-template-columns:1fr 1fr; }
@@ -324,7 +324,6 @@ body[data-page=finance] .balance { font-size:38px; }
 /* Read-only summaries share one plane; outlined surfaces belong to editing. */
 body[data-page=finance] .task-board>.budget-line { background:var(--soft); border:0; border-radius:0; box-shadow:none; }
 
-.scene-masthead { padding-top:24px; }
 .scene-masthead h2 { font-size:32px; }
 ::selection { color:var(--on-accent); background:var(--accent); }
 input,textarea { caret-color:var(--accent); }
@@ -355,7 +354,7 @@ input,textarea { caret-color:var(--accent); }
 .campaign-workspace td:first-child { font-size:22px; }
 .scene-masthead { padding:16px 16px 0; display:block; }
 .scene-masthead h2 { font-size:clamp(22px,6vw,26px); }
-.scene-results { font-size:12px; min-height:36px; }
+.scene-results { font-size:12px; min-height:var(--control-height); }
 
 }
 /* A quiet empty state: reading results outranks requesting another analysis. */
@@ -365,10 +364,10 @@ input,textarea { caret-color:var(--accent); }
 .overview-connect { display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 8px; }
 .overview-connect p { flex:1 1 220px; }
 .overview-connect a { margin-left:0; }
-/* Operational overview: context, results, attention, then supporting analysis. */
+/* Overview reading order: context and metrics, dossier collection, detailed analysis. */
 body[data-page=overview] .page-header {
   display:grid; grid-template-columns:minmax(200px,.8fr) minmax(0,2fr); gap:var(--space-6);
-  padding:var(--space-6); margin:0 0 var(--space-8); background:var(--soft);
+  padding:var(--space-6); margin:0 0 var(--space-6); background:var(--soft);
 }
 body[data-page=overview] .page-heading { display:flex; align-items:center; gap:var(--space-4); padding:0; }
 body[data-page=overview] .page-heading-copy { display:block; }

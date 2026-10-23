@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T21:26:48.175863+00:00",
+  "generatedAt": "2026-10-23T22:02:31.070583+00:00",
   "title": "Design System: LegalGrowth",
   "extensions": {
     "colorMeta": {
@@ -154,8 +154,8 @@
     },
     "source": {
       "document": "DESIGN.md",
-      "sha256": "83a3d7a84cfa9290d1d2ed813a7e9de4cbf529677184e83df6a68297c102c04e",
-      "revision": "v57, preservada na manutenção v58"
+      "sha256": "43c7bcf025bfdc5ee07571566162d2a223b1ae6612f36e32cb72e6636b2cac49",
+      "revision": "v59: coleção após contexto e indicadores"
     }
   },
   "components": [
@@ -202,7 +202,7 @@
   ],
   "narrative": {
     "northStar": "editorial operacional",
-    "overview": "O Resumo apresenta contexto, indicadores, atenção e análise antes da coleção de dossiês.",
+    "overview": "O Resumo apresenta contexto e indicadores, coleção de dossiês e depois análises detalhadas.",
     "keyCharacteristics": [
       "Superfícies de trabalho neutras, tinta grafite e verde discreto nas ações.",
       "Newsreader nos títulos e capas; Manrope em controles, valores e texto.",

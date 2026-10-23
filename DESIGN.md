@@ -135,9 +135,11 @@ components:
 
 # Design System: LegalGrowth
 
-Direção atual, 23/10/2026, v57: **editorial operacional**. O Resumo apresenta
-contexto, indicadores, atenção e análise antes da coleção de dossiês. O link
-**Voltar aos resultados** retorna à análise acima. Tipografia editorial, lombadas,
+Direção atual, 23/10/2026, v59: **editorial operacional**. O Resumo apresenta
+contexto e indicadores, depois a coleção de dossiês, antes das análises detalhadas.
+O link **Ver indicadores** retorna ao cabeçalho acima. Esta prioridade solicitada
+pelo usuário substitui a ordem da v57, preservando seus demais contratos.
+Tipografia editorial, lombadas,
 composição em arco transferem princípios observados ao vivo no
 [Arc Marumo](https://www.arcmarumo.com/). Cada capa abre uma área já existente.
 Não foram copiados imagens, logos ou código da referência. As capas usam composições
@@ -478,3 +480,11 @@ supersedidos foram retirados de style.css/arc.css antes da implementação. Este
 um refactor delimitado, não eliminação de toda sobreposição histórica. Cores e
 arte continuam compartilhadas pelos temas. Exemplos estáticos nunca são fallback
 para falha real. Ver docs/VALIDATOR-REVIEW.md e docs/THE-CRITIC-VALIDATOR-REVIEW.md.
+
+
+### Continuidade v59 — prioridade dos dossiês
+
+A coleção é irmã do cabeçalho e vem antes de #content. Galeria 424 px no desktop
+e 312 px no celular; capas mantêm suas dimensões. Ver indicadores aponta para
+#results. Critérios, comparação sintética e ressalvas em docs/DOSSIER-POSITION-V59.md.
+Ferrari contribui com presença e proximidade da ação, sem transferência de estilo.

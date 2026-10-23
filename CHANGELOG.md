@@ -1,5 +1,22 @@
 # Histórico de versões
 
+## 0.1.6 — 2026-10-23
+
+- Dossiês reais movidos para logo após contexto/indicadores no DOM do Resumo,
+  antes das análises. Coleção começa em 447 px na captura sintética 1440×900.
+- Palco mais compacto; capas, arte, fontes, paleta e interação 3D preservadas.
+  Link “Ver indicadores” mantém a âncora nativa original. Sem alteração de APIs
+  ou JavaScript do produto, dependências ou regras de negócio.
+- Referência Ferrari observada ao vivo e aplicada seletivamente à hierarquia,
+  sem copiar seu estilo ou trazer vídeo/autoplay ao painel.
+- 119 verificações na matriz final de quatro larguras, dois temas e dois escopos;
+  14 grupos na suíte final da cena e 179 testes Python aprovados. Períodos,
+  exemplos isolados e descarte de respostas atrasadas verificados.
+- Execuções anteriores registraram um e dois abortos nativos de ViewTransition;
+  repetições finais sem erros não comprovam solução da causa. Registros mantidos.
+- THE CRITIC aprovou o reposicionamento com ressalva preexistente no CTA sem JS.
+  DESIGN.md/auxiliar sincronizados, comparação e PDF documentados.
+
 ## 0.1.5 — 2026-10-23
 
 - Manutenção v58: data do indicador visível nos cartões de ideias de conteúdo;
