@@ -73,3 +73,7 @@ Evidências locais: `output/remotion-20s/final-light`, `final-dark`, `comparison
 ## Limitações
 
 Não foi exportado MP4; entregar a prévia editável é o fluxo padrão da skill Remotion. A exportação pode ser feita no botão Render do Studio. Sem validação de codec ou mixagem final, sem versão vertical pronta, sem equivalência estética garantida às referências. Capturas congeladas demonstram a interface, não validam o backend. Leia o parecer independente em THE-CRITIC-REMOTION.md.
+
+## Atualização posterior: trilha revisão 2
+
+O filme passou a usar uma nova composição musical original, sem alterar imagens ou duração. Os números de áudio acima pertencem à primeira trilha. Consulte [AUDIO-SCORE.md](AUDIO-SCORE.md) para a revisão com dinâmica de respiração, efeitos pontuais, faixas separadas e exportações WAV de QA dos dois temas.

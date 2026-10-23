@@ -1,11 +1,11 @@
 {
-  "origin": "Original offline synthesis by project script, no sampled or downloaded audio",
+  "version": 2,
+  "origin": "Original offline synthesis, no samples, downloads or AI audio service",
   "license": "MIT, same as project",
   "sample_rate": 48000,
-  "samples_per_channel": 960000,
   "duration_seconds": 20,
-  "peak_dbfs": -3.478503945983471,
-  "rms_dbfs": -16.864916282124696,
+  "samples_per_channel": 960000,
+  "seed": 20261024,
   "cue_seconds": [
     0,
     3,
@@ -13,5 +13,16 @@
     11,
     16
   ],
-  "seed": 20261023
+  "effects_peak_seconds": [
+    3.2,
+    7.2,
+    11.2,
+    16.2
+  ],
+  "pacing_reference": "https://www.bluemarinefoundation.com/the-sea-we-breathe/",
+  "adaptation": "Six-second smooth amplitude cycle on pads; no reference audio reused",
+  "peak_dbfs": -4.013189010928365,
+  "rms_dbfs": -19.70127549012094,
+  "sha256": "e0f8dfe3f3640b74ea7aa56644138f29503fffe7ee80e472183760643e42ba20",
+  "listening_review": "Not performed; technical verification does not certify musical taste or playback devices"
 }

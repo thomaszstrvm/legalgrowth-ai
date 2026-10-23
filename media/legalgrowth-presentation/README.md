@@ -56,3 +56,7 @@ Composições confirmadas por CLI: 600 frames, 30 fps, 1920 x 1080.
 Não houve exportação de MP4. A entrega é o projeto editável e suas duas prévias.
 A avaliação do áudio foi técnica (duração, sinal, pico e pontos de sincronização), não uma auditoria de escuta humana. Não há validação final de mixagem em fones/alto-falantes ou vídeo codificado.
 Leia `../../docs/REMOTION-PRESENTATION.md` e o parecer em `../../docs/THE-CRITIC-REMOTION.md`.
+
+## Atualização da trilha - revisão 2
+
+Motivo mais espaçado, pulso restrito às cenas do produto, dinâmica suave inspirada no ritmo observado em The Sea We Breathe e efeitos pontuais. Música e efeitos estão separados em `public/audio/music-stem.wav` e `effects-stem.wav`; o filme usa a soma em `legalgrowth-original.wav`. Detalhes, decisões, exercício e verificação: [AUDIO-SCORE.md](../../docs/AUDIO-SCORE.md).

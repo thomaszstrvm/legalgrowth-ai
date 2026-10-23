@@ -16,7 +16,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
   return (
     <>
       <Audio
-        src={staticFile("audio/legalgrowth-original.wav")}
+        src={staticFile("audio/legalgrowth-original.wav") + "?score=2"}
         premountFor={fps}
       />
       <Sequence
