@@ -19,7 +19,15 @@ O Resumo começa pelo contexto e pelos indicadores. A coleção de dossiês apar
 logo depois, antes das análises detalhadas. Campanhas, orçamento,
 relatórios e análises também permanecem no menu principal.
 
-Marco atual: **v0.1.6**, reposicionamento visual v59. Capas, arte, interação 3D,
+Marco atual: **v0.1.7**, encerramento v60. A legenda dos dossiês só aparece após
+inicialização bem-sucedida; as capas continuam links se o script não carregar.
+O design v59 foi preservado. A investigação limitada de ViewTransition terminou
+com causa residual não demonstrada, sem supressão de erros.
+[Encerramento técnico](docs/CLOSURE-V60.md) ·
+[PDF técnico](docs/releases/LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf) ·
+[Apresentação para o cliente](docs/releases/LegalGrowth_Apresentacao_Cliente_v0.1.7.pdf).
+
+Base preservada da **v0.1.6/v59**. Capas, arte, interação 3D,
 fontes e temas preservados. A coleção começa na primeira tela de 1440×900 com
 o conjunto sintético documentado. Consulte a [decisão e evidências](docs/DOSSIER-POSITION-V59.md),
 o [parecer independente](docs/THE-CRITIC-DOSSIER-V59.md) e o

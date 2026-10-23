@@ -1,5 +1,18 @@
 # Histórico de versões
 
+## 0.1.7 — 2026-10-23
+
+- Fallback dos dossiês corrigido: rodapé dinâmico oculto até concluir a
+  inicialização; cinco links nativos preservados quando JS/scene.js não executam.
+- Design e posição v59, fontes, capas, cores, APIs e regras preservados.
+- 179 testes Python; 119 asserções da coleção e 16 grupos de fallback passaram.
+  Três abortos nativos de ViewTransition permanecem registrados nessas matrizes.
+- Investigação fixa de oito casos comparou cache e instrumentação no Chrome,
+  separando saída/chegada; sem reprodução nesse experimento e sem causa confirmada.
+- THE CRITIC aceitou a correção pontual. Entregues PDF técnico de cinco páginas
+  e apresentação comercial de doze páginas, com texto selecionável, fontes locais
+  e capturas sintéticas da versão final. Sem nova rodada de redesign.
+
 ## 0.1.6 — 2026-10-23
 
 - Dossiês reais movidos para logo após contexto/indicadores no DOM do Resumo,

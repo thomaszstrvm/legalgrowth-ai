@@ -18,6 +18,10 @@
 
 ## Design atual
 
+- [Encerramento v60](CLOSURE-V60.md) e [revisão independente](THE-CRITIC-CLOSURE-V60.md).
+- [PDF técnico final](releases/LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf).
+- [Apresentação do produto ao cliente](releases/LegalGrowth_Apresentacao_Cliente_v0.1.7.pdf).
+- [ViewTransition: investigação delimitada final](VIEW-TRANSITION-FINAL.md).
 - [Dossiês em evidência v59](DOSSIER-POSITION-V59.md): posição, comparação, testes e mentoria.
 - [Parecer independente v59](THE-CRITIC-DOSSIER-V59.md).
 - [PDF da entrega v0.1.6](releases/LegalGrowth_Dossies_v0.1.6.pdf).

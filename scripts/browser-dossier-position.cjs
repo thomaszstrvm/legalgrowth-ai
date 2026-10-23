@@ -4,7 +4,7 @@ const fs=require('node:fs'),crypto=require('node:crypto'),assert=require('node:a
 const {chromium}=require('playwright');
 const stage=process.env.DOSSIER_STAGE||'before',origin=process.env.TEST_ORIGIN||'http://127.0.0.1:8000';
 assert.ok(['before','after'].includes(stage));assert.ok(['localhost','127.0.0.1','[::1]'].includes(new URL(origin).hostname));
-const output=`output/dossier-position-v59/${stage}`,period={start:'2026-09-01',end:'2026-09-30'};
+const output=process.env.DOSSIER_OUTPUT||`output/dossier-position-v59/${stage}`,period={start:'2026-09-01',end:'2026-09-30'};
 const metric={rows:30,days:30,cost:240,impressions:2400,clicks:120,qualified:12,hires:2,contacts:15,appointments:4,conversions:8,ctr:5,cpc:2,cpq:20,cph:120};
 const budget={month:'2026-09',planned:2000,spent:240,balance:1760,consumed_percent:12,alerts:[],imported_ads:200,manual_expenses:40,software_expenses:80,legacy_software_allocation:true,allocations:{trabalhista:1200,previdenciario:600,infraestrutura:100,reserva:100}};
 const fixture={...period,summary:metric,campaigns:{'Campanha sintética A':metric,'Campanha sintética B':{...metric,cost:120,hires:1},'Campanha sintética C':{...metric,cost:80,hires:1}},localities:{'Cidade sintética-SP':metric},keywords:{'orientação jurídica sintética':metric},evolution:[{date:'2026-09-01',cost:100,clicks:50},{date:'2026-09-15',cost:60,clicks:30},{date:'2026-09-30',cost:80,clicks:40}],budget,ai:{connected:false,insights_ready:false},ai_priorities:[],recommendations:[{id:9901,status:'pending',category:'orcamento',title:'Conferir distribuição do investimento',rationale:'Recomendação sintética para comparação visual; nenhuma decisão real.',evidence:{areas:{trabalhista:metric,previdenciario:{...metric,cpq:30,cph:180}}}}]};

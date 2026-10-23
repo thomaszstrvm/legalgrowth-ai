@@ -57,8 +57,6 @@
     scene.querySelector('[data-scene-prev]').setAttribute('aria-label', `Dossiê anterior: ${previousTitle}`);
     scene.querySelector('[data-scene-next]').setAttribute('aria-label', `Próximo dossiê: ${nextTitle}`);
   }
-  scene.classList.add('scene-ready');
-  scene.querySelectorAll('.scene-control').forEach(button => { button.hidden = false; });
   scene.querySelector('[data-scene-prev]').addEventListener('click', () => selectCover(current - 1));
   scene.querySelector('[data-scene-next]').addEventListener('click', () => selectCover(current + 1));
   covers.forEach((cover, index) => cover.addEventListener('focus', () => selectCover(index)));
@@ -71,4 +69,8 @@
     covers[current].focus({preventScroll: true});
   });
   selectCover(current);
+  // Reveal enhancement only after selection and all handlers are initialized.
+  scene.querySelectorAll('.scene-control').forEach(button => { button.hidden = false; });
+  scene.querySelector('.scene-footer').hidden = false;
+  scene.classList.add('scene-ready');
 })();

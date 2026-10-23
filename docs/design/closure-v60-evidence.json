@@ -1,0 +1,211 @@
+{
+  "version": "v0.1.7/v60",
+  "date": "2026-10-23",
+  "data": "Synthetic fixtures only; no paid AI calls or customer data",
+  "collection": {
+    "assertions": 119,
+    "failures": [],
+    "pageErrors": [
+      {
+        "width": 1440,
+        "theme": "light",
+        "scope": "real",
+        "error": "Transition was aborted because of invalid state. ViewTransition opt-in disabled"
+      }
+    ],
+    "exitCode": 1,
+    "browser": "155.0.4283.62",
+    "sourceHashes": {
+      "app/templates/dashboard.html": "06b54897c15739f6054ba8e72eb5a49e721f7413e623c1e617adff04f777b2e3",
+      "app/templates/_workspace_scene.html": "dae146343f6d8771568ecb0e152a809ea78e669b179b800e38cc259833004b5e",
+      "app/templates/_dossier_art.html": "79fb529895ab642898e2840043ff33b8037b3d5b81e6f5f0c49941ee792b56e6",
+      "app/static/arc.css": "16088c096d23ff2d524f070ff792f3bf26c0395f625e294090d9d93c8154ae8b",
+      "app/static/style.css": "b5a54a04c6b37b3d379f7c1bd9d940582ff9c47f9e68bafef67556925b42b312",
+      "app/static/tokens.css": "fffd4b9a8d0b79b6b57fe37741b16e446d2fe2e769a72d2cf4cf9a633fd3423b",
+      "app/static/scene.js": "0c06e3a280f39e56a689795634beafcc7b5da02517e04130c9fec169ef04ebd6",
+      "app/static/app.js": "3552cd62fee48d2bbebaf5b6b63f17e9d089837b5700441372b47e6359f0e8dd",
+      "app/static/period-context.js": "db6ecb560d1e291fce5c3d9fa7ae261d7c6698232e432c0a97483cffdeeb8414"
+    }
+  },
+  "fallback": {
+    "groups": 16,
+    "failures": [],
+    "pageErrors": [
+      {
+        "id": "scene-blocked-768-light",
+        "message": "Transition was aborted because of invalid state. ViewTransition opt-in disabled"
+      },
+      {
+        "id": "scene-blocked-390-light",
+        "message": "Transition was aborted because of invalid state. ViewTransition opt-in disabled"
+      }
+    ],
+    "exitCode": 1,
+    "limitations": [
+      "No-JS dark theme is set through test-only DOM state; app theme toggle requires JS.",
+      "No-JS native links retain their original bare destinations. Applied scope/period enhancement requires app.js, and remains tested when only scene.js fails.",
+      "Intentional blocked script net::ERR_FAILED messages are retained as expected test diagnostics; other errors fail."
+    ]
+  },
+  "viewTransition": {
+    "cases": 8,
+    "browser": "155.0.8059.86",
+    "exitCode": 0,
+    "causeConfirmed": false,
+    "productFixApplied": false,
+    "evidence": "docs/VIEW-TRANSITION-FINAL.md"
+  },
+  "presentation": {
+    "passed": 16,
+    "failures": [],
+    "errors": [],
+    "unexpected": []
+  },
+  "python": {
+    "passed": 179,
+    "deprecationWarnings": 6,
+    "dotenvDisabled": true
+  },
+  "otherChecks": [
+    "test-period-context.cjs passed",
+    "test-demo-examples.cjs passed",
+    "browser-period-race.cjs passed",
+    "node --check on five changed/new JS files passed",
+    "git diff --check passed"
+  ],
+  "pdfs": [
+    {
+      "file": "LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf",
+      "versioned": "docs/releases/LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf",
+      "sha256": "d4709fce671dab7a062def90a07dca498fb28cf31271bcc4e2e8e2dd866e613a",
+      "bytes": 94997,
+      "pages": [
+        {
+          "page": 1,
+          "characters": 1553,
+          "width": 595.28,
+          "height": 841.89
+        },
+        {
+          "page": 2,
+          "characters": 618,
+          "width": 595.28,
+          "height": 841.89
+        },
+        {
+          "page": 3,
+          "characters": 1370,
+          "width": 595.28,
+          "height": 841.89
+        },
+        {
+          "page": 4,
+          "characters": 1675,
+          "width": 595.28,
+          "height": 841.89
+        },
+        {
+          "page": 5,
+          "characters": 1535,
+          "width": 595.28,
+          "height": 841.89
+        }
+      ],
+      "embeddedFonts": {
+        "/AAAAAA+Manrope-ExtraLight": true,
+        "/AAAAAA+Newsreader16pt-Regular": true
+      }
+    },
+    {
+      "file": "LegalGrowth_Apresentacao_Cliente.pdf",
+      "versioned": "docs/releases/LegalGrowth_Apresentacao_Cliente_v0.1.7.pdf",
+      "sha256": "6a041d5aef653fdfb8d4443a48f8e2ebbb420f58b32e4543fba2c7f2ba061f08",
+      "bytes": 1257768,
+      "pages": [
+        {
+          "page": 1,
+          "characters": 280,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 2,
+          "characters": 425,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 3,
+          "characters": 488,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 4,
+          "characters": 407,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 5,
+          "characters": 259,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 6,
+          "characters": 259,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 7,
+          "characters": 271,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 8,
+          "characters": 491,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 9,
+          "characters": 668,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 10,
+          "characters": 419,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 11,
+          "characters": 700,
+          "width": 1280.0,
+          "height": 720.0
+        },
+        {
+          "page": 12,
+          "characters": 466,
+          "width": 1280.0,
+          "height": 720.0
+        }
+      ],
+      "embeddedFonts": {
+        "/AAAAAA+Newsreader16pt-Regular": true,
+        "/AAAAAA+Manrope-ExtraLight": true
+      }
+    }
+  ],
+  "review": {
+    "agent": "visual_critic",
+    "scope": "Product fallback, active visual preservation, all 17 PDF pages",
+    "accepted": true,
+    "limitations": "No physical device, screen-reader, print or tagged-PDF accessibility certification; final campaign page 6 synthetic data simplification inspected by implementer"
+  },
+  "localEvidence": "output/closure-v60 (ignored); results were executed in this round, v59 fixtures and baseline screenshots reused only as comparison inputs"
+}

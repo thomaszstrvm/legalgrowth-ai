@@ -204,10 +204,32 @@ async function matrix(){
   });}finally{state.realState='filled';state.connected=false;await ctx.close();}
  }
 }
+async function presentationCaptures(){
+ // Client-facing examples use coherent totals and plain names, rather than the
+ // deliberately pathological denominator fixtures used by the regression tests.
+ dashboard.campaigns={
+  'Orientação trabalhista — exemplo':{...metric,rows:2,days:2,cost:160,impressions:1600,clicks:80,qualified:8,hires:1,contacts:10,appointments:3,conversions:5,cph:160},
+  'Planejamento previdenciário — exemplo':{...metric,rows:1,days:1,cost:80,impressions:800,clicks:40,qualified:4,hires:1,contacts:5,appointments:1,conversions:3,cph:80}
+ };
+ for(const key of ['cost','impressions','clicks','qualified','hires','contacts','appointments','conversions'])assert.equal(Object.values(dashboard.campaigns).reduce((sum,row)=>sum+row[key],0),metric[key],key+' presentation totals');
+ for(const theme of themes){
+  const {ctx,page}=await context(1440,theme,2,1000);
+  try{for(const name of ['overview','campaigns','finance','reports','insights','agents','news','strategy']){
+   await check('presentation '+name+' '+theme,async()=>{
+    await go(page,name);await noOverflow(page);await shot(page,name+'-'+theme);
+    const selector={overview:'.workspace-scene',campaigns:'.panel',finance:'.budget-line',reports:'.panel',insights:'.insight-start',agents:'.panel',news:'.news-layout',strategy:'.strategy-item'}[name];
+    const target=page.locator(selector).first();
+    if(await target.count())await target.screenshot({path:output+'/'+name+'-detail-'+theme+'.png'});
+    if(name==='overview')await page.locator('.page-header').screenshot({path:output+'/metrics-'+theme+'.png'});
+    if(name==='insights')await page.locator('.rec.insight').first().screenshot({path:output+'/insight-example-'+theme+'.png'});
+   });
+  }}finally{await ctx.close();}
+ }
+}
 (async()=>{
  const line=fs.readFileSync('.env','utf8').split(/\r?\n/).find(line=>/^\s*ADMIN_PASSWORD\s*=/.test(line));assert.ok(line,'Local authentication required');password=line.slice(line.indexOf('=')+1).trim().replace(/^(['"])(.*)\1$/,'$2');
  fs.mkdirSync(output,{recursive:true});const before=hashes();browser=await chromium.launch({channel:'msedge',headless:true});
- try{await interactionChecks();if(process.env.VALIDATOR_INTERACTIONS_ONLY!=='1')await matrix();}
+ try{if(process.env.VALIDATOR_PRESENTATION_ONLY==='1')await presentationCaptures();else{await interactionChecks();if(process.env.VALIDATOR_INTERACTIONS_ONLY!=='1')await matrix();}}
  finally{await browser.close();}
  const after=hashes(),changedDuringRun=sources.filter(file=>before[file]!==after[file]);
  fs.writeFileSync(output+'/component-styles.json',JSON.stringify(componentStyles,null,2));
