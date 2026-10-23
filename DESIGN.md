@@ -96,8 +96,8 @@ typography:
     fontWeight: 600
     lineHeight: 1.55
 rounded:
-  control: "#81877e"
-  panel: "8px"
+  control: "6px"
+  panel: "4px"
   cover: "4px"
 spacing:
   space-1: "4px"
@@ -135,27 +135,27 @@ components:
 
 # Design System: LegalGrowth
 
-Direção atual, 23/10/2026, v53: **arquivo espacial com capas gráficas autorais**. Antes dos dados,
+Direção atual, 23/10/2026, v56: **arquivo espacial com capas gráficas autorais**. Antes dos dados,
 o Resumo apresenta uma coleção de dossiês originais em perspectiva. O link
 **Ver resultados** leva diretamente aos indicadores. Tipografia editorial, lombadas,
 composição em arco transferem princípios observados ao vivo no
 [Arc Marumo](https://www.arcmarumo.com/). Cada capa abre uma área já existente.
 Não foram copiados imagens, logos ou código da referência. As capas usam composições
-individuais de tinta e retícula, com arte original em `_dossier_art.html`. A ilustração
-dos cabeçalhos internos permanece independente, em `_chapter_art.html`.
+individuais de tinta e retícula, com arte original em `_dossier_art.html`. Os cabeçalhos amplos reusam a mesma macro; `_chapter_art.html` fornece variantes
+ópticas simplificadas para o celular.
 
 Refinamento atual: campos curvo e angular em sangria em Campanhas e Oportunidades,
 faixa dobrada sobre prancha de tinta em Relatórios e lente óptica em IA.
 O palco tem contorno único, com raio de 4px. As publicações usam vinco, lombada
 e aresta contínua; não simular páginas com linhas de um pixel. A ação Abrir
 é editorial e maior; não repetir a instrução abaixo dos controles.
-A implementação, pesquisa e critérios estão em docs/OPENING-V4.md. `--cutout` permite inverter a impressão sem
+A implementação atual está em docs/DESIGN-ENGINEERING.md e o estudo de interação
+e código público em docs/ARC-INTERACTION-STUDY.md. OPENING-V4.md registra a v53. `--cutout` permite inverter a impressão sem
 alterar a paleta. A leitura das skills do tweet orienta o acabamento, sem importar
 seu preset completo: docs/DESIGN-TWEET-REVIEW.md.
 
-A implementação ativa está em `app/static/arc.css`, após `style.css`, e na
-partial `app/templates/_workspace_scene.html`. `scene.js` controla apenas a
-seleção visual. `identity.css` e `brand-folio.png` são históricos e não são
+Os fundamentos vêm de `app/static/tokens.css`, seguidos por `style.css` e
+`arc.css`. A abertura está na partial `app/templates/_workspace_scene.html`. `scene.js` controla a seleção visual e a resposta limitada da capa ao ponteiro. `identity.css` e `brand-folio.png` são históricos e não são
 carregados por esse dashboard. Documentação anterior não valida esta versão.
 
 ## Identidade e composição
@@ -169,7 +169,7 @@ locais preservadas. As ilustrações são SVG originais de linhas e formas, com
 cores próprias por destino, sem dados fictícios desenhados como resultados.
 
 A navegação principal é horizontal em telas largas e usa o menu existente
-até 900px. Mantém todos os destinos; a galeria é um acesso complementar a cinco
+até 1180px. Mantém todos os destinos; a galeria é um acesso complementar a cinco
 áreas, não substitui a navegação completa. Formulários, relatórios e tabelas
 mantêm seus componentes e fluxos. Não usar a cena artística sobre informações
 operacionais nem diminuir contraste para imitar a textura CRT da referência.
@@ -182,15 +182,17 @@ Enter usa o link nativo. A descrição da seleção é anunciada por região viv
 destinos adjacentes e um link externo à capa explicita a abertura.
 Sem JavaScript, as capas continuam links em uma faixa rolável. A preferência
 `prefers-reduced-motion` elimina a transição. O tema continua salvo em
-`lg-theme`; cor não é o único indicador de estado.
+`lg-theme`; cor não é o único indicador de estado. Mouse com ponteiro fino inclina
+a face ativa em até 3°/2°, com retorno ao sair. Teclado, toque e movimento reduzido
+mantêm a face estável. A navegação pode usar transição nativa de 160ms em navegadores
+compatíveis; fallback por links normais. Não bloquear a navegação para exibir efeitos.
 
 ## Implementação e manutenção
 
 A galeria usa transformações CSS e SVG inline, sem WebGL ou dependência nova.
 Isso reduz complexidade e evita carregar a imagem PNG de 1,7 MB da direção
 anterior. Não foi medido ganho de tempo de carregamento; fontes e política de
-cache continuam existentes. A cascata ainda depende de `style.css` seguido de
-`arc.css`; não adicionar outra camada de overrides sem revisar as anteriores.
+cache continuam existentes. A cascata carrega `tokens.css`, `style.css` e `arc.css`; não adicionar outra camada de overrides sem revisar as anteriores.
 
 Os tokens acima registram a base e as sobreposições atuais. As ilustrações de
 capa usam cores locais próprias. O sidecar `.impeccable/design.json` documenta
@@ -442,3 +444,21 @@ visualmente na v49. Configurações apresenta cidade/UF e ações de adicionar,
 remover e salvar, usando as mesmas cores nos dois temas. Notícias sem região
 apresenta uma ação direta para escolher cidades. Evidências sintéticas em
 output/design-review/locations-v1/final; funcionamento em docs/localidades.md.
+
+### v55 — design engineering e estudo interativo da Arc
+
+Capas recompostas, arte compartilhada nos capítulos, fundamentos centralizados,
+região organizada em duas colunas, confirmação de gravação separada da leitura,
+foco e fragmentos recuperados. APIs e regras de negócio preservadas. Pesquisa
+pública dos sete livros e interação/código da Arc documentadas. Testes, limites,
+explicação e parecer em docs/DESIGN-ENGINEERING.md.
+
+### v56 — fechamento da revisão
+
+Dicas de rolagem aparecem somente quando a tabela excede sua região, com
+associação acessível e atualização ao abrir detalhes/redimensionar. Avisos de
+análise não verificada recuperam seu padding. Notícias identifica cobertura
+parcial usando a paleta de avisos existente. Cartier foi comparada ao vivo como
+referência de escala, cor e continuidade; nenhuma camada adicional de efeitos.
+O ciclo por nota foi encerrado por decisão do proprietário. Próximas melhorias
+devem responder a problemas de uso observados, com escopo e verificação definidos.

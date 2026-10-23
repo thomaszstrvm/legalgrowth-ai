@@ -33,6 +33,14 @@ localmente para revisão, use `npm install --no-save playwright`; depois execute
 `node scripts/browser-scene.cjs`. Não publique `.env` nem as saídas em `output/`.
 Os scripts não substituem testes em dispositivos físicos e leitores de tela.
 
+Para os comportamentos desta versão, use `node scripts/browser-table-cues.cjs`
+(tabelas e avisos), `node scripts/browser-action-feedback.cjs` (confirmação e
+recuperação) e `node scripts/browser-scene-motion.cjs` (movimento e navegação).
+Esses scripts bloqueiam chamadas externas e gravações reais. Os relatórios JSON
+e capturas ficam em `output/design-review/`. O inventário de tokens é gerado por
+`python scripts/audit-design-tokens.py --ref HEAD`; métricas estáticas não
+substituem inspeção visual. Veja [as validações e seus limites](docs/DESIGN-ENGINEERING.md).
+
 Skills instaladas localmente e o agente em `.codex/agents/visual_critic.toml` são
 opcionais; não são necessários para executar o produto.
 

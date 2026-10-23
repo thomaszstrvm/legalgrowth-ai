@@ -4,8 +4,39 @@
   if (!scene) return;
   const covers = [...scene.querySelectorAll('.dossier')];
   if (!covers.length) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let pointerFrame = 0;
+  function resetTilt() {
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = 0;
+    covers.forEach(cover => {
+      cover.style.removeProperty('--tilt-x');
+      cover.style.removeProperty('--tilt-y');
+    });
+  }
+  scene.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || motion.matches || !finePointer.matches || scene.matches(':has(:focus-visible)')) return;
+    const cover = event.target.closest('.dossier[data-active=true]');
+    if (!cover) { resetTilt(); return; }
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = 0;
+      const box = cover.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
+      const y = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
+      cover.style.setProperty('--tilt-x', `${(x * 3).toFixed(2)}deg`);
+      cover.style.setProperty('--tilt-y', `${(-y * 2).toFixed(2)}deg`);
+    });
+  });
+  scene.addEventListener('pointerleave', resetTilt);
+  scene.addEventListener('focusin', resetTilt);
+  motion.addEventListener('change', resetTilt);
+  finePointer.addEventListener('change', resetTilt);
+  document.addEventListener('visibilitychange', resetTilt);
   let current = Math.min(2, covers.length - 1);
   function selectCover(index) {
+    resetTilt();
     current = (index + covers.length) % covers.length;
     covers.forEach((cover, position) => {
       let offset = position - current;

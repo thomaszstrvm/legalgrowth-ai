@@ -1,5 +1,25 @@
 # Histórico de versões
 
+## 0.1.3 — 2026-10-23
+
+- Design engineering v56: fundações compartilhadas em `tokens.css`, gravuras
+  consistentes entre capas e cabeçalhos, variações ópticas para celular e nova
+  composição de Insights, Orçamento e Relatórios.
+- Movimento discreto da capa ativa, desativado para toque, teclado e movimento
+  reduzido; navegação nativa com transição opcional e fallback normal.
+- Configuração de região mais clara, orientação em estados vazios/importação,
+  dicas de rolagem medidas e avisos de cobertura parcial e análise não verificada.
+- Feedback distingue gravação confirmada de leitura posterior falha; recuperação
+  repete somente a leitura. Foco, fragmentos e carregamento independente corrigidos.
+- Mesmas regras de negócio, APIs e dois temas; nenhuma dependência nova ou IA paga
+  usada na validação. Pesquisa Arc/Cartier, sete fontes bibliográficas e ADRs 008/009.
+- 162 testes passaram (seis avisos de depreciação); 66 capturas de páginas e 42 de
+  estados finais, teclado, contraste, erros simulados e movimento verificados.
+- Duas rodadas do THE CRITIC registradas em `docs/THE-CRITIC-DESIGN-ENGINEERING.md`.
+  Parecer final aprovado, com nota contextual mantida em 9,0. Encerrada, por
+  decisão do proprietário, a busca aberta por nota 9,9; limitações
+  de dispositivo físico, leitores de tela e outros navegadores permanecem explícitas.
+
 ## 0.1.2 — 2026-10-23
 
 - Abertura editorial v53: campos gráficos em sangria, proporções de publicação,

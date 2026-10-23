@@ -3,7 +3,7 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=requ
 (async()=>{
  const env=Object.fromEntries(fs.readFileSync('.env','utf8').split(/\r?\n/).filter(l=>l.includes('=')).map(l=>[l.slice(0,l.indexOf('=')),l.slice(l.indexOf('=')+1)]));
  const browser=await chromium.launch({channel:'msedge',headless:true});
- const output='output/design-review/editorial-v7/chapters';fs.mkdirSync(output,{recursive:true});
+ const output=process.env.CHAPTER_OUTPUT||'output/design-review/editorial-v7/chapters';fs.mkdirSync(output,{recursive:true});
  const results=[],errors=[];let fixture='',blocked=0;
  try{
   const context=await browser.newContext({httpCredentials:{username:'admin',password:env.ADMIN_PASSWORD},reducedMotion:'reduce'});

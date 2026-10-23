@@ -19,10 +19,15 @@
 ## Design atual
 
 - [Fonte de verdade visual](../DESIGN.md).
-- [Capas gráficas atuais](OPENING-V4.md): comparação, implementação, código explicado e testes.
+- [Design engineering atual](DESIGN-ENGINEERING.md): implementação, testes, código explicado e exercício.
+- [Arc: interação e código](ARC-INTERACTION-STUDY.md): navegação real, efeitos e adaptações.
+- [Cartier: composição e continuidade](CARTIER-REFERENCE.md): inspeção ao vivo e limites da adaptação.
+- [Pesquisa dos sete livros e produtos](DESIGN-ENGINEERING-RESEARCH.md).
+- [Capas v53](OPENING-V4.md): marco anterior.
 - [Estudo do tweet e skills](DESIGN-TWEET-REVIEW.md): fontes, seleção e instalação autorizada.
 - [Estudo do artigo LLM Skills](LLM-SKILLS-REVIEW.md): aplicação de erros acessíveis no formulário.
-- [Revisão independente da abertura](THE-CRITIC-OPENING-V4.md): rodadas, achados e limites.
+- [Revisão independente atual](THE-CRITIC-DESIGN-ENGINEERING.md).
+- [Revisão da abertura v53](THE-CRITIC-OPENING-V4.md): histórico.
 - [Revisão da seleção de localização](THE-CRITIC-LOCALITIES.md) e [validação do marco 0.1.0](VALIDATION-0.1.0.md).
 - [Abertura espacial anterior](OPENING-V1.md): histórico da composição.
 

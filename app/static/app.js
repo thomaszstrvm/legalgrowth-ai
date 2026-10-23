@@ -44,11 +44,35 @@ const panel=(title,body,extra='')=>`<section class="panel"><div class="section-h
 const empty=text=>`<p class="empty">${esc(text)}</p>`;
 const disclosureSummary=label=>`<summary><span>${esc(label)}</span><i class="disclosure-mark" aria-hidden="true"></i></summary>`;
 const details=(label,body)=>`<details class="disclosure">${disclosureSummary(label)}<div>${body}</div></details>`;
+let tableSequence=0, tableOverflowObserver=null;
 function table(headers,rows){
   if(!rows.length)return empty('Ainda não há registros.');
   const numeric=new Set(['Gasto','Valor','Orçamento','Visualizações','Cliques','Taxa de cliques','Custo por clique','Conversões do anúncio','Contatos','Qualificados','Contatos qualificados','Atendimentos','Contratações','Custo por qualificado','Custo por contratação']);
   const cellClass=i=>i===0?'wrap':numeric.has(headers[i])?'numeric':'';
-  return `<div class="table-wrap" role="region" aria-label="${esc('Tabela: '+headers.join(', '))}" tabindex="0"><table><thead><tr>${headers.map((h,i)=>`<th scope="col" class="${cellClass(i)}">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map((cell,i)=>`<td class="${cellClass(i)}">${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const hintId=`table-scroll-${++tableSequence}`;
+  return `<div class="table-wrap" role="region" aria-label="${esc('Tabela: '+headers.join(', '))}" tabindex="0" data-scroll-hint="${hintId}"><table><thead><tr>${headers.map((h,i)=>`<th scope="col" class="${cellClass(i)}">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map((cell,i)=>`<td class="${cellClass(i)}">${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="table-scroll-hint" id="${hintId}" hidden>↔ Deslize para ver mais colunas. No teclado, use as setas laterais.</p>`;
+}
+function bindTableOverflow(){
+  tableOverflowObserver?.disconnect();
+  const wrappers=[...$('content').querySelectorAll('.table-wrap[data-scroll-hint]')];
+  const update=wrapper=>{
+    const hint=$(wrapper.dataset.scrollHint);
+    if(!hint)return;
+    const overflowing=wrapper.clientWidth>0&&wrapper.scrollWidth>wrapper.clientWidth+1;
+    hint.hidden=!overflowing;
+    if(overflowing)wrapper.setAttribute('aria-describedby',hint.id);
+    else wrapper.removeAttribute('aria-describedby');
+  };
+  // Observe both boxes: disclosures, responsive layout and font loading can change either.
+  tableOverflowObserver=new ResizeObserver(entries=>{
+    const changed=new Set(entries.map(entry=>entry.target.closest('.table-wrap')));
+    changed.forEach(wrapper=>{if(wrapper?.isConnected)update(wrapper);});
+  });
+  wrappers.forEach(wrapper=>{
+    update(wrapper);
+    tableOverflowObserver.observe(wrapper);
+    tableOverflowObserver.observe(wrapper.querySelector('table'));
+  });
 }
 const input=(name,label,type='number',value='',attrs='')=>`<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" ${attrs} required></label>`;
 function metrics(s){return `<div class="metrics">${[['Gasto em anúncios',brl(s.cost),'no período'],['Contatos qualificados',num(s.qualified),'com perfil para atendimento'],['Contratações',num(s.hires),'registradas pelo escritório']].map(([label,value,hint])=>`<div class="metric"><small>${label}</small><strong>${value}</strong><small class="hint">${hint}</small></div>`).join('')}</div>`;}
@@ -104,16 +128,17 @@ function visibleRecs(data){
 }
 function recs(list,{compact=false}={}){return list.length?list.map(r=>{const [title,body]=recCopy(r);return `<article class="rec"><div class="rec-top"><h3>${esc(title)}</h3>${currentData.ai_priorities.includes(r.id)?'<span class="status priority">Prioridade sugerida pela IA</span>':r.status!=='pending'?`<span class="status">${r.status==='approved'?'Aprovada':'Descartada'}</span>`:''}</div>${r.evidence.campaign||r.evidence.keyword?`<span class="rec-meta">${esc(r.evidence.campaign||r.evidence.keyword)}</span>`:''}<p>${esc(body)}</p>${compact?'<a href="/painel/agents">Ver recomendação</a>':details('Ver dados',evidence(r))+(isAdmin&&r.status==='pending'?`<div class="actions"><button class="secondary" data-decision="approved" data-id="${r.id}">Aprovar</button><button class="quiet" data-decision="rejected" data-id="${r.id}">Descartar</button></div>`:'')}</article>`;}).join(''):empty('Nenhuma recomendação pendente para este período.');}
 function analyzeButton(data){return isAdmin?`<button id="analyze">${data.ai.connected?'Analisar com IA':'Atualizar recomendações'}</button>`:'';}
-function importForm(kind){return isAdmin?`<form data-import="${kind}" class="form-narrow"><label>Escolher arquivo<input name="file" type="file" accept=".csv" required></label><p class="help">Use um arquivo CSV com os ${kind==='market'?'indicadores públicos':'resultados das campanhas'}. Somente dados agrupados, sem informações de pessoas.</p><div class="actions"><button>Importar arquivo</button><a href="/api/templates/${kind}">Baixar modelo</a></div></form>`:empty('Peça ao responsável para importar os dados.');}
+function importForm(kind){return isAdmin?`<form data-import="${kind}" class="form-narrow"><label>Escolher arquivo<input name="file" type="file" accept=".csv" required></label><p class="help">Use um arquivo CSV com os ${kind==='market'?'indicadores públicos':'resultados das campanhas'}. Somente dados agrupados, sem informações de pessoas.</p><p class="help">Confira antes as <a href="/painel/settings#locations">cidades configuradas</a>: o arquivo deve usar as localidades da sua região de atuação.</p><div class="actions"><button>Importar arquivo</button><a href="/api/templates/${kind}">Baixar modelo</a></div></form>`:empty('Peça ao responsável para importar os dados.');}
 function budgetForm(b){return `<form id="budget"><div class="form-grid">${input('month','Mês','month',b.month)}${input('total','Orçamento total (R$)','number',b.planned,'min="1" step="0.01"')}${Object.entries(b.allocations).map(([k,v])=>input(k,({trabalhista:'Trabalhista',previdenciario:'Previdenciário',infraestrutura:'Ferramentas e IA',reserva:'Reserva'}[k])+' (R$)','number',v,'min="0" step="0.01"')).join('')}</div><p class="help">A soma das áreas, ferramentas e reserva deve ser igual ao total.</p><button>Salvar orçamento</button></form>`;}
 function aiPanel(config){
   const s=config.ai, connections=s.connections||{};
   return `<section class="connection-workspace" id="ai"><div class="connection-overview"><h2>Conectar suas IAs</h2><p class="help">Use uma IA para analisar as campanhas e outra para conferir as conclusões.</p><div class="provider-list">${['openai','claude'].map(p=>{const c=connections[p]||{name:p==='openai'?'OpenAI':'Claude',connected:false};return `<div class="provider-row"><div><strong>${c.name}</strong><p class="muted">${c.connected?'Conectada':'Ainda não conectada'}</p></div>${isAdmin?(c.connected?`<button id="${p==='openai'?'disconnect-ai':'disconnect-claude'}" data-disconnect="${p}" class="quiet">Desconectar ${c.name}</button>`:`<button data-configure="${p}" class="secondary">Conectar ${c.name}</button>`):''}</div>`;}).join('')}</div><p class="help connection-privacy">As IAs recebem apenas códigos e números agrupados. A associação com os nomes fica cifrada neste servidor; a chave não é enviada. Dados pessoais de clientes não devem ser importados.</p></div><div class="connection-editor">${isAdmin?`<details class="disclosure" id="connection-form" ${!s.insights_ready?'open':''}>${disclosureSummary('Adicionar ou trocar chave')}<form id="ai-connect" class="form-narrow"><label>Serviço<select id="ai-provider" name="provider"><option value="openai">OpenAI</option><option value="claude">Claude (Anthropic)</option></select></label><label for="api-key">Chave da API</label><div class="key-row"><input id="api-key" name="api_key" type="password" placeholder="Cole sua chave aqui" autocomplete="off" spellcheck="false" minlength="20" maxlength="512" required><button type="button" id="show-key" class="secondary" aria-pressed="false">Mostrar</button></div><p class="key-help"><a id="key-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Criar chave na OpenAI ↗</a></p><p class="help">A chave fica protegida no servidor. A API é cobrada pela sua conta no serviço, separadamente da assinatura de chat.</p><button type="submit">Testar e conectar</button><details class="limits disclosure">${disclosureSummary('Limite compartilhado de uso')}<div><label>Reserva mensal para as duas IAs (R$)<input name="monthly_limit" type="number" min="1" max="200" step="1" value="${s.monthly_limit}" required></label><p class="help">Cada insight reserva R$ 2 para análise e revisão. A priorização de recomendações reserva R$ 1. Tentativas com falha também contam. Este é um controle interno; confira a cobrança nos serviços.</p><p class="help">Neste mês: ${brl(s.reserved_brl)} reservados de ${brl(s.monthly_limit)}.</p></div></details></form></details>`:empty('Peça ao responsável para conectar as IAs.')}</div>${s.insights_ready?'<p class="connection-next"><a href="/painel/insights">Abrir Insights de IA</a></p>':''}</section>`;
 }
-function insightPanel(s,result){
+function insightPanel(s,result,hasData=true){
   let html='';
   if(!s.insights_ready)html+=`<section class="insight-start"><div><h2>${isAdmin?'Conecte as duas IAs para começar':'As IAs ainda não estão conectadas'}</h2><p>${isAdmin?'Uma analisa os resultados; a outra confere se as conclusões têm apoio nos dados.':'Peça ao responsável pelo escritório para conectar os serviços. As análises salvas continuam disponíveis abaixo.'}</p></div>${isAdmin?'<a class="button" href="/painel/settings#ai">Conectar IAs</a>':''}</section>`;
   else if(isAdmin)html+=`<form id="insight-form" class="insight-toolbar"><label>Quem faz a análise<select id="analyst"><option value="openai">OpenAI</option><option value="claude">Claude</option></select></label><p class="muted" id="reviewer-label">Revisão pelo Claude</p><button> ${result?'Analisar novamente':'Analisar campanhas'}</button></form><p class="help">Inclui todas as campanhas, cidades e palavras-chave do período. Cada consulta reserva R$ 2 do limite local.</p>`;
+  if(!hasData)html+='<p class="help">Não há resultados de campanhas neste período. <a href="/painel/campaigns#import">Importe os resultados</a> ou escolha um período com dados antes de pedir uma nova análise.</p>';
   if(!result)return html+empty('A análise aparecerá aqui com os dados que sustentam cada conclusão.');
   html+=`<div class="insight-meta"><span>Análise: ${esc(result.analyst)} · Revisão: ${esc(result.reviewer)}</span><span>${dt(result.created_at)}</span></div>`;
   if(['failed','unverified'].includes(result.status))return html+`<p class="error-inline" role="status">${esc(result.message)}</p>`;
@@ -128,7 +153,7 @@ function insightPanel(s,result){
 function newsPanel(data,selectedScope){
   const schedule='<p class="help">Segundas-feiras, às 8h (Brasília), pelo agendamento do Codex. O computador e o Codex precisam estar disponíveis para executar a coleta.</p>';
   let html='';
-  if(selectedScope!=='real')return empty('Este acompanhamento usa notícias reais. Em Dados exibidos, selecione Meus dados.')+schedule;
+  if(selectedScope!=='real')return '<section class="empty-state news-empty"><h2>Acompanhe o que acontece na sua região</h2><p>Este acompanhamento usa notícias públicas. No campo Dados exibidos, selecione <strong>Meus dados</strong> para consultar as cidades do escritório.</p><p class="help">As notícias ficam separadas dos exemplos fictícios de campanhas.</p></section>'+schedule;
   const cities=data.localities||[];
   if(!cities.length)return `<section class="empty-state"><h2>Escolha sua região para começar</h2><p>Escolha as cidades atendidas em Configurações para começar.</p><a class="button" href="/painel/settings#locations">Escolher cidades</a><p class="help">${esc(data.coverage_note||'A cobertura depende das fontes cadastradas.')}</p></section>`+schedule;
   html+=`<p><strong>Região acompanhada:</strong> ${esc(cities.join(', ')||'Nenhuma cidade escolhida')} · <a href="/painel/settings#locations">Alterar cidades</a></p><p class="help">${esc(data.coverage_note||'A cobertura depende das fontes cadastradas.')}</p>`;
@@ -137,7 +162,8 @@ function newsPanel(data,selectedScope){
   if(isAdmin)html+=`<button id="scan-news" data-refresh="${Boolean(n)}">${n?'Atualizar semana anterior':'Buscar notícias da semana anterior'}</button><p class="help">Se as duas IAs estiverem conectadas, a análise e a revisão usam R$ 2 da reserva local. Sem elas, o painel reúne as notícias.</p>`;
   if(!n)return html+empty('As notícias encontradas aparecerão aqui, com fontes e links.');
   if(n.status==='collecting')return html+empty('A coleta está em andamento. Atualize esta página em alguns minutos.');
-  html+=`<div class="insight-meta"><span>${dt(n.start)} a ${dt(n.end)}</span><span>Atualizado em ${dt(n.created_at)}</span></div><p class="help">${esc(n.message)}</p><p class="help">Cidades: ${esc((n.cities||[]).join(', '))}.</p>`;
+  const partialCoverage=n.truncated||(n.sources||[]).some(source=>source.status!=='read'||source.complete_window===false);
+  html+=`<div class="insight-meta"><span>${dt(n.start)} a ${dt(n.end)}</span><span>Atualizado em ${dt(n.created_at)}</span></div>${partialCoverage?'<p class="coverage-notice" role="status"><strong>Cobertura parcial.</strong> Consulte abaixo os limites das fontes e do período.</p>':''}<p class="help">${esc(n.message)}</p><p class="help">Cidades: ${esc((n.cities||[]).join(', '))}.</p>`;
   html+=panel('Assuntos encontrados',table(['Assunto','Publicações encontradas','Fontes'],(n.signals||[]).map(s=>[esc(s.label),num(s.count),num(s.source_count)])))+'<p class="help">Essas contagens mostram apenas as notícias desta coleta. Não medem desemprego nem procura por advogados. Publicações parecidas podem tratar do mesmo acontecimento.</p>';
   html+=panel('Possibilidades para acompanhar',(n.scenarios||[]).length?n.scenarios.map(s=>`<article class="rec"><h3>${esc(s.title)}</h3><p><strong>O que foi noticiado:</strong> ${esc(s.observation)}</p><p><strong>Uma possibilidade:</strong> ${esc(s.scenario)}</p><p><strong>O que observar:</strong> ${esc(s.watch_next)}</p><p class="sources">${(n.articles||[]).filter(a=>s.article_ids.includes(a.id)).map(a=>`<a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.source)} · ${dt(a.published)} — ${esc(a.title)}</a>`).join('')}</p></article>`).join(''):empty('Nenhum cenário foi confirmado pela revisão. As notícias abaixo continuam disponíveis.'));
   html+=details('Notícias e fontes',(n.articles||[]).map(a=>`<article class="rec"><h3><a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></h3><p class="muted">${esc(a.source)} · ${dt(a.published)}</p></article>`).join('')||empty('Nenhuma notícia encontrada com os filtros desta semana.'));
@@ -170,10 +196,53 @@ function localityRow(value=''){
 }
 function locationsPanel(config){
   const cities=config.localities||[];
-  return `<section id="locations" class="panel"><div class="section-head"><h2>Sua região de atuação</h2><span class="muted">Até 20 cidades</span></div><p>Escolha onde o escritório atende. Essas cidades orientam novas importações e a busca de notícias.</p><p class="help">As fontes atuais cobrem o Vale do Paraíba (SP). Outras regiões precisam de fontes compatíveis; escolher uma cidade não garante notícias disponíveis.</p>${isAdmin?`<form id="regions"><div id="locality-rows">${(cities.length?cities:['']).map(localityRow).join('')}</div><div class="location-actions"><button type="button" id="add-locality" class="secondary">Adicionar cidade</button><button>Salvar região</button></div><p id="location-feedback" class="help" role="status"></p></form>`:empty(cities.join(', ')||'Nenhuma cidade escolhida. Peça ao responsável para configurar.')}<p class="help">Campanhas e relatórios já salvos mantêm suas cidades originais. Os exemplos fictícios têm uma seleção separada.</p></section>`;
+  return `<section id="locations" class="panel"><div class="location-intro"><div class="section-head"><h2>Sua região de atuação</h2><span class="muted">Até 20 cidades</span></div><p>Escolha onde o escritório atende. Essas cidades orientam novas importações e a busca de notícias.</p><p class="help">As fontes atuais cobrem o Vale do Paraíba (SP). Outras regiões precisam de fontes compatíveis; escolher uma cidade não garante notícias disponíveis.</p></div><div class="location-editor">${isAdmin?`<form id="regions"><div id="locality-rows">${(cities.length?cities:['']).map(localityRow).join('')}</div><div class="location-actions"><button type="button" id="add-locality" class="secondary">Adicionar cidade</button><button>Salvar região</button></div><p id="location-feedback" class="help" role="status"></p></form>`:empty(cities.join(', ')||'Nenhuma cidade escolhida. Peça ao responsável para configurar.')}<p class="help">Campanhas e relatórios já salvos mantêm suas cidades originais. Os exemplos fictícios têm uma seleção separada.</p></div></section>`;
+}
+let pendingFragment=window.location.hash;
+function focusContext(target){
+  if(!target)return;
+  for(let ancestor=target.parentElement;ancestor;ancestor=ancestor.parentElement){
+    if(ancestor.tagName==='DETAILS')ancestor.open=true;
+  }
+  if(!target.matches('button,a[href],input,select,textarea,[tabindex]'))target.tabIndex=-1;
+  target.focus({preventScroll:true});
+  target.scrollIntoView({block:'nearest',behavior:'instant'});
+}
+function resolveFragment(){
+  if(!['#ai','#import','#locations'].includes(pendingFragment)){pendingFragment='';return;}
+  const target=$(pendingFragment.slice(1));
+  if(!target)return;
+  pendingFragment='';
+  focusContext(target);
+}
+window.addEventListener('hashchange',()=>{pendingFragment=window.location.hash;resolveFragment();});
+function actionContext(form){
+  // Keep identifiers only: never copy field values, drafts or API keys.
+  return {formId:form?.id||'',importKind:form?.dataset.import||''};
+}
+function focusActionFeedback(context,text){
+  const form=context.formId?$(context.formId):Array.from(document.querySelectorAll('form[data-import]')).find(item=>item.dataset.import===context.importKind);
+  if(!form){focusContext($('message'));return;}
+  const feedback=document.createElement('p');
+  feedback.className='action-feedback help';feedback.tabIndex=-1;feedback.textContent=text;
+  form.prepend(feedback);
+  focusContext(feedback);
+}
+function offerConfirmedReload(context,confirmation){
+  const retry=$('retry-load');
+  if(!retry)return;
+  retry.textContent='Recarregar dados';
+  retry.onclick=async()=>{
+    try{await render();message(confirmation);focusActionFeedback(context,confirmation);}
+    catch{
+      message(`${confirmation} A atualização continua indisponível. Não repita o envio.`);
+      offerConfirmedReload(context,confirmation);focusContext($('message'));
+    }
+  };
 }
 async function render(){
   const version=++renderVersion;
+  tableOverflowObserver?.disconnect();
   const selectedScope=scope();
   const query=params();
   // A filter change must never relabel a previous response as new data.
@@ -183,11 +252,12 @@ async function render(){
   $('banner').hidden=selectedScope!=='demo';
   $('period-label').textContent=page==='finance'?monthLabel(query.get('end').slice(0,7)):dt(query.get('start'))+' a '+dt(query.get('end'));
   try{
-  const data=await api('/api/dashboard?'+query);if(version!==renderVersion)return;
-  let html='';const pending=visibleRecs(data);
+  const needsDashboard=['overview','campaigns','market','agents','insights'].includes(page);
+  const data=needsDashboard?await api('/api/dashboard?'+query):null;if(version!==renderVersion)return;
+  let html='';const pending=data?visibleRecs(data):[];
   if(page==='overview'){
     if(!data.summary.rows){
-      html=`<section class="empty-state"><h2>Comece pelos resultados das campanhas</h2><p>O painel mostra quanto foi gasto e quais contatos chegaram ao escritório. Para começar, importe os resultados do período.</p><ol class="start-steps"><li><strong>Prepare o arquivo</strong><p>Use o modelo com gastos, contatos e contratações. Não inclua dados pessoais.</p><a href="/api/templates/campaigns">Baixar modelo de resultados</a></li><li><strong>Importe e acompanhe</strong><p>Os números e os pontos que precisam de atenção aparecerão aqui.</p></li></ol><a class="button" href="/painel/campaigns#import">Importar resultados</a><div class="empty-links"><a href="/painel/finance">Definir orçamento</a><a href="/painel/settings#ai">Configurar IA</a></div></section><p class="help">Quer conhecer o painel primeiro? Selecione “Exemplo fictício” no campo acima.</p>`;
+      html=`<section class="empty-state"><h2>Comece pelos resultados das campanhas</h2><p>O painel mostra quanto foi gasto e quais contatos chegaram ao escritório. Para começar, importe os resultados do período.</p><ol class="start-steps"><li><strong>Escolha sua região</strong><p>Defina as cidades atendidas para que o arquivo seja importado na região correta.</p><a href="/painel/settings#locations">Configurar cidades</a></li><li><strong>Prepare o arquivo</strong><p>Use o modelo com gastos, contatos e contratações. Não inclua dados pessoais.</p><a href="/api/templates/campaigns">Baixar modelo de resultados</a></li><li><strong>Importe e acompanhe</strong><p>Os números e os pontos que precisam de atenção aparecerão aqui.</p></li></ol><a class="button" href="/painel/campaigns#import">Importar resultados</a><div class="empty-links"><a href="/painel/finance">Definir orçamento</a><a href="/painel/settings#ai">Configurar IA</a></div></section><p class="help">Quer conhecer o painel primeiro? Selecione “Exemplo fictício” no campo acima.</p>`;
     }else{
       html=`<div class="overview-board"><div class="overview-lead"><section class="result-ledger" aria-labelledby="result-heading"><div class="section-head"><h2 id="result-heading">Gastos ao longo do período</h2><a href="/painel/campaigns">Explorar resultados</a></div><div class="performance-plot">`+chart(data.evolution)+`</div></section><section class="review-desk" aria-labelledby="review-heading"><div class="section-head"><h2 id="review-heading">Pontos para revisar</h2></div>`+recsWithData(pending.slice(0,3),data,{compact:true})+`<div class="review-action">${analyzeButton(data)}</div>${!data.ai.connected&&isAdmin?'<div class="overview-connect"><p>Use uma IA para ajudar a revisar os resultados.</p><a href="/painel/settings#ai">Configurar IA</a></div>':''}</section></div><section class="campaign-workspace"><div class="section-head"><h2>Campanhas no período</h2><a href="/painel/campaigns">Ver detalhes</a></div>`+overviewCampaigns(data.campaigns)+`</section><section class="budget-workspace"><div class="section-head"><h2>Orçamento do mês</h2><a href="/painel/finance">Conferir gastos</a></div>`+budgetLine(data.budget)+`</section></div>`;
 
@@ -215,7 +285,7 @@ async function render(){
       '<p class="help">Os avisos deste painel não interrompem os gastos no Google Ads.</p>';
   }
   if(page==='reports'){
-    const rows=await api('/api/reports?scope='+selectedScope),config=await api('/api/settings?scope='+selectedScope);
+    const [rows,config]=await Promise.all([api('/api/reports?scope='+selectedScope),api('/api/settings?scope='+selectedScope)]);
     html='<section class="report-create"><h2>Criar relatório</h2>'+ (isAdmin?`<form id="report" class="report-form"><div class="report-controls"><label>Semana que começa em<input name="week_start" type="date" value="${config.last_week}" required></label><button>Criar relatório</button></div><p class="help">Escolha uma segunda-feira. O relatório reúne os resultados até o domingo.</p></form>`:empty('Peça ao responsável para gerar um relatório.'))+'</section>'+
       panel('Relatórios salvos',table(['Semana de','Baixar relatório'],rows.map(r=>[dt(r.week_start),`<span class="report-downloads"><a href="/api/reports/${r.id}/pdf?scope=${selectedScope}">Baixar PDF</a><a href="/api/reports/${r.id}/json?scope=${selectedScope}">Baixar para IA</a></span>`])))+
       (isAdmin?details('Testar a conferência de erros','<p>Usamos apenas uma cópia fictícia: trocamos números e referências para testar a detecção. Seus relatórios não são alterados.</p><button id="report-self-test" class="secondary">Executar teste gratuito</button><div id="self-test-result" role="status"></div>'):'')+
@@ -224,20 +294,25 @@ async function render(){
   if(page==='strategy'){const result=await api('/api/strategy?scope='+selectedScope);html=strategyPanel(result);}
   if(page==='contracts'){html=contractIntro();if(isAdmin){const preview=await api('/api/contracts/demo');html+=contractPanel(preview);}}
   if(page==='news'){const n=await api('/api/news?scope='+selectedScope);html=newsPanel(n,selectedScope)+'<p><a href="/painel/strategy">Análise estratégica: impacto social e viabilidade</a></p>';}
-  if(page==='insights'){const result=await api('/api/insights?'+query);html=insightPanel(data.ai,result.latest);}
+  if(page==='insights'){const result=await api('/api/insights?'+query);html=insightPanel(data.ai,result.latest,Boolean(data.summary.rows));}
   if(page==='settings'){
     const config=await api('/api/settings?scope='+selectedScope);
     html=locationsPanel(config)+aiPanel(config)+'<p><a href="/painel/contracts">Contratos e clientes — conhecer a conferência</a></p>'+`<p class="help">O orçamento fica em <a href="/painel/finance">Gastos</a>. Os relatórios ficam em <a href="/painel/reports">Relatórios</a>.</p>`;
   }
   if(version!==renderVersion)return;
-  updateOverviewSummary(data.summary);
+  updateOverviewSummary(data?.summary||{rows:0});
   currentData=data;$('content').innerHTML=page==='overview'?html:`<div class="task-board">${html}</div>`;bind();$('content').setAttribute('aria-busy','false');
+  resolveFragment();
   }catch(error){
     if(version!==renderVersion)return;
     currentData=null;
     $('content').innerHTML='<div class="load-error"><p>Os dados selecionados não foram carregados.</p><button id="retry-load" class="secondary">Tentar novamente</button></div>';
     $('content').setAttribute('aria-busy','false');
-    $('retry-load').onclick=()=>{message('');render().catch(e=>message(e.message,true));};
+    $('retry-load').onclick=async()=>{
+      message('');
+      try{await render();focusContext($('content'));}
+      catch(error){message(error.message,true);focusContext($('message'));}
+    };
     throw error;
   }
 }
@@ -246,11 +321,25 @@ function recsWithData(list,data,options){const old=currentData;currentData=data;
 async function action(task,success='Salvo.',progress='Aguarde…'){
   if(working)return;working=true;
   const form=document.activeElement?.closest('form');
+  const context=actionContext(form);
   form?.querySelector('.form-error')?.remove();
+  form?.querySelector('.action-feedback')?.remove();
   if(form?.id==='regions')form.querySelectorAll('.locality-row').forEach(clearLocalityError);
   document.querySelectorAll('button').forEach(b=>b.disabled=true);$('scope').disabled=true;
   message(progress);$('content').setAttribute('aria-busy','true');
-  try{const result=await task();await render();message(typeof success==='function'?success(result):success);}
+  try{
+    const result=await task();
+    const confirmation=typeof success==='function'?success(result):success;
+    // A confirmed POST must not be reported as failed if its following GET fails.
+    try{await render();}
+    catch{
+      message(`${confirmation} A operação foi concluída, mas os dados da tela não foram atualizados. Recarregue os dados; não repita o envio.`);
+      offerConfirmedReload(context,confirmation);
+      focusContext($('message'));
+      return;
+    }
+    message(confirmation);focusActionFeedback(context,confirmation);
+  }
   catch(error){
     if(form?.isConnected){
       message('Não foi possível concluir. Confira a mensagem no formulário.',true);
@@ -263,6 +352,7 @@ async function action(task,success='Salvo.',progress='Aguarde…'){
   finally{$('content').setAttribute('aria-busy','false');working=false;$('scope').disabled=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);}
 }
 function bind(){
+  bindTableOverflow();
   // CSSOM preserves the strict CSP: no inline style attribute in generated HTML.
   document.querySelectorAll('[data-chart-date-position]').forEach(label=>label.style.setProperty('--date-position',label.dataset.chartDatePosition));
   if($('report-self-test'))$('report-self-test').onclick=async()=>{

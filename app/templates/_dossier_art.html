@@ -1,6 +1,6 @@
 {# Cover-only artwork. The L is a printing shape, never a metric or chart. #}
 {% macro dossier_art(chapter, class_name='dossier-art') -%}
-<svg class="{{ class_name }}" viewBox="0 0 {{ '320 200' if chapter in ['overview', 'campaigns', 'strategy', 'news', 'market'] else '240 240' }}" fill="none" aria-hidden="true" focusable="false">
+<svg class="{{ class_name }}" viewBox="0 0 {{ '320 200' if chapter in ['overview', 'campaigns', 'finance', 'strategy', 'news', 'market'] else '240 240' }}" fill="none" aria-hidden="true" focusable="false">
   {% if chapter in ['overview', 'campaigns'] %}
   {# An open printing field runs beyond the trim; no axes or quantitative marks. #}
   <path d="M0 0H320V22H288C175 22 80 91 80 174H320V200H0Z" fill="currentColor"/>
@@ -10,13 +10,11 @@
   <path d="M18 0V185H320" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
 
   {% elif chapter == 'finance' %}
-  {# Opposing weighted planes: balance is compositional, with no quantitative axis. #}
-  <path d="M16 20H224V80H76V220H16Z" fill="currentColor"/>
-  <path d="M101 105H160V164H224V220H101Z" fill="currentColor"/>
-  <path d="M91 38H208V62H91Z" fill="var(--cutout,var(--paper))"/>
-  <path d="M32 96V202H60" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
-  <path d="M177 105H224V141H177Z" stroke="currentColor" stroke-width="3"/>
-  <path d="M117 181V204H207" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+  {# Opposing architectural planes reach the trim; no numeric meaning. #}
+  <path d="M0 0H285L233 77H57V160H0Z" fill="currentColor"/>
+  <path d="M111 98H175V141H320V200H46Z" fill="currentColor"/>
+  <path d="M0 18H248L222 58H40V139" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+  <path d="M119 118L79 182H320" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
 
   {% elif chapter in ['reports', 'contracts'] %}
   {# Three planes share diagonal seams; changes in screen angle describe the fold. #}
@@ -37,8 +35,8 @@
   {% elif chapter in ['insights', 'agents'] %}
   {# One oblique optical field, not a Venn symbol: its open cut interrupts the contours. #}
   <path d="M20 174C28 78 104 14 220 24C215 130 142 216 20 224Z" fill="currentColor"/>
-  {% for i in range(12) %}
-  <path d="M{{ 32+i*9 }} {{ 209-i*4 }}C{{ 26+i*8 }} {{ 100+i*2 }} {{ 123-i*4 }} {{ 27+i*8 }} {{ 211-i*3 }} {{ 37+i*10 }}" stroke="var(--cutout,var(--paper))" stroke-width="3"/>
+  {% for i in range(8) %}
+  <path d="M{{ 32+i*13 }} {{ 209-i*6 }}C{{ 26+i*12 }} {{ 100+i*3 }} {{ 123-i*6 }} {{ 27+i*12 }} {{ 211-i*4.5 }} {{ 37+i*15 }}" stroke="var(--cutout,var(--paper))" stroke-width="4"/>
   {% endfor %}
   <path d="M14 150L224 70L218 105L16 182Z" fill="var(--cutout,var(--paper))"/>
   <path d="M44 154L197 96" stroke="currentColor" stroke-width="3"/>

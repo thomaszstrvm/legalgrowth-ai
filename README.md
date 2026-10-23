@@ -19,16 +19,20 @@ O Resumo abre com uma coleção navegável de dossiês. **Ver resultados** leva
 diretamente aos indicadores e filtros. Campanhas, orçamento, relatórios e análises
 continuam acessíveis pelo menu principal.
 
-Marco atual: **v0.1.2**, abertura visual v53. A coleção usa campos gráficos em
-sangria e acabamento de encadernação, adaptados aos dois temas. Veja a
-[comparação e as decisões](docs/OPENING-V4.md) e o
-[parecer independente](docs/THE-CRITIC-OPENING-V4.md): 9,0/10 no escopo da abertura,
-após duas rodadas. A meta de portfólio de 9,9 continua em aberto.
+Marco atual: **v0.1.3**, versão visual v56. Capas e cabeçalhos compartilham gravuras
+autorais, com cores coerentes nos dois temas. A interface sinaliza tabelas
+roláveis, cobertura parcial e recuperação após falhas de atualização. Veja as
+[decisões e validações](docs/DESIGN-ENGINEERING.md), o
+[estudo interativo da Arc](docs/ARC-INTERACTION-STUDY.md), a
+[avaliação da Cartier](docs/CARTIER-REFERENCE.md) e o
+[parecer independente](docs/THE-CRITIC-DESIGN-ENGINEERING.md).
+O ciclo de perseguir uma nota foi encerrado por decisão do proprietário;
+esta versão é apresentada com evidências e limitações, sem alegação de perfeição.
 
 ## Início rápido no Windows / PowerShell
 
 Redesign e manutenção visual: [sistema de design atual](DESIGN.md),
-[implementação das capas atuais](docs/OPENING-V4.md) e [skills e origens](docs/DESIGN-SKILLS.md).
+[implementação atual](docs/DESIGN-ENGINEERING.md) e [skills e origens](docs/DESIGN-SKILLS.md).
 Capturas completas ficam em `output/design-review/` na máquina de desenvolvimento;
 essa pasta é ignorada pelo Git. As prévias acima acompanham o repositório.
 
@@ -67,7 +71,7 @@ que você já tenha salvo.
 | Período de análise | Filtros do painel | Consulta dados existentes, sem reescrever o histórico. |
 | Horário dos relatórios | `.env`: `REPORT_DAY`, `REPORT_HOUR`, `REPORT_MINUTE`, `TIMEZONE` | Requer reiniciar o servidor; veja Agendamento. |
 | Fontes jornalísticas | Catálogo `SOURCES` em `app/integrations/news.py` | Personalização pelo mantenedor, com revisão e testes; veja abaixo. |
-| Identidade visual | `DESIGN.md`, tokens em `app/static/style.css` e `arc.css` | Altere o par claro/escuro e confira contraste e celular. |
+| Identidade visual | `DESIGN.md`, fundações em `app/static/tokens.css`; componentes em `style.css` e `arc.css` | Altere os pares claro/escuro e confira contraste e celular. |
 
 ### Escolher sua região, passo a passo
 
