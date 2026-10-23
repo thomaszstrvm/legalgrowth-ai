@@ -27,6 +27,8 @@ com causa residual não demonstrada, sem supressão de erros.
 [PDF técnico](docs/releases/LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf) ·
 [Apresentação para o cliente](docs/releases/LegalGrowth_Apresentacao_Cliente_v0.1.7.pdf).
 
+Filme editável de 20 segundos, em versões clara e escura: [como abrir o Remotion](media/legalgrowth-presentation/README.md) · [pesquisa e validação](docs/REMOTION-PRESENTATION.md) · [relatório PDF](docs/releases/LegalGrowth_Filme_20s_Dois_Temas.pdf). A mídia não altera o aplicativo.
+
 Base preservada da **v0.1.6/v59**. Capas, arte, interação 3D,
 fontes e temas preservados. A coleção começa na primeira tela de 1440×900 com
 o conjunto sintético documentado. Consulte a [decisão e evidências](docs/DOSSIER-POSITION-V59.md),

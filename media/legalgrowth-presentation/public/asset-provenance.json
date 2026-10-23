@@ -1,0 +1,80 @@
+{
+  "sources": [
+    {
+      "source": "app/static/fonts/manrope.ttf",
+      "dest": "fonts/manrope.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    },
+    {
+      "source": "app/static/fonts/newsreader.ttf",
+      "dest": "fonts/newsreader.ttf",
+      "sha256": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1"
+    },
+    {
+      "source": "output/closure-v60/presentation/metrics-light.png",
+      "dest": "screens/metrics-light.png",
+      "sha256": "36ab03489c0a46d5f8af8ac2d0e8932aca2031785f07ade10f38388037b4e52e"
+    },
+    {
+      "source": "output/closure-v60/presentation/overview-detail-light.png",
+      "dest": "screens/overview-detail-light.png",
+      "sha256": "eeaa635fe40cbe32c98cdf9bb3cd9d68688155512ef328e6e45853c8a6fade7b"
+    },
+    {
+      "source": "output/closure-v60/presentation/overview-detail-dark.png",
+      "dest": "screens/overview-detail-dark.png",
+      "sha256": "66a4d7e2f9892f88b46b839f1a07e33e5b824ba1a9a965e0dc1b66135489dfcb"
+    },
+    {
+      "source": "output/closure-v60/presentation/campaigns-detail-light.png",
+      "dest": "screens/campaigns-detail-light.png",
+      "sha256": "322eeb83a66d8560321029a9b4abc5ea0fd6b390438824d3cf5b8dc7b184d79e"
+    },
+    {
+      "source": "output/closure-v60/presentation/finance-detail-light.png",
+      "dest": "screens/finance-detail-light.png",
+      "sha256": "0762604b1c91c77251cbd5e4d3ffa533b2b2a9beccdaf6185c0c6ab427ab09b4"
+    },
+    {
+      "source": "output/closure-v60/presentation/insight-example-dark.png",
+      "dest": "screens/insight-example-dark.png",
+      "sha256": "9774f54c061a52d869e8ab18567bb29a8fb509fef35014176f2326ba91b9eeb4"
+    },
+    {
+      "source": "output/closure-v60/presentation/reports-detail-dark.png",
+      "dest": "screens/reports-detail-dark.png",
+      "sha256": "e5cac2bdce967f3be864a802d6816ceb41de1ad6eef7b9d7dbbe3e9a8cdc452b"
+    },
+    {
+      "source": "output/closure-v60/presentation/finance-detail-dark.png",
+      "dest": "screens/finance-detail-dark.png",
+      "sha256": "fdb014b02df8db4bb5cddd89d753846a900e40a11708bc6e75b0d6d13de60e08"
+    },
+    {
+      "source": "output/closure-v60/presentation/insight-example-light.png",
+      "dest": "screens/insight-example-light.png",
+      "sha256": "9b02555c0db4c5418bd7dad08118dcbce2ecc1fc85b28ec98c944da16f6a4d0d"
+    },
+    {
+      "source": "output/closure-v60/presentation/metrics-dark.png",
+      "dest": "screens/metrics-dark.png",
+      "sha256": "ad0ff8781dcbc9e516f4a50230a5c954ec85d4c50bc8117c2f38eb3aa98a342b"
+    },
+    {
+      "source": "output/closure-v60/presentation/overview-dark.png",
+      "dest": "screens/overview-dark.png",
+      "sha256": "8175e04d394445402bbb3d0006129eafb9e77393c152d2adfaa779659108a81c"
+    },
+    {
+      "source": "output/closure-v60/presentation/overview-light.png",
+      "dest": "screens/overview-light.png",
+      "sha256": "efe7a9cc54c6226b02af9c03f89363d67d4f7bff35bb7e207c7a0f47a3541aae"
+    }
+  ],
+  "coverOrigin": "Unmodified production Jinja artwork and CSS, isolated local render; no app, DB or credentials",
+  "coverThemes": [
+    "light",
+    "dark"
+  ],
+  "captureErrors": []
+}

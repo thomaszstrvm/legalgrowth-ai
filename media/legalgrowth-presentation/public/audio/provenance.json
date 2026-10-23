@@ -1,0 +1,17 @@
+{
+  "origin": "Original offline synthesis by project script, no sampled or downloaded audio",
+  "license": "MIT, same as project",
+  "sample_rate": 48000,
+  "samples_per_channel": 960000,
+  "duration_seconds": 20,
+  "peak_dbfs": -3.478503945983471,
+  "rms_dbfs": -16.864916282124696,
+  "cue_seconds": [
+    0,
+    3,
+    7,
+    11,
+    16
+  ],
+  "seed": 20261023
+}

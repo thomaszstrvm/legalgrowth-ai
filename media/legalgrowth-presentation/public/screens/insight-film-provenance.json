@@ -1,0 +1,26 @@
+{
+  "fixture": {
+    "demonstration": true,
+    "findings": [
+      {
+        "kind": "weakness",
+        "title": "Exemplo: compare os períodos",
+        "explanation": "Há poucos registros para concluir.",
+        "action": "Confira as evidências antes de mudar.",
+        "evidence": [
+          {
+            "subject_name": "Campanha fictícia",
+            "label": "Contratações",
+            "metric": "hires",
+            "value": 2,
+            "period": "current"
+          }
+        ]
+      }
+    ]
+  },
+  "rendererSha256": "5a029add5784fcb4ea09c6c8088bf0db0fdb2dbad07647c5a4b19cc560d5a437",
+  "origin": "Exact production insightFindings and CSS, isolated offline rendering",
+  "externalRequests": 0,
+  "pageErrors": []
+}
