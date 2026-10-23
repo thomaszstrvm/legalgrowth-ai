@@ -1,0 +1,10 @@
+.git
+.agents
+.impeccable
+.venv
+.env
+.secrets
+*.db
+output
+tmp
+__pycache__

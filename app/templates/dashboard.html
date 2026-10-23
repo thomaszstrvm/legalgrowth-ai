@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f2f3ee">
+  <title>LegalGrowth</title>
+  <link rel="preload" href="/static/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/static/fonts/newsreader.ttf" as="font" type="font/ttf" crossorigin>
+  <script src="/static/theme.js?v=17"></script>
+  <link rel="stylesheet" href="/static/style.css?v=17">
+  <link rel="stylesheet" href="/static/arc.css?v=50">
+  <script defer src="/static/scene.js?v=18"></script>
+  <script defer src="/static/app.js?v=22"></script>
+</head>
+<body data-page="{{ page }}" data-user="{{ user }}">
+<a class="skip" href="#main">Pular para conteúdo</a>
+<aside class="app-navigation">
+  <div class="masthead">
+  <a class="brand" href="/" translate="no"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 17v16h16M15 10v16h16M23 3v16h10" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="brand-name">LegalGrowth<span>Marketing jurídico</span></span></a>
+  <button id="menu-toggle" class="secondary" aria-expanded="false" aria-controls="main-nav">Menu</button>
+  </div>
+  <nav id="main-nav" aria-label="Menu principal">
+  {% set icons = {'overview':'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z','campaigns':'M4 20V10 M10 20V4 M16 20v-8 M22 20H2','finance':'M3 6h18v14H3z M3 6l14-3v3 M15 11h6v5h-6z','contracts':'M6 3h9l4 4v14H6z M14 3v5h5 M9 12h7 M9 16h5','reports':'M5 3h14v18H5z M9 8h6 M9 12h6 M9 16h3','insights':'M3 12h4l3-7 4 14 3-7h4','agents':'M5 5h14v15H5z M9 3h6v4H9z M8 13l3 3 5-6','news':'M4 4h13v16H4z M17 8h4v12h-4 M7 8h7 M7 12h7 M7 16h4','strategy':'M12 3a9 9 0 1 0 9 9 M12 7a5 5 0 1 0 5 5 M12 12l8-8 M15 4h5v5'} %}
+  {% for group, items in [('Gestão', [('overview','Resumo'),('campaigns','Campanhas'),('finance','Orçamento e gastos'),('contracts','Contratos'),('reports','Relatórios')]), ('Análises', [('insights','Insights de IA'),('agents','Recomendações'),('news','Notícias regionais'),('strategy','Oportunidades')])] %}
+  <div class="nav-group" role="group" aria-label="{{ group }}">
+  <span class="nav-label" aria-hidden="true">{{ group }}</span>
+  {% for key, label in items %}
+    <a href="/painel/{{ key }}" {% if page == key %}aria-current="page"{% endif %}><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ icons[key] }}" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ label }}</a>
+  {% endfor %}
+  </div>
+  {% endfor %}
+  </nav>
+  <div class="sidebar-foot"><a href="/painel/settings" {% if page == 'settings' %}aria-current="page"{% endif %}>Configurações</a><button class="quiet" id="theme-toggle" aria-pressed="false">Modo escuro</button></div>
+</aside>
+<main id="main" tabindex="-1">
+  {% if page == 'overview' %}{% include '_workspace_scene.html' %}{% endif %}
+  {% from '_chapter_art.html' import chapter_art %}
+  <header class="page-header" id="results" tabindex="-1"><div class="page-heading"><div class="page-heading-copy"><h1 id="title">Resumo</h1><p id="page-description" class="page-description"></p></div><div class="chapter-emblem" aria-hidden="true">{% if page == 'overview' %}{{ chapter_art(page, 'chapter-art', compact=true) }}{% else %}{{ chapter_art(page, 'chapter-art chapter-art-full') }}{{ chapter_art(page, 'chapter-art chapter-art-small', compact=true) }}{% endif %}</div></div>
+  <section id="overview-summary" aria-label="Resultados do período" hidden></section>
+  <div class="page-context">
+  <section id="period-bar" class="period-bar" aria-label="Período">
+    <span id="period-label"></span>
+    <details class="period-picker"><summary>Alterar período</summary><div class="filters"><label>De<input type="date" id="start" name="start"></label><label>Até<input type="date" id="end" name="end"></label><label>Área<select id="area" name="area"><option value="">Todas</option><option value="trabalhista">Trabalhista</option><option value="previdenciario">Previdenciário</option></select></label><button id="refresh" class="secondary">Aplicar</button></div></details>
+  </section>
+  <label class="scope-label"><span>Dados exibidos</span><select id="scope" name="scope"><option value="real">Meus dados</option><option value="demo">Exemplo fictício</option></select></label>
+  <p id="banner" class="demo-notice" hidden>Exemplo fictício. Não são dados do escritório.</p>
+  </div>
+  </header>
+  <div id="message" role="status" aria-live="polite" tabindex="-1"></div>
+  <div id="content" aria-busy="true">Carregando…</div>
+  <footer>Nenhuma alteração é feita nos anúncios por este painel.</footer>
+</main></body></html>
+

@@ -1,0 +1,61 @@
+{# Original editorial engravings. Decorative identity, never a data visualization. #}
+{% macro chapter_art(chapter, class_name, compact=false) -%}
+<svg class="{{ class_name }}" viewBox="0 0 200 160" fill="none" aria-hidden="true" focusable="false">
+  {% if compact %}
+    {# Optical small-size variants: same silhouettes, fewer lines and heavier ink. #}
+    {% if chapter in ['overview','campaigns'] %}
+    <path d="M26 65v67h69M65 38v67h69M104 11v67h69" stroke="currentColor" stroke-width="13"/>
+    <path d="M13 65v80h82M52 38v80h82M91 11v80h82" stroke="currentColor" stroke-width="3.5"/>
+    {% elif chapter == 'finance' %}
+    <path d="M30 16h144v124H30zM16 30v124h144" stroke="currentColor" stroke-width="4"/>
+    <path d="M30 48h144M57 16v124M139 16v124M30 78h144M30 108h144" stroke="currentColor" stroke-width="3.5"/>
+    <path d="M73 32h48" stroke="currentColor" stroke-width="5"/>
+    {% elif chapter in ['reports','contracts'] %}
+    <path d="M24 24q60-14 132 16v96q-72-30-132-16Z M39 15q60-10 132 20v96 M54 8q60-6 132 24v96" stroke="currentColor" stroke-width="4"/>
+    <path d="M44 52q45-7 89 10M44 76q45-7 89 10M44 100q25-4 49 3" stroke="currentColor" stroke-width="4"/>
+    {% elif chapter in ['insights','agents'] %}
+    <ellipse cx="75" cy="80" rx="53" ry="65" stroke="currentColor" stroke-width="4"/>
+    <ellipse cx="125" cy="80" rx="53" ry="65" stroke="currentColor" stroke-width="4"/>
+    <path d="M100 18v124M80 54h40M73 80h54M80 106h40" stroke="currentColor" stroke-width="3.5"/>
+    {% elif chapter in ['strategy','news','market'] %}
+    <path d="M14 40C62 0 65 100 104 44S160 42 186 18M14 80C62 40 65 140 104 84S160 82 186 58M14 120C62 80 65 180 104 124S160 122 186 98" stroke="currentColor" stroke-width="4"/>
+    <circle cx="158" cy="78" r="8" fill="currentColor"/>
+    {% else %}
+    <rect x="20" y="14" width="160" height="132" rx="20" stroke="currentColor" stroke-width="4"/>
+    <rect x="45" y="35" width="110" height="90" rx="14" stroke="currentColor" stroke-width="4"/>
+    <rect x="70" y="56" width="60" height="48" rx="8" stroke="currentColor" stroke-width="4"/>
+    {% endif %}
+  {% elif chapter in ['overview','campaigns'] %}
+  <path d="M26 65v67h69M65 38v67h69M104 11v67h69" stroke="currentColor" stroke-width="13"/>
+  {% for offset in range(4) %}
+  <path d="M{{ 14-offset*3 }} 65v{{ 79+offset*3 }}h{{ 81+offset*3 }}M{{ 53-offset*3 }} 38v{{ 79+offset*3 }}h{{ 81+offset*3 }}M{{ 92-offset*3 }} 11v{{ 79+offset*3 }}h{{ 81+offset*3 }}" stroke="currentColor" stroke-width=".7"/>
+  {% endfor %}
+  {% elif chapter == 'finance' %}
+  <path d="M24 14h152v132H24z" fill="currentColor" fill-opacity=".07" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M48 14v132M130 14v132M154 14v132" stroke="currentColor" stroke-width="1"/>
+  <path d="M24 46h152" stroke="currentColor" stroke-width="3"/>
+  {% for y in range(60,135,12) %}<path d="M24 {{ y }}h152" stroke="currentColor" stroke-width=".65"/>{% endfor %}
+  <path d="M11 27v132h152M17 21v132h152" stroke="currentColor" stroke-width="1"/>
+  <path d="M61 30h54M139 30h7" stroke="currentColor" stroke-width="3"/>
+  {% elif chapter in ['reports','contracts'] %}
+  {% for i in range(10) %}
+  <path d="M{{ 24+i*4 }} {{ 12+i*2 }}Q{{ 78+i*3 }} {{ 4+i*2 }} {{ 139+i*4 }} {{ 32+i*2 }}V{{ 118+i*2 }}Q{{ 82+i*3 }} {{ 94+i*2 }} {{ 24+i*4 }} {{ 106+i*2 }}Z" stroke="currentColor" stroke-width="{{ 2 if i == 9 else 0.8 }}"/>
+  {% endfor %}
+  <path d="M73 54q43-5 83 11M73 66q43-5 83 11M73 78q43-5 83 11M73 90q26-3 50 3" stroke="currentColor" stroke-width="2"/>
+  {% elif chapter in ['insights','agents'] %}
+  {% for i in range(8) %}
+  <ellipse cx="78" cy="80" rx="{{ 58-i*5 }}" ry="65" stroke="currentColor" stroke-width="{{ 1.8 if i == 0 else 0.8 }}"/>
+  <ellipse cx="122" cy="80" rx="{{ 58-i*5 }}" ry="65" stroke="currentColor" stroke-width="{{ 1.8 if i == 0 else 0.8 }}"/>
+  {% endfor %}
+  <path d="M16 80h168" stroke="currentColor" stroke-width=".65"/>
+  {% elif chapter in ['strategy','news','market'] %}
+  {% for i in range(9) %}
+  <path d="M{{ 12+i*2 }} {{ 44+i*11 }}C{{ 50+i*2 }} {{ 10+i*4 }} {{ 65+i*6 }} {{ 114-i*5 }} 100 {{ 70-i*6 }}S{{ 150+i*2 }} {{ 26+i*6 }} 188 {{ 18+i*12 }}" stroke="currentColor" stroke-width="{{ 2 if i == 4 else 0.8 }}"/>
+  {% endfor %}
+  <path d="M38 125c28-12 32-65 62-61s27 43 62 7" stroke="currentColor" stroke-width="3" stroke-dasharray="2 6"/>
+  <circle cx="162" cy="71" r="7" fill="currentColor"/>
+  {% else %}
+  {% for i in range(7) %}<rect x="{{ 18+i*10 }}" y="{{ 12+i*8 }}" width="{{ 164-i*20 }}" height="{{ 136-i*16 }}" rx="{{ 20-i*2 }}" stroke="currentColor" stroke-width="1"/>{% endfor %}
+  {% endif %}
+</svg>
+{%- endmacro %}

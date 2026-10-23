@@ -1,0 +1,27 @@
+.venv/
+.env
+.env.*
+!.env.example
+.secrets/
+*.db
+*.db-*
+__pycache__/
+.pytest_cache/
+output/
+tmp/
+*.egg-info/
+# Local tools, generated files and private key material.
+.agents/
+.impeccable/
+.codex/*
+!.codex/agents/
+.codex/agents/*
+!.codex/agents/visual_critic.toml
+node_modules/
+*.log
+*.pem
+*.key
+.coverage
+htmlcov/
+dist/
+build/

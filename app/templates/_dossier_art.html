@@ -1,0 +1,63 @@
+{# Cover-only artwork. The L is a printing shape, never a metric or chart. #}
+{% macro dossier_art(chapter, class_name='dossier-art') -%}
+<svg class="{{ class_name }}" viewBox="0 0 240 240" fill="none" aria-hidden="true" focusable="false">
+  {% if chapter in ['overview', 'campaigns'] %}
+  {# A quadrant is cut from a printing block; the L survives as its outer frame. #}
+  <path d="M16 16H224V38C123 38 62 107 62 184H224V224H16Z" fill="currentColor"/>
+  {% for i in range(8) %}
+  {% set radius = 130-i*15 %}
+  <path d="M{{ 224-radius }} 184A{{ radius }} {{ radius }} 0 0 1 224 {{ 184-radius }}" stroke="currentColor" stroke-width="3"/>
+  {% endfor %}
+  <path d="M32 36V208H70" stroke="var(--cutout,var(--paper))" stroke-width="2.5"/>
+  <path d="M89 196H209M89 207H209M89 218H209" stroke="var(--cutout,var(--paper))" stroke-width="2.5" stroke-linecap="round" stroke-dasharray=".01 10"/>
+
+  {% elif chapter == 'finance' %}
+  {# Opposing weighted planes: balance is compositional, with no quantitative axis. #}
+  <path d="M16 20H224V80H76V220H16Z" fill="currentColor"/>
+  <path d="M101 105H160V164H224V220H101Z" fill="currentColor"/>
+  {% for i in range(9) %}
+  <path d="M{{ 91+i*15 }} 32V68" stroke="var(--cutout,var(--paper))" stroke-width="3"/>
+  {% endfor %}
+  <path d="M32 96V202H60" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+  <path d="M177 105H224M177 117H224M177 129H224M177 141H224" stroke="currentColor" stroke-width="3"/>
+  <path d="M117 181V204H207" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+
+  {% elif chapter in ['reports', 'contracts'] %}
+  {# Three planes share diagonal seams; changes in screen angle describe the fold. #}
+  <path d="M24 68L168 14L216 66L72 120Z" fill="currentColor" fill-opacity=".18"/>
+  {% for i in range(13) %}
+  <path d="M{{ 24+i*12 }} {{ 68-i*4.5 }}L{{ 72+i*12 }} {{ 120-i*4.5 }}" stroke="currentColor" stroke-width="2.5"/>
+  {% endfor %}
+  <path d="M24 68L168 14L216 66L72 120Z" stroke="currentColor" stroke-width="3"/>
+  <path d="M72 120L216 66L172 158L28 212Z" fill="currentColor"/>
+  <path d="M28 212L172 158L216 184L72 236Z" fill="currentColor" fill-opacity=".18"/>
+  {% for i in range(12) %}
+  <path d="M{{ 34+i*12 }} {{ 210-i*4.5 }}L{{ 78+i*12 }} {{ 234-i*4.34 }}" stroke="currentColor" stroke-width="2.5"/>
+  {% endfor %}
+  <path d="M28 212L172 158L216 184L72 236Z" stroke="currentColor" stroke-width="3"/>
+  <path d="M72 120L216 66M28 212L172 158" stroke="var(--cutout,var(--paper))" stroke-width="3"/>
+  <path d="M83 131L188 91L162 147L57 186" stroke="var(--cutout,var(--paper))" stroke-width="2.5"/>
+
+  {% elif chapter in ['insights', 'agents'] %}
+  {# One oblique optical field, not a Venn symbol: its open cut interrupts the contours. #}
+  <path d="M20 174C28 78 104 14 220 24C215 130 142 216 20 224Z" fill="currentColor"/>
+  {% for i in range(12) %}
+  <path d="M{{ 32+i*9 }} {{ 209-i*4 }}C{{ 26+i*8 }} {{ 100+i*2 }} {{ 123-i*4 }} {{ 27+i*8 }} {{ 211-i*3 }} {{ 37+i*10 }}" stroke="var(--cutout,var(--paper))" stroke-width="3"/>
+  {% endfor %}
+  <path d="M14 150L224 70L218 105L16 182Z" fill="var(--cutout,var(--paper))"/>
+  <path d="M44 154L197 96" stroke="currentColor" stroke-width="3"/>
+
+  {% elif chapter in ['strategy', 'news', 'market'] %}
+  {# Angular routes share one corner and one direction, forming a coherent fan. #}
+  <path d="M16 16H71V117L123 169H224V224H100L16 140Z" fill="currentColor"/>
+  <path d="M94 16H132V79L163 110H224V148H147L94 95Z" fill="currentColor"/>
+  {% for i in range(7) %}
+  <path d="M{{ 146+i*11 }} 16V{{ 67-i*7 }}L{{ 171+i*7 }} {{ 92-i*7 }}H224" stroke="currentColor" stroke-width="2"/>
+  {% endfor %}
+  <path d="M33 32V134L107 207H207M49 32V127L114 191H207" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+  {% else %}
+  <path d="M26 18H94V150H222V218H26Z" fill="currentColor"/>
+  <path d="M114 18V130H222" stroke="currentColor" stroke-width="3"/>
+  {% endif %}
+</svg>
+{%- endmacro %}

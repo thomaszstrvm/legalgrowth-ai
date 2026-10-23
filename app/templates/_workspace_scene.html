@@ -1,0 +1,30 @@
+{% from '_dossier_art.html' import dossier_art %}
+<section class="workspace-scene" aria-label="Dossiês do escritório" aria-roledescription="carrossel">
+  <div class="scene-masthead"><h2>Dossiês do escritório</h2><a class="scene-results" href="#results">Ver resultados <span aria-hidden="true">↓</span></a></div>
+  <div class="scene-gallery">
+    {% set dossiers = [
+      ('finance','Orçamento','Acompanhe os gastos e o saldo disponível.','Contas do escritório','finance'),
+      ('reports','Relatórios','Reúna os resultados para ler e compartilhar.','Resultados em contexto','reports'),
+      ('campaigns','Campanhas','Veja como cada campanha está se saindo.','Da primeira visita ao contato','campaigns'),
+      ('insights','Insights de IA','Leia as análises e confira a revisão das conclusões.','Análise com revisão','insights'),
+      ('strategy','Oportunidades','Explore oportunidades com base nos dados disponíveis.','Próximos caminhos','strategy')
+    ] %}
+    {% for route, title, description, subtitle, artwork in dossiers %}
+    <a class="dossier dossier-{{ artwork }}" href="/painel/{{ route }}" data-description="{{ description }}" data-title="{{ title }}" aria-label="Abrir {{ title }}">
+      <span class="dossier-spine" aria-hidden="true">LegalGrowth</span>
+      <span class="dossier-face" aria-hidden="true">
+        <span class="dossier-imprint"><svg viewBox="0 0 40 40" fill="none"><path d="M7 17v16h16M15 10v16h16M23 3v16h10" stroke="currentColor" stroke-width="3.5"/></svg>LegalGrowth</span>
+        <strong class="dossier-title">{% if artwork == 'insights' %}<span>Insights de</span><span class="dossier-initials">IA</span>{% else %}{{ title }}{% endif %}</strong>
+        {{ dossier_art(artwork) }}
+        <span class="dossier-subtitle">{{ subtitle }}</span>
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+  <div class="scene-footer">
+    <button class="scene-control" type="button" data-scene-prev aria-label="Dossiê anterior: Relatórios" hidden><span aria-hidden="true">←</span><span data-scene-prev-title>Relatórios</span></button>
+    <div class="scene-caption" aria-live="polite" aria-atomic="true"><a data-scene-open href="/painel/campaigns">Abrir <span data-scene-title>Campanhas</span> <span aria-hidden="true">→</span></a><p data-scene-description>Veja como cada campanha está se saindo.</p></div>
+    <button class="scene-control" type="button" data-scene-next aria-label="Próximo dossiê: Insights de IA" hidden><span data-scene-next-title>Insights de IA</span><span aria-hidden="true">→</span></button>
+  </div>
+  <p class="scene-instruction">Selecione a capa para abrir</p>
+</section>

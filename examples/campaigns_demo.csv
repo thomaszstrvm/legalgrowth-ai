@@ -1,0 +1,181 @@
+scope,date,campaign_id,campaign,area,locality,keyword,impressions,clicks,cost,conversions,contacts,qualified,appointments,hires
+demo,2026-07-24,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,300,12,34.0,2,3,1,1,1
+demo,2026-07-24,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,300,12,18.0,2,3,1,1,1
+demo,2026-07-25,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,301,13,34.25,2,3,2,1,0
+demo,2026-07-25,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,301,13,18.25,2,3,2,1,0
+demo,2026-07-26,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,302,14,34.5,2,3,2,1,0
+demo,2026-07-26,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,302,14,18.5,2,3,2,1,0
+demo,2026-07-27,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,303,15,34.75,2,3,1,1,0
+demo,2026-07-27,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,303,15,18.75,2,3,1,1,0
+demo,2026-07-28,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,304,16,35.0,2,3,2,1,0
+demo,2026-07-28,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,304,16,19.0,2,3,2,1,0
+demo,2026-07-29,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,305,17,34.0,2,3,2,1,1
+demo,2026-07-29,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,305,17,18.0,2,3,2,1,1
+demo,2026-07-30,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,306,18,34.25,2,3,1,1,0
+demo,2026-07-30,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,306,18,18.25,2,3,1,1,0
+demo,2026-07-31,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,307,19,34.5,2,3,2,1,0
+demo,2026-07-31,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,307,19,18.5,2,3,2,1,0
+demo,2026-08-01,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,308,20,34.75,2,3,2,1,0
+demo,2026-08-01,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,308,20,18.75,2,3,2,1,0
+demo,2026-08-02,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,309,12,35.0,2,3,1,1,0
+demo,2026-08-02,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,309,12,19.0,2,3,1,1,0
+demo,2026-08-03,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,310,13,34.0,2,3,2,1,1
+demo,2026-08-03,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,310,13,18.0,2,3,2,1,1
+demo,2026-08-04,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,311,14,34.25,2,3,2,1,0
+demo,2026-08-04,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,311,14,18.25,2,3,2,1,0
+demo,2026-08-05,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,312,15,34.5,2,3,1,1,0
+demo,2026-08-05,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,312,15,18.5,2,3,1,1,0
+demo,2026-08-06,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,313,16,34.75,2,3,2,1,0
+demo,2026-08-06,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,313,16,18.75,2,3,2,1,0
+demo,2026-08-07,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,314,17,35.0,2,3,2,1,0
+demo,2026-08-07,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,314,17,19.0,2,3,2,1,0
+demo,2026-08-08,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,315,18,34.0,2,3,1,1,1
+demo,2026-08-08,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,315,18,18.0,2,3,1,1,1
+demo,2026-08-09,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,316,19,34.25,2,3,2,1,0
+demo,2026-08-09,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,316,19,18.25,2,3,2,1,0
+demo,2026-08-10,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,317,20,34.5,2,3,2,1,0
+demo,2026-08-10,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,317,20,18.5,2,3,2,1,0
+demo,2026-08-11,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,318,12,34.75,2,3,1,1,0
+demo,2026-08-11,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,318,12,18.75,2,3,1,1,0
+demo,2026-08-12,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,319,13,35.0,2,3,2,1,0
+demo,2026-08-12,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,319,13,19.0,2,3,2,1,0
+demo,2026-08-13,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,320,14,34.0,2,3,2,1,1
+demo,2026-08-13,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,320,14,18.0,2,3,2,1,1
+demo,2026-08-14,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,321,15,34.25,2,3,1,1,0
+demo,2026-08-14,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,321,15,18.25,2,3,1,1,0
+demo,2026-08-15,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,322,16,34.5,2,3,2,1,0
+demo,2026-08-15,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,322,16,18.5,2,3,2,1,0
+demo,2026-08-16,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,323,17,34.75,2,3,2,1,0
+demo,2026-08-16,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,323,17,18.75,2,3,2,1,0
+demo,2026-08-17,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,324,18,35.0,2,3,1,1,0
+demo,2026-08-17,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,324,18,19.0,2,3,1,1,0
+demo,2026-08-18,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,325,19,34.0,2,3,2,1,1
+demo,2026-08-18,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,325,19,18.0,2,3,2,1,1
+demo,2026-08-19,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,326,20,34.25,2,3,2,1,0
+demo,2026-08-19,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,326,20,18.25,2,3,2,1,0
+demo,2026-08-20,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,327,12,34.5,2,3,1,1,0
+demo,2026-08-20,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,327,12,18.5,2,3,1,1,0
+demo,2026-08-21,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,328,13,34.75,2,3,2,1,0
+demo,2026-08-21,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,328,13,18.75,2,3,2,1,0
+demo,2026-08-22,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,329,14,35.0,2,3,2,1,0
+demo,2026-08-22,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,329,14,19.0,2,3,2,1,0
+demo,2026-08-23,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,330,15,34.0,2,3,1,1,1
+demo,2026-08-23,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,330,15,18.0,2,3,1,1,1
+demo,2026-08-24,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,331,16,34.25,2,3,2,1,0
+demo,2026-08-24,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,331,16,18.25,2,3,2,1,0
+demo,2026-08-25,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,332,17,34.5,2,3,2,1,0
+demo,2026-08-25,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,332,17,18.5,2,3,2,1,0
+demo,2026-08-26,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,333,18,34.75,2,3,1,1,0
+demo,2026-08-26,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,333,18,18.75,2,3,1,1,0
+demo,2026-08-27,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,334,19,35.0,2,3,2,1,0
+demo,2026-08-27,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,334,19,19.0,2,3,2,1,0
+demo,2026-08-28,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,335,20,34.0,2,3,2,1,1
+demo,2026-08-28,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,335,20,18.0,2,3,2,1,1
+demo,2026-08-29,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,336,12,34.25,2,3,1,1,0
+demo,2026-08-29,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,336,12,18.25,2,3,1,1,0
+demo,2026-08-30,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,337,13,34.5,2,3,2,1,0
+demo,2026-08-30,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,337,13,18.5,2,3,2,1,0
+demo,2026-08-31,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,338,14,34.75,2,3,2,1,0
+demo,2026-08-31,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,338,14,18.75,2,3,2,1,0
+demo,2026-09-01,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,339,15,35.0,2,3,1,1,0
+demo,2026-09-01,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,339,15,19.0,2,3,1,1,0
+demo,2026-09-02,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,340,16,34.0,2,3,2,1,1
+demo,2026-09-02,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,340,16,18.0,2,3,2,1,1
+demo,2026-09-03,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,341,17,34.25,2,3,2,1,0
+demo,2026-09-03,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,341,17,18.25,2,3,2,1,0
+demo,2026-09-04,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,342,18,34.5,2,3,1,1,0
+demo,2026-09-04,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,342,18,18.5,2,3,1,1,0
+demo,2026-09-05,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,343,19,34.75,2,3,2,1,0
+demo,2026-09-05,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,343,19,18.75,2,3,2,1,0
+demo,2026-09-06,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,344,20,35.0,2,3,2,1,0
+demo,2026-09-06,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,344,20,19.0,2,3,2,1,0
+demo,2026-09-07,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,345,12,34.0,2,3,1,1,1
+demo,2026-09-07,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,345,12,18.0,2,3,1,1,1
+demo,2026-09-08,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,346,13,34.25,2,3,2,1,0
+demo,2026-09-08,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,346,13,18.25,2,3,2,1,0
+demo,2026-09-09,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,347,14,34.5,2,3,2,1,0
+demo,2026-09-09,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,347,14,18.5,2,3,2,1,0
+demo,2026-09-10,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,348,15,34.75,2,3,1,1,0
+demo,2026-09-10,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,348,15,18.75,2,3,1,1,0
+demo,2026-09-11,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,349,16,35.0,2,3,2,1,0
+demo,2026-09-11,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,349,16,19.0,2,3,2,1,0
+demo,2026-09-12,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,350,17,34.0,2,3,2,1,1
+demo,2026-09-12,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,350,17,18.0,2,3,2,1,1
+demo,2026-09-13,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,351,18,34.25,2,3,1,1,0
+demo,2026-09-13,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,351,18,18.25,2,3,1,1,0
+demo,2026-09-14,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,352,19,34.5,2,3,2,1,0
+demo,2026-09-14,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,352,19,18.5,2,3,2,1,0
+demo,2026-09-15,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,353,20,34.75,2,3,2,1,0
+demo,2026-09-15,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,353,20,18.75,2,3,2,1,0
+demo,2026-09-16,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,354,12,35.0,2,3,1,1,0
+demo,2026-09-16,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,354,12,19.0,2,3,1,1,0
+demo,2026-09-17,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,355,13,34.0,2,3,2,1,1
+demo,2026-09-17,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,355,13,18.0,2,3,2,1,1
+demo,2026-09-18,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,356,14,34.25,2,3,2,1,0
+demo,2026-09-18,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,356,14,18.25,2,3,2,1,0
+demo,2026-09-19,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,357,15,34.5,2,3,1,1,0
+demo,2026-09-19,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,357,15,18.5,2,3,1,1,0
+demo,2026-09-20,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,358,16,34.75,2,3,2,1,0
+demo,2026-09-20,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,358,16,18.75,2,3,2,1,0
+demo,2026-09-21,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,359,17,35.0,2,3,2,1,0
+demo,2026-09-21,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,359,17,19.0,2,3,2,1,0
+demo,2026-09-22,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,360,18,34.0,2,3,1,1,1
+demo,2026-09-22,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,360,18,18.0,2,3,1,1,1
+demo,2026-09-23,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,361,19,34.25,2,3,2,1,0
+demo,2026-09-23,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,361,19,18.25,2,3,2,1,0
+demo,2026-09-24,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,362,20,34.5,2,3,2,1,0
+demo,2026-09-24,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,362,20,18.5,2,3,2,1,0
+demo,2026-09-25,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,363,12,34.75,2,3,1,1,0
+demo,2026-09-25,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,363,12,18.75,2,3,1,1,0
+demo,2026-09-26,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,364,13,35.0,2,3,2,1,0
+demo,2026-09-26,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,364,13,19.0,2,3,2,1,0
+demo,2026-09-27,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,365,14,34.0,2,3,2,1,1
+demo,2026-09-27,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,365,14,18.0,2,3,2,1,1
+demo,2026-09-28,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,366,15,34.25,2,3,1,1,0
+demo,2026-09-28,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,366,15,18.25,2,3,1,1,0
+demo,2026-09-29,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,367,16,34.5,2,3,2,1,0
+demo,2026-09-29,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,367,16,18.5,2,3,2,1,0
+demo,2026-09-30,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,368,17,34.75,2,3,2,1,0
+demo,2026-09-30,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,368,17,18.75,2,3,2,1,0
+demo,2026-10-01,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,369,18,35.0,2,3,1,1,0
+demo,2026-10-01,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,369,18,19.0,2,3,1,1,0
+demo,2026-10-02,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,370,19,34.0,2,3,2,1,1
+demo,2026-10-02,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,370,19,18.0,2,3,2,1,1
+demo,2026-10-03,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,371,20,34.25,2,3,2,1,0
+demo,2026-10-03,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,371,20,18.25,2,3,2,1,0
+demo,2026-10-04,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,372,12,34.5,2,3,1,1,0
+demo,2026-10-04,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,372,12,18.5,2,3,1,1,0
+demo,2026-10-05,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,373,13,34.75,2,3,2,1,0
+demo,2026-10-05,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,373,13,18.75,2,3,2,1,0
+demo,2026-10-06,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,374,14,35.0,2,3,2,1,0
+demo,2026-10-06,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,374,14,19.0,2,3,2,1,0
+demo,2026-10-07,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,375,15,34.0,2,3,1,1,1
+demo,2026-10-07,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,375,15,18.0,2,3,1,1,1
+demo,2026-10-08,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,376,16,34.25,0,3,2,1,0
+demo,2026-10-08,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,376,16,18.25,2,3,2,1,0
+demo,2026-10-09,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,377,17,34.5,0,3,2,1,0
+demo,2026-10-09,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,377,17,18.5,2,3,2,1,0
+demo,2026-10-10,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,378,18,34.75,0,3,1,1,0
+demo,2026-10-10,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,378,18,18.75,2,3,1,1,0
+demo,2026-10-11,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,379,19,35.0,0,3,2,1,0
+demo,2026-10-11,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,379,19,19.0,2,3,2,1,0
+demo,2026-10-12,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,380,20,34.0,0,3,2,1,1
+demo,2026-10-12,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,380,20,18.0,2,3,2,1,1
+demo,2026-10-13,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,381,12,34.25,0,3,1,1,0
+demo,2026-10-13,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,381,12,18.25,2,3,1,1,0
+demo,2026-10-14,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,382,13,34.5,0,3,2,1,0
+demo,2026-10-14,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,382,13,18.5,2,3,2,1,0
+demo,2026-10-15,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,383,14,34.75,0,3,2,1,0
+demo,2026-10-15,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,383,14,18.75,2,3,2,1,0
+demo,2026-10-16,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,384,15,35.0,0,3,1,1,0
+demo,2026-10-16,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,384,15,19.0,2,3,1,1,0
+demo,2026-10-17,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,385,16,34.0,0,3,2,1,1
+demo,2026-10-17,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,385,16,18.0,2,3,2,1,1
+demo,2026-10-18,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,386,17,34.25,0,3,2,1,0
+demo,2026-10-18,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,386,17,18.25,2,3,2,1,0
+demo,2026-10-19,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,387,18,34.5,0,3,1,1,0
+demo,2026-10-19,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,387,18,18.5,2,3,1,1,0
+demo,2026-10-20,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,388,19,34.75,0,3,2,1,0
+demo,2026-10-20,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,388,19,18.75,2,3,2,1,0
+demo,2026-10-21,demo-trabalhista,Horizonte Laboral DEMO,trabalhista,Cruzeiro-SP,verbas rescisórias,389,20,35.0,0,3,2,1,0
+demo,2026-10-21,demo-previdenciario,Aurora Previdência DEMO,previdenciario,Cruzeiro-SP,aposentadoria por idade,389,20,19.0,2,3,2,1,0

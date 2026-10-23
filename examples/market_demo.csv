@@ -1,0 +1,4 @@
+scope,date,source,source_url,accessed,topic,area,locality,value,unit
+demo,2026-08-22,Fonte sintética DEMO,https://example.invalid/demo,2026-10-21,Aposentadoria por idade,previdenciario,Cruzeiro-SP,100,índice sintético sem valor empírico
+demo,2026-09-21,Fonte sintética DEMO,https://example.invalid/demo,2026-10-21,Aposentadoria por idade,previdenciario,Cruzeiro-SP,105,índice sintético sem valor empírico
+demo,2026-10-21,Fonte sintética DEMO,https://example.invalid/demo,2026-10-21,Aposentadoria por idade,previdenciario,Cruzeiro-SP,110,índice sintético sem valor empírico
