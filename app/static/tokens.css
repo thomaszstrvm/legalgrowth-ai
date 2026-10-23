@@ -62,6 +62,9 @@
   --focus-width: 3px;
   --control-height: 44px;
   --reading-width: 65ch;
+  --type-page: 44px;
+  --type-section: 24px;
+  --type-value: 36px;
 }
 :root[data-theme=dark] {
   color-scheme: dark;

@@ -1,6 +1,6 @@
 ---
 name: LegalGrowth
-description: Arquivo espacial de dossiês para inteligência de marketing jurídico.
+description: Interface editorial operacional para inteligência de marketing jurídico.
 colors:
   ink: "#292a29"
   muted: "#60625e"
@@ -135,9 +135,9 @@ components:
 
 # Design System: LegalGrowth
 
-Direção atual, 23/10/2026, v56: **arquivo espacial com capas gráficas autorais**. Antes dos dados,
-o Resumo apresenta uma coleção de dossiês originais em perspectiva. O link
-**Ver resultados** leva diretamente aos indicadores. Tipografia editorial, lombadas,
+Direção atual, 23/10/2026, v57: **editorial operacional**. O Resumo apresenta
+contexto, indicadores, atenção e análise antes da coleção de dossiês. O link
+**Voltar aos resultados** retorna à análise acima. Tipografia editorial, lombadas,
 composição em arco transferem princípios observados ao vivo no
 [Arc Marumo](https://www.arcmarumo.com/). Cada capa abre uma área já existente.
 Não foram copiados imagens, logos ou código da referência. As capas usam composições
@@ -149,7 +149,7 @@ faixa dobrada sobre prancha de tinta em Relatórios e lente óptica em IA.
 O palco tem contorno único, com raio de 4px. As publicações usam vinco, lombada
 e aresta contínua; não simular páginas com linhas de um pixel. A ação Abrir
 é editorial e maior; não repetir a instrução abaixo dos controles.
-A implementação atual está em docs/DESIGN-ENGINEERING.md e o estudo de interação
+A implementação atual está em docs/VALIDATOR-REVIEW.md; a v56 está em docs/DESIGN-ENGINEERING.md e o estudo de interação
 e código público em docs/ARC-INTERACTION-STUDY.md. OPENING-V4.md registra a v53. `--cutout` permite inverter a impressão sem
 alterar a paleta. A leitura das skills do tweet orienta o acabamento, sem importar
 seu preset completo: docs/DESIGN-TWEET-REVIEW.md.
@@ -462,3 +462,19 @@ parcial usando a paleta de avisos existente. Cartier foi comparada ao vivo como
 referência de escala, cor e continuidade; nenhuma camada adicional de efeitos.
 O ciclo por nota foi encerrado por decisão do proprietário. Próximas melhorias
 devem responder a problemas de uso observados, com escopo e verificação definidos.
+
+
+### v57 — revisão externa e contexto operacional
+
+A ordem atual substitui a prioridade da galeria descrita nos marcos históricos.
+Datas aplicadas viajam na URL nas quatro páginas analíticas; finanças usa mês e
+relatórios usa semana completa. Rascunho não altera contexto de resposta pendente.
+Indicadores e atenção entram no primeiro viewport desktop. A comparação de seis
+indicadores ocupa largura completa; no celular, pares preservam rótulo/valor.
+Relatórios usam lista semântica com período e ações separados, PDF principal.
+
+Cabeçalho e indicadores do Resumo e downloads têm regras consolidadas; seletores
+supersedidos foram retirados de style.css/arc.css antes da implementação. Este é
+um refactor delimitado, não eliminação de toda sobreposição histórica. Cores e
+arte continuam compartilhadas pelos temas. Exemplos estáticos nunca são fallback
+para falha real. Ver docs/VALIDATOR-REVIEW.md e docs/THE-CRITIC-VALIDATOR-REVIEW.md.

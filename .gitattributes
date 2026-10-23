@@ -1,0 +1,2 @@
+# Preserve PDF bytes; never normalize line endings or diff compressed streams.
+*.pdf binary

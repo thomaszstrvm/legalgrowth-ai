@@ -2,6 +2,16 @@
 
 Estas regras complementam as instruções globais de engenharia e mentoria do usuário.
 
+## Relatório de entregas substanciais
+
+Por pedido do proprietário, toda tarefa deste porte deve incluir um PDF em
+`output/pdf/` explicando o que foi analisado, o que mudou, decisões e alternativas,
+testes efetivamente executados, parecer de revisão quando aplicável e limitações
+ou itens pendentes. Use linguagem acessível e evidências sintéticas, sem credenciais
+ou dados reais de clientes. Renderize e inspecione todas as páginas antes de entregar.
+Mantenha também o registro técnico em `docs/`; o PDF não substitui README, ADRs ou
+testes. Alterações triviais não exigem um relatório extenso.
+
 ## THE CRITIC
 
 O agente permanente de revisão é `visual_critic`, definido em

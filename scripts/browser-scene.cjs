@@ -1,29 +1,40 @@
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 const {chromium} = require('playwright');
+const origin = process.env.TEST_ORIGIN || 'http://127.0.0.1:8000';
+const overviewURL = origin + '/painel/overview?scope=demo&start=2026-09-01&end=2026-09-30';
+assert.ok(['127.0.0.1','localhost','[::1]'].includes(new URL(origin).hostname));
+const metric={rows:1,days:1,cost:120,impressions:1000,clicks:50,qualified:6,hires:1,contacts:8,appointments:2,conversions:6,ctr:5,cpc:2.4,cpq:20,cph:120};
+const budget={month:'2026-09',planned:1000,spent:120,balance:880,consumed_percent:12,alerts:[]};
+const fixture={summary:metric,campaigns:{'Campanha sintética':metric},localities:{},keywords:{},evolution:[{date:'2026-09-01',cost:120,clicks:50}],budget,recommendations:[],ai:{connected:false,insights_ready:false},ai_priorities:[]};
+const sourceFiles=['app/static/scene.js','app/static/app.js','app/static/arc.css','app/static/style.css','app/static/tokens.css','app/templates/dashboard.html','app/templates/_workspace_scene.html','app/templates/_dossier_art.html','scripts/browser-scene.cjs'];
+const hashes=()=>Object.fromEntries(sourceFiles.map(file=>[file,crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')]));
 (async () => {
   const env = Object.fromEntries(fs.readFileSync('.env', 'utf8').split(/\r?\n/).filter(l => l.includes('=')).map(l => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1)]));
   const browser = await chromium.launch({channel: 'msedge', headless: true});
-  const output = process.env.SCENE_OUTPUT || 'output/design-review/arc-scene';
+  const output = process.env.SCENE_OUTPUT || 'output/validator-review/scene';
   fs.mkdirSync(output, {recursive: true});
-  fs.mkdirSync('output/design-review/portfolio-refinement', {recursive: true});
+  const before=hashes();
   let blockedMutations = 0, failDashboard = false;
-  const errors = [], checks = [], measurements = [];
+  const errors = [], checks = [], measurements = [], unexpected = [];
   try {
     const context = await browser.newContext({httpCredentials: {username:'admin', password:env.ADMIN_PASSWORD}, reducedMotion:'reduce'});
     await context.addInitScript(() => {localStorage.setItem('lg-scope', 'demo'); localStorage.setItem('lg-theme', 'light');});
     await context.route('**/*', route => {
       const req = route.request();
-      if (new URL(req.url()).origin !== 'http://127.0.0.1:8000') return route.abort();
+      if (new URL(req.url()).origin !== origin) {unexpected.push('External request blocked');return route.abort();}
       if (failDashboard && new URL(req.url()).pathname === '/api/dashboard') return route.fulfill({status:503,json:{detail:'Falha sintética de teste'}});
       if (req.method() !== 'GET') {blockedMutations++; return route.abort();}
+      if(new URL(req.url()).pathname==='/api/dashboard')return route.fulfill({json:fixture});
+      if(new URL(req.url()).pathname.startsWith('/api/')){unexpected.push('Unknown API blocked');return route.abort();}
       return route.continue();
     });
     const page = await context.newPage();
     page.on('pageerror', e => errors.push(e.message));
     for (const width of [1920,1366,768,390,320]) {
       await page.setViewportSize({width,height:width > 1000 ? 768 : 844});
-      await page.goto('http://127.0.0.1:8000/painel/overview');
+      await page.goto(overviewURL);
       await page.waitForLoadState('networkidle');
       await page.locator('.scene-ready').waitFor();
       for (const theme of ['light','dark']) {
@@ -34,22 +45,24 @@ const {chromium} = require('playwright');
           const scene = document.querySelector('.workspace-scene').getBoundingClientRect();
           return {sceneHeight:scene.height, sceneTop:scene.top, sceneBottom:scene.bottom, resultTop:document.querySelector('.page-header').getBoundingClientRect().top, viewport:innerHeight,
             coverBottom:document.querySelector('.dossier[data-active=true]').getBoundingClientRect().bottom,
-            captionBottom:document.querySelector('.scene-caption a').getBoundingClientRect().bottom};
+            captionBottom:document.querySelector('.scene-caption a').getBoundingClientRect().bottom,
+            contentBottom:document.querySelector('#content').getBoundingClientRect().bottom,
+            metricsBottom:document.querySelector('#overview-summary').getBoundingClientRect().bottom};
         });
-        assert.ok(hierarchy.sceneTop < 180 && hierarchy.sceneBottom < hierarchy.resultTop, 'Editorial scene leads the first screen before results');
-        assert.ok(hierarchy.coverBottom < hierarchy.viewport && hierarchy.captionBottom < hierarchy.viewport, 'Selected cover and opening action fit in first viewport');
-        assert.ok(hierarchy.resultTop-hierarchy.sceneBottom>=28,'Scene and results have a distinct section interval');
+        assert.ok(hierarchy.resultTop < hierarchy.sceneTop && hierarchy.contentBottom <= hierarchy.sceneTop+1, 'Results and analysis precede the gallery');
+        assert.ok(hierarchy.metricsBottom < hierarchy.sceneTop, 'Metrics are reached before the gallery at every width');
+        assert.ok(hierarchy.coverBottom < hierarchy.sceneBottom && hierarchy.captionBottom < hierarchy.sceneBottom, 'Selected cover and action fit inside the gallery');
         if(width <= 600) assert.ok(hierarchy.sceneHeight <= 560, `Opening scene at ${width}: ${hierarchy.sceneHeight}`);
         if(width <= 600){
           const sizes=await page.locator('.scene-control').evaluateAll(buttons=>buttons.map(e=>e.getBoundingClientRect().height));
           assert.ok(Math.abs(sizes[0]-sizes[1])<1,'Paired controls keep equal height when a label wraps');
         }
-        assert.ok(await page.locator('.workspace-scene + .page-header').count(), 'The scene precedes the unchanged analysis');
+        assert.ok(await page.locator('#content + .workspace-scene').count(), 'Gallery follows analysis in DOM reading order');
         measurements.push({width,theme,...hierarchy});
         await page.screenshot({path:`${output}/overview-${width}-${theme}.png`,fullPage:true});
         await page.screenshot({path:`${output}/opening-${width}-${theme}.png`});
         if (width === 1366 || width === 390 || width === 320) {
-          await page.locator('.workspace-scene').screenshot({path:`output/design-review/portfolio-refinement/scene-detail-${theme}-${width}.png`});
+          await page.locator('.workspace-scene').screenshot({path:`${output}/scene-detail-${theme}-${width}.png`});
           const sceneHeight = await page.locator('.workspace-scene').evaluate(e=>e.getBoundingClientRect().height);
           for(const cover of await page.locator('.dossier').all()){
             await cover.focus();
@@ -102,7 +115,9 @@ const {chromium} = require('playwright');
     assert.equal(await page.locator('[data-scene-next]').getAttribute('aria-label'),'Próximo dossiê: Insights de IA');
     assert.equal(await page.locator('[data-scene-prev-title]').textContent(),'Relatórios');
     await page.locator('[data-scene-next]').click(); assert.equal(await active(),'Insights de IA');
-    assert.equal(await page.locator('[data-scene-open]').getAttribute('href'),'http://127.0.0.1:8000/painel/insights');
+    const destination=new URL(await page.locator('[data-scene-open]').getAttribute('href'),origin);
+    assert.equal(destination.pathname,'/painel/insights');assert.equal(destination.searchParams.get('scope'),'demo');
+    assert.equal(destination.searchParams.get('start'),'2026-09-01');assert.equal(destination.searchParams.get('end'),'2026-09-30');
     assert.equal(await page.locator('[data-scene-next-title]').textContent(),'Oportunidades');
     await page.locator('[data-scene-prev]').click(); assert.equal(await active(),'Campanhas');
     await page.locator('.dossier[data-title="Relatórios"]').focus(); assert.equal(await active(),'Relatórios');
@@ -157,37 +172,41 @@ const {chromium} = require('playwright');
     await page.waitForFunction(() => document.getElementById('content').getAttribute('aria-busy') === 'false');
     assert.equal(await page.locator('.workspace-scene').count(),1,'Refresh preserves exactly one scene');
     assert.equal(await active(),'Orçamento','Refresh preserves the selected destination');
-    assert.equal(await page.locator('.workspace-scene + .page-header').count(),1);
+    assert.equal(await page.locator('#content + .workspace-scene').count(),1);
     failDashboard = true;
     await page.locator('.period-picker summary').click();
     await page.locator('#refresh').click();
     await page.locator('#retry-load').waitFor();
-    assert.equal(await page.locator('.workspace-scene + .page-header').count(),1,'Error keeps opening links outside failed content');
+    assert.equal(await page.locator('#content + .workspace-scene').count(),1,'Error keeps gallery links outside failed content');
     failDashboard = false;
     await page.locator('#retry-load').click();
-    await page.locator('.workspace-scene + .page-header').waitFor();
+    await page.locator('#content + .workspace-scene').waitFor();
     assert.equal(await active(),'Orçamento','Retry retains selection and restores visual position');
     assert.equal(await page.locator('[data-scene-next]').isEnabled(),true);
     checks.push('Refresh/error/retry retain exactly one scene, selected destination and native controls');
     await page.locator('.dossier[data-title="Campanhas"]').focus();
-    await page.locator('[data-scene-open]').click(); await page.waitForURL('**/painel/campaigns');
+    await page.locator('[data-scene-open]').click(); await page.waitForURL(url=>url.pathname==='/painel/campaigns');
+    assert.equal(new URL(page.url()).searchParams.get('scope'),'demo');assert.equal(new URL(page.url()).searchParams.get('start'),'2026-09-01');
     assert.equal(await page.locator('.workspace-scene').count(),0);
-    await page.goto('http://127.0.0.1:8000/painel/overview'); await page.waitForLoadState('networkidle');
+    await page.goto(overviewURL); await page.waitForLoadState('networkidle');
     await page.locator('.dossier[data-title="Campanhas"]').focus();
-    await page.keyboard.press('Enter'); await page.waitForURL('**/painel/campaigns');
+    await page.keyboard.press('Enter'); await page.waitForURL(url=>url.pathname==='/painel/campaigns');
+    assert.equal(new URL(page.url()).searchParams.get('start'),'2026-09-01');assert.equal(new URL(page.url()).searchParams.get('end'),'2026-09-30');
     assert.equal(await page.locator('.workspace-scene').count(),0);
-    checks.push('Scene leads first screen; selected cover and open action visible without scrolling; results anchor works; adjacent labels; native caption and Enter navigation; previous/next; focus centering; local arrows; Home/End; wrap; reduced motion; instant keyboard; 280ms pointer');
+    checks.push('Results precede gallery; cover/action fit inside scene; upward results anchor; native caption and Enter navigation retain scope/period; previous/next; focus centering; local arrows; Home/End; wrap; reduced motion; instant keyboard; 280ms pointer');
     await context.close();
     // With JS disabled the gallery is a simple, scrollable collection of native links.
     const plain = await browser.newContext({javaScriptEnabled:false,httpCredentials:{username:'admin',password:env.ADMIN_PASSWORD},viewport:{width:390,height:844}});
-    await plain.route('**/*',route => new URL(route.request().url()).origin === 'http://127.0.0.1:8000' ? route.continue() : route.abort());
-    const nojs = await plain.newPage(); await nojs.goto('http://127.0.0.1:8000/painel/overview');
+    await plain.route('**/*',route => new URL(route.request().url()).origin === origin && route.request().method()==='GET' && !new URL(route.request().url()).pathname.startsWith('/api/') ? route.continue() : route.abort());
+    const nojs = await plain.newPage(); await nojs.goto(overviewURL);
     assert.equal(await nojs.locator('.dossier').count(),5);
     assert.equal(await nojs.locator('.scene-control:visible').count(),0);
     await nojs.locator('.dossier[href="/painel/reports"]').click(); await nojs.waitForURL('**/painel/reports');
     checks.push('Without JavaScript: all five native links remain usable; controls hidden');
-    assert.deepEqual(errors,[]); assert.equal(blockedMutations,0);
-    fs.writeFileSync(`${output}/results.json`,JSON.stringify({checks,measurements,palettes,errors,blockedMutations},null,2));
+    assert.deepEqual(errors,[]); assert.equal(blockedMutations,0);assert.deepEqual(unexpected,[]);
+    const after=hashes(),changedDuringRun=sourceFiles.filter(file=>before[file]!==after[file]);
+    fs.writeFileSync(`${output}/manifest.json`,JSON.stringify({before,after,changedDuringRun},null,2));
+    fs.writeFileSync(`${output}/results.json`,JSON.stringify({checks,measurements,palettes,errors,blockedMutations,unexpected,realApiRequests:0,changedDuringRun},null,2));
     console.log(JSON.stringify({checks,errors,blockedMutations},null,2));
   } finally { await browser.close(); }
 })();

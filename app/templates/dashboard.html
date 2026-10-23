@@ -7,11 +7,13 @@
   <link rel="preload" href="/static/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/static/fonts/newsreader.ttf" as="font" type="font/ttf" crossorigin>
   <script src="/static/theme.js?v=17"></script>
-  <link rel="stylesheet" href="/static/tokens.css?v=1">
-  <link rel="stylesheet" href="/static/style.css?v=19">
-  <link rel="stylesheet" href="/static/arc.css?v=56">
+  <link rel="stylesheet" href="/static/tokens.css?v=2">
+  <link rel="stylesheet" href="/static/style.css?v=20">
+  <link rel="stylesheet" href="/static/arc.css?v=57">
   <script defer src="/static/scene.js?v=19"></script>
-  <script defer src="/static/app.js?v=25"></script>
+  <script defer src="/static/period-context.js?v=1"></script>
+  <script defer src="/static/demo-examples.js?v=1"></script>
+  <script defer src="/static/app.js?v=26"></script>
 </head>
 <body data-page="{{ page }}" data-user="{{ user }}">
 <a class="skip" href="#main">Pular para conteúdo</a>
@@ -34,21 +36,22 @@
   <div class="sidebar-foot"><a href="/painel/settings" {% if page == 'settings' %}aria-current="page"{% endif %}>Configurações</a><button class="quiet" id="theme-toggle" aria-pressed="false">Modo escuro</button></div>
 </aside>
 <main id="main" tabindex="-1">
-  {% if page == 'overview' %}{% include '_workspace_scene.html' %}{% endif %}
   {% from '_chapter_art.html' import chapter_art %}
   <header class="page-header" id="results" tabindex="-1"><div class="page-heading"><div class="page-heading-copy"><h1 id="title">Resumo</h1><p id="page-description" class="page-description"></p></div><div class="chapter-emblem" aria-hidden="true">{% if page == 'overview' %}{{ chapter_art(page, 'chapter-art', compact=true) }}{% else %}{{ chapter_art(page, 'chapter-art chapter-art-full') }}{{ chapter_art(page, 'chapter-art chapter-art-small', compact=true) }}{% endif %}</div></div>
-  <section id="overview-summary" aria-label="Resultados do período" hidden></section>
   <div class="page-context">
   <section id="period-bar" class="period-bar" aria-label="Período">
     <span id="period-label"></span>
-    <details class="period-picker"><summary>Alterar período</summary><div class="filters"><label>De<input type="date" id="start" name="start"></label><label>Até<input type="date" id="end" name="end"></label><label>Área<select id="area" name="area"><option value="">Todas</option><option value="trabalhista">Trabalhista</option><option value="previdenciario">Previdenciário</option></select></label><button id="refresh" class="secondary">Aplicar</button></div></details>
+    <details class="period-picker"><summary>Alterar período</summary><div class="filters"><label>De<input type="date" id="start" name="start" required></label><label>Até<input type="date" id="end" name="end" required></label><label>Área<select id="area" name="area"><option value="">Todas</option><option value="trabalhista">Trabalhista</option><option value="previdenciario">Previdenciário</option></select></label><button id="refresh" class="secondary">Aplicar</button><p id="period-error" class="field-error" role="alert" hidden></p></div></details>
   </section>
+  <div id="finance-period" hidden><label>Mês do orçamento<input type="month" id="finance-month" required></label><p id="finance-period-help" class="help"></p><p id="finance-period-error" class="field-error" role="alert" hidden></p></div>
   <label class="scope-label"><span>Dados exibidos</span><select id="scope" name="scope"><option value="real">Meus dados</option><option value="demo">Exemplo fictício</option></select></label>
   <p id="banner" class="demo-notice" hidden>Exemplo fictício. Não são dados do escritório.</p>
   </div>
+  <section id="overview-summary" aria-label="Resultados do período" hidden></section>
   </header>
   <div id="message" role="status" aria-live="polite" tabindex="-1"></div>
   <div id="content" aria-busy="true">Carregando…</div>
+  {% if page == 'overview' %}{% include '_workspace_scene.html' %}{% endif %}
   <footer>Nenhuma alteração é feita nos anúncios por este painel.</footer>
 </main></body></html>
 

@@ -1,5 +1,23 @@
 # Histórico de versões
 
+## 0.1.4 — 2026-10-23
+
+- Revisão externa v57: contexto temporal explícito, período persistente entre
+  páginas analíticas e separação entre datas em edição e consulta aplicada.
+- Controle mensal de orçamento, alcance das despesas e custos compartilhados de
+  IA esclarecidos; fórmulas, APIs e banco preservados.
+- Indicadores e atenção antes da galeria, eficiência na comparação principal,
+  evidências das recomendações e relatórios com semana completa/PDF prioritário.
+- Exemplos estáticos de Notícias, Oportunidades e Insights sem chamada externa;
+  contratos identificam conferência de formato e mantêm ingestão real bloqueada.
+- Contrato opcional de OCR e avaliação de viabilidade/licenças, desativado e sem
+  modelos ou dependências pesadas. ADRs 010/011 e material de estudo atualizados.
+- PDF de análise e alterações passa a integrar entregas substanciais, conforme AGENTS.md.
+- 179 testes Python passaram com seis avisos existentes; 175 grupos de navegador
+  e 14 de galeria aprovados, com APIs simuladas. Matriz e
+  correções visuais documentadas em `docs/VALIDATOR-REVIEW.md`; nenhum dado real
+  de cliente, chamada paga ou benchmark utilizado.
+
 ## 0.1.3 — 2026-10-23
 
 - Design engineering v56: fundações compartilhadas em `tokens.css`, gravuras

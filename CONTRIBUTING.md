@@ -33,13 +33,24 @@ localmente para revisão, use `npm install --no-save playwright`; depois execute
 `node scripts/browser-scene.cjs`. Não publique `.env` nem as saídas em `output/`.
 Os scripts não substituem testes em dispositivos físicos e leitores de tela.
 
-Para os comportamentos desta versão, use `node scripts/browser-table-cues.cjs`
-(tabelas e avisos), `node scripts/browser-action-feedback.cjs` (confirmação e
-recuperação) e `node scripts/browser-scene-motion.cjs` (movimento e navegação).
-Esses scripts bloqueiam chamadas externas e gravações reais. Os relatórios JSON
-e capturas ficam em `output/design-review/`. O inventário de tokens é gerado por
+Para os comportamentos desta versão, execute:
+
+- `node scripts/test-period-context.cjs` e `node scripts/test-demo-examples.cjs`:
+  regras puras, sem navegador ou rede.
+- `node scripts/browser-validator-review.cjs`: 11 páginas, cinco larguras,
+  dois temas e estados sintéticos. APIs integralmente simuladas.
+- `node scripts/browser-period-race.cjs`: consulta lenta, rascunho, URL, histórico
+  e ações com período aplicado, sem chamadas reais.
+- `node scripts/browser-action-feedback.cjs`: gravação confirmada e falha da
+  leitura seguinte, com respostas simuladas.
+- `node scripts/browser-scene.cjs`: navegação, foco e capas após os resultados.
+
+Os scripts bloqueiam chamadas externas e gravações reais. Veja os limites e
+as pastas de evidência em [VALIDATOR-REVIEW.md](docs/VALIDATOR-REVIEW.md).
+Scripts de ciclos antigos registram expectativas históricas; não substituem a
+matriz atual. O inventário de tokens pode ser gerado por
 `python scripts/audit-design-tokens.py --ref HEAD`; métricas estáticas não
-substituem inspeção visual. Veja [as validações e seus limites](docs/DESIGN-ENGINEERING.md).
+substituem inspeção visual.
 
 Skills instaladas localmente e o agente em `.codex/agents/visual_critic.toml` são
 opcionais; não são necessários para executar o produto.

@@ -10,30 +10,113 @@ const titles = {strategy:'Oportunidades',contracts:'Contratos',news:'Notícias r
 const areaName = {trabalhista:'Trabalhista',previdenciario:'Previdenciário'};
 $('title').textContent=titles[page];
 document.title=titles[page]+' | LegalGrowth';
-const descriptions={overview:'Acompanhe o investimento e os resultados do escritório.',campaigns:'Compare os resultados e confira o que merece atenção.',finance:'Confira o saldo disponível e os gastos do mês.',reports:'Reúna os resultados em um relatório para ler e compartilhar.',settings:'Gerencie as conexões de IA e as preferências do escritório.',agents:'Confira as sugestões antes de decidir o que mudar.',market:'Indicadores públicos para orientar conteúdos educativos.',insights:'Pontos fortes, pontos fracos e o que vale revisar nas suas campanhas.',news:'Notícias sobre emprego, trabalho, aposentadoria e benefícios nas cidades escolhidas pelo escritório.',strategy:'O que pode ajudar a comunidade e o que precisa ser avaliado pelo escritório.',contracts:'Confira os dados encontrados no contrato antes de cadastrar um cliente.'};
+const descriptions={overview:'Acompanhe o investimento e os resultados do escritório.',campaigns:'Compare os resultados e confira o que merece atenção.',finance:'Confira o saldo disponível e os gastos do mês.',reports:'Reúna os resultados em um relatório para ler e compartilhar.',settings:'Gerencie as conexões de IA e as preferências do escritório.',agents:'Confira as sugestões antes de decidir o que mudar.',market:'Indicadores públicos para orientar conteúdos educativos.',insights:'Pontos fortes, pontos fracos e o que vale revisar nas suas campanhas.',news:'Notícias sobre emprego, trabalho, aposentadoria e benefícios nas cidades escolhidas pelo escritório.',strategy:'O que pode ajudar a comunidade e o que precisa ser avaliado pelo escritório.',contracts:'Conheça a conferência de um contrato fictício. O envio de documentos reais e o cadastro de clientes continuam bloqueados.'};
 $('page-description').textContent=descriptions[page]||'';
 $('page-description').hidden=!descriptions[page];
 const today = new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Sao_Paulo'}).format(new Date());
-$('end').value=today; $('start').value=today.slice(0,8)+'01';
+const periodRules=window.LegalGrowthPeriod;
+const rangePage=periodRules.analytical.has(page);
+const initialURL=new URL(location.href);
 try{$('scope').value=localStorage.getItem('lg-scope')==='demo'?'demo':'real';}catch{$('scope').value='real';}
-$('period-bar').hidden=['settings','reports','market','news','strategy','contracts'].includes(page);
+if(['real','demo'].includes(initialURL.searchParams.get('scope'))){
+  $('scope').value=initialURL.searchParams.get('scope');
+  try{localStorage.setItem('lg-scope',$('scope').value);}catch{}
+}
+function rememberedPeriod(selectedScope){
+  try{
+    const saved=JSON.parse(sessionStorage.getItem('lg-period-'+selectedScope));
+    if(saved&&!periodRules.validate(saved.start,saved.end))return saved;
+  }catch{}
+  return {start:today.slice(0,8)+'01',end:today};
+}
+const initialPeriod=rangePage&&(initialURL.searchParams.has('start')||initialURL.searchParams.has('end'))?
+  {start:initialURL.searchParams.get('start')||'',end:initialURL.searchParams.get('end')||''}:rememberedPeriod($('scope').value);
+$('start').value=initialPeriod.start;$('end').value=initialPeriod.end;
+$('finance-month').value=initialURL.searchParams.has('month')?initialURL.searchParams.get('month'):initialPeriod.end.slice(0,7);
+$('finance-period-help').textContent='Os totais são mensais. Ao vir de uma análise, usamos o mês da data final; o intervalo analítico continua preservado.';
+$('period-bar').hidden=!rangePage;
+$('finance-period').hidden=page!=='finance';
 $('area').parentElement.hidden=page!=='campaigns';
+if(page==='campaigns'&&['trabalhista','previdenciario'].includes(initialURL.searchParams.get('area')))$('area').value=initialURL.searchParams.get('area');
 $('scope').parentElement.hidden=page==='contracts';
 let renderVersion=0, currentData=null, working=false, selectedAnalyst='openai', selectedAIProvider='openai';
+let appliedContext=null;
 const scope=()=>$('scope').value;
-const params=()=>new URLSearchParams({scope:scope(),start:$('start').value,end:$('end').value,...(page==='campaigns'&&$('area').value?{area:$('area').value}:{})});
+const params=()=>new URLSearchParams({scope:appliedContext.scope,start:appliedContext.start,end:appliedContext.end,...(page==='campaigns'&&appliedContext.area?{area:appliedContext.area}:{})});
 const message=(text,error=false)=>{$('message').textContent=text;$('message').className=error?'error':'';};
+function clearPeriodErrors(){
+  for(const id of ['start','end','finance-month']){$(id).removeAttribute('aria-invalid');$(id).removeAttribute('aria-describedby');}
+  $('period-error').hidden=true;$('finance-period-error').hidden=true;
+}
+function validateContext(focus=false){
+  clearPeriodErrors();
+  const error=rangePage?periodRules.validate($('start').value,$('end').value):
+    page==='finance'&&!periodRules.validMonth($('finance-month').value)?{field:'finance-month',message:'Escolha um mês válido para consultar o orçamento.'}:null;
+  if(!error)return true;
+  ++renderVersion;tableOverflowObserver?.disconnect();currentData=null;
+  updateOverviewSummary({rows:0});
+  $('content').innerHTML='<p class="empty">Corrija o período acima para consultar os resultados.</p>';
+  $('content').setAttribute('aria-busy','false');
+  const feedback=$(error.field==='finance-month'?'finance-period-error':'period-error');
+  feedback.textContent=error.message;feedback.hidden=false;
+  $(error.field).setAttribute('aria-invalid','true');$(error.field).setAttribute('aria-describedby',feedback.id);
+  if(rangePage)document.querySelector('.period-picker').open=true;
+  if(focus)$(error.field).focus();
+  return false;
+}
+function contextLink(anchor){
+  if(!appliedContext)return;
+  const context=appliedContext;
+  const url=new URL(anchor.href,location.origin);
+  if(url.origin!==location.origin||!/^\/painel\/[a-z]+$/.test(url.pathname))return;
+  const destination=url.pathname.split('/').pop();
+  url.searchParams.set('scope',context.scope);
+  if(periodRules.analytical.has(destination)&&!periodRules.validate(context.start,context.end)){
+    url.searchParams.set('start',context.start);url.searchParams.set('end',context.end);
+  }else{url.searchParams.delete('start');url.searchParams.delete('end');}
+  if(destination==='finance')url.searchParams.set('month',page==='finance'?context.month:context.end.slice(0,7));
+  else url.searchParams.delete('month');
+  if(destination==='campaigns'&&page==='campaigns'&&context.area)url.searchParams.set('area',context.area);
+  else url.searchParams.delete('area');
+  anchor.href=url.pathname+url.search+url.hash;
+}
+function syncContext(push=false){
+  if(!appliedContext)return;
+  const context=appliedContext;
+  if(rangePage){
+    const range={start:context.start,end:context.end};
+    try{sessionStorage.setItem('lg-period-'+context.scope,JSON.stringify(range));}catch{}
+  }
+  const url=new URL(location.href);url.searchParams.set('scope',context.scope);
+  if(rangePage){url.searchParams.set('start',context.start);url.searchParams.set('end',context.end);}
+  else{url.searchParams.delete('start');url.searchParams.delete('end');}
+  if(page==='finance')url.searchParams.set('month',context.month);else url.searchParams.delete('month');
+  if(page==='campaigns'&&context.area)url.searchParams.set('area',context.area);else url.searchParams.delete('area');
+  if(url.href!==location.href)history[push?'pushState':'replaceState']({},'',url);
+  document.querySelectorAll('a[href]').forEach(contextLink);
+}
+function applyContext(push=false,focus=false){
+  if(!validateContext(focus))return false;
+  // Inputs are drafts. Only explicit application/history changes this snapshot.
+  appliedContext=Object.freeze({scope:scope(),start:$('start').value,end:$('end').value,
+    month:$('finance-month').value,area:page==='campaigns'?$('area').value:''});
+  syncContext(push);
+  return true;
+}
+// Refresh context on activation too: the gallery can change its destination after render.
+document.addEventListener('click',event=>{const anchor=event.target.closest('a[href]');if(anchor)contextLink(anchor);});
 async function api(url,options={}){
   let response;
   try{response=await fetch(url,{...options,headers:{'X-Requested-With':'LegalGrowth',...(options.body instanceof FormData?{}:options.body?{'Content-Type':'application/json'}:{}),...options.headers}});}
-  catch{throw Error('Não foi possível acessar o painel. Confira se o servidor está ligado e tente novamente.');}
+  catch{const error=Error('Não foi possível acessar o painel. Confira se o servidor está ligado e tente novamente.');error.retryable=true;throw error;}
   let body;
   try{body=await response.json();}catch{
-    throw Error('O servidor não retornou uma resposta válida. Atualize a página e tente novamente.');
+    const error=Error('O servidor não retornou uma resposta válida.');error.retryable=response.status>=500||response.ok;throw error;
   }
   if(!response.ok){
     const error=Error(typeof body?.detail==='string'?body.detail:'Não foi possível concluir a operação. Confira os campos e tente novamente.');
     error.fields=Array.isArray(body?.errors)?body.errors:[];
+    error.retryable=response.status>=500||[408,429].includes(response.status);
     throw error;
   }
   return body;
@@ -83,7 +166,7 @@ function updateOverviewSummary(summary){
   target.innerHTML=visible?metrics(summary):'';
   target.closest('.page-header').classList.toggle('has-results',visible);
 }
-function metricTable(data,full=false){return table(full?['Campanha / grupo','Gasto','Visualizações','Cliques','Taxa de cliques','Custo por clique','Conversões do anúncio','Contatos','Qualificados','Atendimentos','Contratações','Custo por qualificado','Custo por contratação']:['Campanha','Gasto','Contatos qualificados','Contratações'],Object.entries(data).map(([name,s])=>full?[esc(name),brl(s.cost),num(s.impressions),num(s.clicks),num(s.ctr)+(s.ctr==null?'':'%'),brl(s.cpc),num(s.conversions),num(s.contacts),num(s.qualified),num(s.appointments),num(s.hires),brl(s.cpq),brl(s.cph)]:[esc(name),brl(s.cost),num(s.qualified),num(s.hires)]));}
+function metricTable(data,full=false,entity='Campanha'){return table(full?[entity,'Gasto','Visualizações','Cliques','Taxa de cliques','Custo por clique','Conversões do anúncio','Contatos','Qualificados','Atendimentos','Contratações','Custo por qualificado','Custo por contratação']:[entity,'Gasto','Contatos qualificados','Contratações'],Object.entries(data).map(([name,s])=>full?[esc(name),brl(s.cost),num(s.impressions),num(s.clicks),num(s.ctr)+(s.ctr==null?'':'%'),brl(s.cpc),num(s.conversions),num(s.contacts),num(s.qualified),num(s.appointments),num(s.hires),brl(s.cpq),brl(s.cph)]:[esc(name),brl(s.cost),num(s.qualified),num(s.hires)]));}
 function chart(rows){
   if(!rows.length)return '';
   const maximum=Math.max(...rows.map(r=>r.cost),0),scale=maximum||1;
@@ -112,9 +195,9 @@ function recCopy(r){
 function evidence(r){
   const e=r.evidence;let html='';
   if(e.start)html+=`<p>Período: ${dt(e.start)} a ${dt(e.end)}</p>`;
-  if(e.current||e.metrics)html+=metricTable({'Período selecionado':e.current||e.metrics,...(e.previous?.cost!==undefined?{'Período anterior':e.previous}:{})});
-  if(e.areas)html+=metricTable(Object.fromEntries(Object.entries(e.areas).map(([k,v])=>[areaName[k]||k,v])));
-  if(e.localities)html+=metricTable(e.localities);
+  if(e.current||e.metrics)html+=metricTable({'Período selecionado':e.current||e.metrics,...(e.previous?.cost!==undefined?{'Período anterior':e.previous}:{})},false,'Período');
+  if(e.areas)html+=metricTable(Object.fromEntries(Object.entries(e.areas).map(([k,v])=>[areaName[k]||k,v])),false,'Área');
+  if(e.localities)html+=metricTable(e.localities,false,'Cidade');
   if(e.unit)html+=`<p>${num(e.value)} ${esc(e.unit)} · ${dt(e.date)}</p>${e.previous?`<p>Anterior: ${num(e.previous.value)} · ${dt(e.previous.date)}</p>`:''}`;
   if(e.source)html+=`<p class="sources">Fonte: ${esc(e.source)}${e.accessed?' · consulta em '+dt(e.accessed):''}</p>`;
   html+='<p class="muted">Esses dados não garantem o mesmo resultado no futuro.</p>';
@@ -126,50 +209,59 @@ function visibleRecs(data){
   const rank=id=>{const i=data.ai_priorities.indexOf(id);return i<0?999:i;};
   return [...unique.values()].sort((a,b)=>rank(a.id)-rank(b.id));
 }
-function recs(list,{compact=false}={}){return list.length?list.map(r=>{const [title,body]=recCopy(r);return `<article class="rec"><div class="rec-top"><h3>${esc(title)}</h3>${currentData.ai_priorities.includes(r.id)?'<span class="status priority">Prioridade sugerida pela IA</span>':r.status!=='pending'?`<span class="status">${r.status==='approved'?'Aprovada':'Descartada'}</span>`:''}</div>${r.evidence.campaign||r.evidence.keyword?`<span class="rec-meta">${esc(r.evidence.campaign||r.evidence.keyword)}</span>`:''}<p>${esc(body)}</p>${compact?'<a href="/painel/agents">Ver recomendação</a>':details('Ver dados',evidence(r))+(isAdmin&&r.status==='pending'?`<div class="actions"><button class="secondary" data-decision="approved" data-id="${r.id}">Aprovar</button><button class="quiet" data-decision="rejected" data-id="${r.id}">Descartar</button></div>`:'')}</article>`;}).join(''):empty('Nenhuma recomendação pendente para este período.');}
-function analyzeButton(data){return isAdmin?`<button id="analyze">${data.ai.connected?'Analisar com IA':'Atualizar recomendações'}</button>`:'';}
+function recs(list,{compact=false}={}){return list.length?list.map(r=>{const [title,body]=recCopy(r);return `<article class="rec"><div class="rec-top"><h3>${esc(title)}</h3>${currentData.ai_priorities.includes(r.id)?'<span class="status priority">Prioridade sugerida pela IA</span>':r.status!=='pending'?`<span class="status">${r.status==='approved'?'Aprovada':'Descartada'}</span>`:''}</div>${r.evidence.campaign||r.evidence.keyword?`<span class="rec-meta">${esc(r.evidence.campaign||r.evidence.keyword)}</span>`:''}<p>${esc(body)}</p>${compact?'<a href="/painel/agents">Ver recomendação</a>':details('Revisar evidências',evidence(r))+(isAdmin&&r.status==='pending'?`<p class="help decision-help">Aprovar registra sua decisão; nenhum anúncio é alterado.</p><div class="actions"><button class="secondary" data-decision="approved" data-id="${r.id}">Aprovar</button><button class="quiet" data-decision="rejected" data-id="${r.id}">Descartar</button></div>`:'')}</article>`;}).join(''):empty('Nenhuma recomendação pendente para este período.');}
+function analyzeButton(data){return isAdmin?`<button id="analyze" class="secondary">${data.ai.connected?'Analisar com IA':'Atualizar recomendações'}</button>${data.ai.connected?'<p class="help">Chamada externa com cobrança, inclusive com dados fictícios.</p>':''}`:'';}
 function importForm(kind){return isAdmin?`<form data-import="${kind}" class="form-narrow"><label>Escolher arquivo<input name="file" type="file" accept=".csv" required></label><p class="help">Use um arquivo CSV com os ${kind==='market'?'indicadores públicos':'resultados das campanhas'}. Somente dados agrupados, sem informações de pessoas.</p><p class="help">Confira antes as <a href="/painel/settings#locations">cidades configuradas</a>: o arquivo deve usar as localidades da sua região de atuação.</p><div class="actions"><button>Importar arquivo</button><a href="/api/templates/${kind}">Baixar modelo</a></div></form>`:empty('Peça ao responsável para importar os dados.');}
-function budgetForm(b){return `<form id="budget"><div class="form-grid">${input('month','Mês','month',b.month)}${input('total','Orçamento total (R$)','number',b.planned,'min="1" step="0.01"')}${Object.entries(b.allocations).map(([k,v])=>input(k,({trabalhista:'Trabalhista',previdenciario:'Previdenciário',infraestrutura:'Ferramentas e IA',reserva:'Reserva'}[k])+' (R$)','number',v,'min="0" step="0.01"')).join('')}</div><p class="help">A soma das áreas, ferramentas e reserva deve ser igual ao total.</p><button>Salvar orçamento</button></form>`;}
+function budgetForm(b){return `<form id="budget"><div class="form-grid">${input('month','Mês','month',b.month)}${input('total','Limite de mídia planejado (R$)','number',b.planned,'min="1" step="0.01"')}${Object.entries(b.allocations).map(([k,v])=>input(k,({trabalhista:'Trabalhista',previdenciario:'Previdenciário',infraestrutura:'Alocação legada de infraestrutura',reserva:'Reserva'}[k])+' (R$)','number',v,'min="0" step="0.01"')).join('')}</div><p class="help">A soma das alocações planejadas deve ser igual ao limite. O campo legado de infraestrutura continua nessa soma, mas gastos realizados com ferramentas não reduzem o saldo de mídia. Nenhum valor é redistribuído automaticamente.</p><button>Salvar orçamento</button></form>`;}
 function aiPanel(config){
   const s=config.ai, connections=s.connections||{};
-  return `<section class="connection-workspace" id="ai"><div class="connection-overview"><h2>Conectar suas IAs</h2><p class="help">Use uma IA para analisar as campanhas e outra para conferir as conclusões.</p><div class="provider-list">${['openai','claude'].map(p=>{const c=connections[p]||{name:p==='openai'?'OpenAI':'Claude',connected:false};return `<div class="provider-row"><div><strong>${c.name}</strong><p class="muted">${c.connected?'Conectada':'Ainda não conectada'}</p></div>${isAdmin?(c.connected?`<button id="${p==='openai'?'disconnect-ai':'disconnect-claude'}" data-disconnect="${p}" class="quiet">Desconectar ${c.name}</button>`:`<button data-configure="${p}" class="secondary">Conectar ${c.name}</button>`):''}</div>`;}).join('')}</div><p class="help connection-privacy">As IAs recebem apenas códigos e números agrupados. A associação com os nomes fica cifrada neste servidor; a chave não é enviada. Dados pessoais de clientes não devem ser importados.</p></div><div class="connection-editor">${isAdmin?`<details class="disclosure" id="connection-form" ${!s.insights_ready?'open':''}>${disclosureSummary('Adicionar ou trocar chave')}<form id="ai-connect" class="form-narrow"><label>Serviço<select id="ai-provider" name="provider"><option value="openai">OpenAI</option><option value="claude">Claude (Anthropic)</option></select></label><label for="api-key">Chave da API</label><div class="key-row"><input id="api-key" name="api_key" type="password" placeholder="Cole sua chave aqui" autocomplete="off" spellcheck="false" minlength="20" maxlength="512" required><button type="button" id="show-key" class="secondary" aria-pressed="false">Mostrar</button></div><p class="key-help"><a id="key-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Criar chave na OpenAI ↗</a></p><p class="help">A chave fica protegida no servidor. A API é cobrada pela sua conta no serviço, separadamente da assinatura de chat.</p><button type="submit">Testar e conectar</button><details class="limits disclosure">${disclosureSummary('Limite compartilhado de uso')}<div><label>Reserva mensal para as duas IAs (R$)<input name="monthly_limit" type="number" min="1" max="200" step="1" value="${s.monthly_limit}" required></label><p class="help">Cada insight reserva R$ 2 para análise e revisão. A priorização de recomendações reserva R$ 1. Tentativas com falha também contam. Este é um controle interno; confira a cobrança nos serviços.</p><p class="help">Neste mês: ${brl(s.reserved_brl)} reservados de ${brl(s.monthly_limit)}.</p></div></details></form></details>`:empty('Peça ao responsável para conectar as IAs.')}</div>${s.insights_ready?'<p class="connection-next"><a href="/painel/insights">Abrir Insights de IA</a></p>':''}</section>`;
+  return `<section class="connection-workspace" id="ai"><div class="connection-overview"><h2>Conectar suas IAs</h2><p class="help">Use uma IA para analisar as campanhas e outra para conferir as conclusões.</p><p class="scope-explanation"><strong>Configuração compartilhada.</strong> Estas conexões e o limite de uso valem para toda esta instalação. Dados fictícios também podem gerar chamadas externas cobradas.</p><div class="provider-list">${['openai','claude'].map(p=>{const c=connections[p]||{name:p==='openai'?'OpenAI':'Claude',connected:false};return `<div class="provider-row"><div><strong>${c.name}</strong><p class="muted">${c.connected?'Conectada':'Ainda não conectada'}</p></div>${isAdmin?(c.connected?`<button id="${p==='openai'?'disconnect-ai':'disconnect-claude'}" data-disconnect="${p}" class="quiet">Desconectar ${c.name}</button>`:`<button data-configure="${p}" class="secondary">Conectar ${c.name}</button>`):''}</div>`;}).join('')}</div><p class="help connection-privacy">As IAs recebem apenas códigos e números agrupados. A associação com os nomes fica cifrada neste servidor; a chave não é enviada. Dados pessoais de clientes não devem ser importados.</p></div><div class="connection-editor">${isAdmin?`<details class="disclosure" id="connection-form" ${!s.insights_ready?'open':''}>${disclosureSummary('Adicionar ou trocar chave')}<form id="ai-connect" class="form-narrow"><label>Serviço<select id="ai-provider" name="provider"><option value="openai">OpenAI</option><option value="claude">Claude (Anthropic)</option></select></label><label for="api-key">Chave da API</label><div class="key-row"><input id="api-key" name="api_key" type="password" placeholder="Cole sua chave aqui" autocomplete="off" spellcheck="false" minlength="20" maxlength="512" required><button type="button" id="show-key" class="secondary" aria-pressed="false">Mostrar</button></div><p class="key-help"><a id="key-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Criar chave na OpenAI ↗</a></p><p class="help">A chave fica protegida no servidor. A API é cobrada pela sua conta no serviço, separadamente da assinatura de chat.</p><button type="submit">Testar e conectar</button><details class="limits disclosure">${disclosureSummary('Limite compartilhado de uso')}<div><label>Reserva mensal para as duas IAs (R$)<input name="monthly_limit" type="number" min="1" max="200" step="1" value="${s.monthly_limit}" required></label><p class="help">Cada insight reserva R$ 2 para análise e revisão. A priorização de recomendações reserva R$ 1. Tentativas com falha também contam. Este é um controle interno; confira a cobrança nos serviços.</p><p class="help">Neste mês: ${brl(s.reserved_brl)} reservados de ${brl(s.monthly_limit)}.</p></div></details></form></details>`:empty('Peça ao responsável para conectar as IAs.')}</div>${s.insights_ready?'<p class="connection-next"><a href="/painel/insights">Abrir Insights de IA</a></p>':''}</section>`;
 }
 function insightPanel(s,result,hasData=true){
   let html='';
   if(!s.insights_ready)html+=`<section class="insight-start"><div><h2>${isAdmin?'Conecte as duas IAs para começar':'As IAs ainda não estão conectadas'}</h2><p>${isAdmin?'Uma analisa os resultados; a outra confere se as conclusões têm apoio nos dados.':'Peça ao responsável pelo escritório para conectar os serviços. As análises salvas continuam disponíveis abaixo.'}</p></div>${isAdmin?'<a class="button" href="/painel/settings#ai">Conectar IAs</a>':''}</section>`;
-  else if(isAdmin)html+=`<form id="insight-form" class="insight-toolbar"><label>Quem faz a análise<select id="analyst"><option value="openai">OpenAI</option><option value="claude">Claude</option></select></label><p class="muted" id="reviewer-label">Revisão pelo Claude</p><button> ${result?'Analisar novamente':'Analisar campanhas'}</button></form><p class="help">Inclui todas as campanhas, cidades e palavras-chave do período. Cada consulta reserva R$ 2 do limite local.</p>`;
+  else if(isAdmin)html+=`<form id="insight-form" class="insight-toolbar"><label>Quem faz a análise<select id="analyst"><option value="openai">OpenAI</option><option value="claude">Claude</option></select></label><p class="muted" id="reviewer-label">Revisão pelo Claude</p><button> ${result?'Analisar novamente':'Analisar campanhas'}</button></form><p class="help">Inclui todas as campanhas, cidades e palavras-chave do período. Cada consulta reserva R$ 2 do limite compartilhado. É uma chamada externa com cobrança, inclusive com dados fictícios; a reserva não é o valor final cobrado pelo fornecedor.</p>`;
   if(!hasData)html+='<p class="help">Não há resultados de campanhas neste período. <a href="/painel/campaigns#import">Importe os resultados</a> ou escolha um período com dados antes de pedir uma nova análise.</p>';
   if(!result)return html+empty('A análise aparecerá aqui com os dados que sustentam cada conclusão.');
   html+=`<div class="insight-meta"><span>Análise: ${esc(result.analyst)} · Revisão: ${esc(result.reviewer)}</span><span>${dt(result.created_at)}</span></div>`;
   if(['failed','unverified'].includes(result.status))return html+`<p class="error-inline" role="status">${esc(result.message)}</p>`;
   html+=`<p class="help">${num(result.coverage.campaigns)} campanha(s) no período. ${result.excluded?`${num(result.excluded)} conclusão(ões) sem confirmação foram retiradas.`:'Nenhuma divergência foi apontada pela segunda IA.'}</p>`;
+  return html+insightFindings(result)+'<p class="help">A revisão por outra IA ajuda a encontrar erros, mas não garante que todos sejam detectados. Confira as evidências antes de decidir. A análise salva usa os dados do momento da consulta.</p>';
+}
+function insightFindings(result){
+  let html='';
   for(const [kind,title] of [['strength','Pontos fortes'],['weakness','Pontos a melhorar']]){
     const findings=result.findings.filter(f=>f.kind===kind);
-    html+=panel(title,findings.length?findings.map(f=>`<article class="rec insight"><h3>${esc(f.title)}</h3><p>${esc(f.explanation)}</p><p><strong>Próximo passo:</strong> ${esc(f.action)}</p>${details('Dados usados nesta conclusão',table(['Campanha / grupo','Indicador','Período','Valor'],f.evidence.map(e=>[esc(e.subject_name),esc(e.label),e.period==='current'?'Selecionado':'Anterior', ['cost','cpc','cpq','cph'].includes(e.metric)?brl(e.value):num(e.value)+(e.metric==='ctr'?'%':'')])) )}</article>`).join(''):empty('Nenhum ponto confirmado nesta categoria.'));
+    html+=panel(title,findings.length?findings.map(f=>`<article class="rec insight"><h3>${esc(f.title)}</h3><p>${esc(f.explanation)}</p><p><strong>Próximo passo:</strong> ${esc(f.action)}</p>${details('Dados usados nesta conclusão',table(['Campanha / grupo','Indicador','Período','Valor'],f.evidence.map(e=>[esc(e.subject_name),esc(e.label),result.demonstration?'Exemplo fictício':e.period==='current'?'Selecionado':'Anterior', ['cost','cpc','cpq','cph'].includes(e.metric)?brl(e.value):num(e.value)+(e.metric==='ctr'?'%':'')])) )}</article>`).join(''):empty('Nenhum ponto confirmado nesta categoria.'));
   }
-  return html+'<p class="help">A revisão por outra IA ajuda a encontrar erros, mas não garante que todos sejam detectados. Confira as evidências antes de decidir. A análise salva usa os dados do momento da consulta.</p>';
+  return html;
 }
 
+function newsSource(article,demonstration=false){
+  const text=`${esc(article.source)} · ${dt(article.published)} — ${esc(article.title)}`;
+  return /^https?:\/\//i.test(article.url||'')?`<a href="${esc(article.url)}" target="_blank" rel="noopener noreferrer">${text}</a>`:`<span>${text} (${demonstration?'fonte fictícia':'link indisponível'})</span>`;
+}
+function demoNotice(){return '<section class="demo-explanation"><h2>Exemplo demonstrativo</h2><p>Conteúdo estático e fictício para conhecer esta página. Não é uma execução de IA nem uma notícia publicada. As datas e os números deste exemplo não acompanham os filtros de campanhas. Nenhuma chamada externa é necessária para exibi-lo.</p></section>';}
 function newsPanel(data,selectedScope){
-  const schedule='<p class="help">Segundas-feiras, às 8h (Brasília), pelo agendamento do Codex. O computador e o Codex precisam estar disponíveis para executar a coleta.</p>';
+  const schedule='<p class="help">Horário previsto: segundas-feiras às 8h (Brasília). Este painel não confirma se o agendamento externo do Codex está ativo. Confira a configuração no Codex; computador e aplicativo precisam estar disponíveis.</p>';
   let html='';
-  if(selectedScope!=='real')return '<section class="empty-state news-empty"><h2>Acompanhe o que acontece na sua região</h2><p>Este acompanhamento usa notícias públicas. No campo Dados exibidos, selecione <strong>Meus dados</strong> para consultar as cidades do escritório.</p><p class="help">As notícias ficam separadas dos exemplos fictícios de campanhas.</p></section>'+schedule;
+  if(selectedScope!=='real'&&!data.demonstration)return '<section class="empty-state news-empty"><h2>Acompanhe o que acontece na sua região</h2><p>Este acompanhamento usa notícias públicas. No campo Dados exibidos, selecione <strong>Meus dados</strong> para consultar as cidades do escritório.</p><p class="help">As notícias ficam separadas dos exemplos fictícios de campanhas.</p></section>'+schedule;
   const cities=data.localities||[];
   if(!cities.length)return `<section class="empty-state"><h2>Escolha sua região para começar</h2><p>Escolha as cidades atendidas em Configurações para começar.</p><a class="button" href="/painel/settings#locations">Escolher cidades</a><p class="help">${esc(data.coverage_note||'A cobertura depende das fontes cadastradas.')}</p></section>`+schedule;
   html+=`<p><strong>Região acompanhada:</strong> ${esc(cities.join(', ')||'Nenhuma cidade escolhida')} · <a href="/painel/settings#locations">Alterar cidades</a></p><p class="help">${esc(data.coverage_note||'A cobertura depende das fontes cadastradas.')}</p>`;
-  html+=schedule;
+  if(!data.demonstration)html+=schedule;
   const n=data.latest;
-  if(isAdmin)html+=`<button id="scan-news" data-refresh="${Boolean(n)}">${n?'Atualizar semana anterior':'Buscar notícias da semana anterior'}</button><p class="help">Se as duas IAs estiverem conectadas, a análise e a revisão usam R$ 2 da reserva local. Sem elas, o painel reúne as notícias.</p>`;
+  if(isAdmin&&!data.demonstration)html+=`<button id="scan-news" data-refresh="${Boolean(n)}">${n?'Atualizar semana anterior':'Buscar notícias da semana anterior'}</button><p class="help">Se as duas IAs estiverem conectadas, a análise e a revisão usam R$ 2 da reserva local. Sem elas, o painel reúne as notícias.</p>`;
   if(!n)return html+empty('As notícias encontradas aparecerão aqui, com fontes e links.');
   if(n.status==='collecting')return html+empty('A coleta está em andamento. Atualize esta página em alguns minutos.');
-  const partialCoverage=n.truncated||(n.sources||[]).some(source=>source.status!=='read'||source.complete_window===false);
-  html+=`<div class="insight-meta"><span>${dt(n.start)} a ${dt(n.end)}</span><span>Atualizado em ${dt(n.created_at)}</span></div>${partialCoverage?'<p class="coverage-notice" role="status"><strong>Cobertura parcial.</strong> Consulte abaixo os limites das fontes e do período.</p>':''}<p class="help">${esc(n.message)}</p><p class="help">Cidades: ${esc((n.cities||[]).join(', '))}.</p>`;
+  const partialCoverage=!data.demonstration&&(n.truncated||(n.sources||[]).some(source=>source.status!=='read'||source.complete_window===false));
+  html+=`<div class="insight-meta"><span>${dt(n.start)} a ${dt(n.end)}</span><span>${data.demonstration?'Exemplo estático; nenhuma coleta executada':'Atualizado em '+dt(n.created_at)}</span></div>${partialCoverage?'<p class="coverage-notice" role="status"><strong>Cobertura parcial.</strong> Consulte abaixo os limites das fontes e do período.</p>':''}<p class="help">${esc(n.message)}</p><p class="help">Cidades: ${esc((n.cities||[]).join(', '))}.</p>`;
   html+=panel('Assuntos encontrados',table(['Assunto','Publicações encontradas','Fontes'],(n.signals||[]).map(s=>[esc(s.label),num(s.count),num(s.source_count)])))+'<p class="help">Essas contagens mostram apenas as notícias desta coleta. Não medem desemprego nem procura por advogados. Publicações parecidas podem tratar do mesmo acontecimento.</p>';
-  html+=panel('Possibilidades para acompanhar',(n.scenarios||[]).length?n.scenarios.map(s=>`<article class="rec"><h3>${esc(s.title)}</h3><p><strong>O que foi noticiado:</strong> ${esc(s.observation)}</p><p><strong>Uma possibilidade:</strong> ${esc(s.scenario)}</p><p><strong>O que observar:</strong> ${esc(s.watch_next)}</p><p class="sources">${(n.articles||[]).filter(a=>s.article_ids.includes(a.id)).map(a=>`<a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.source)} · ${dt(a.published)} — ${esc(a.title)}</a>`).join('')}</p></article>`).join(''):empty('Nenhum cenário foi confirmado pela revisão. As notícias abaixo continuam disponíveis.'));
-  html+=details('Notícias e fontes',(n.articles||[]).map(a=>`<article class="rec"><h3><a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a></h3><p class="muted">${esc(a.source)} · ${dt(a.published)}</p></article>`).join('')||empty('Nenhuma notícia encontrada com os filtros desta semana.'));
-  html+=details('O que foi possível consultar',table(['Fonte','Leitura','Período'],(n.sources||[]).map(s=>[esc(s.name),s.status==='read'?'Lida':s.status==='partial'?'Parcial':'Indisponível',s.complete_window?'Feed alcançou o início da semana':'Cobertura incompleta'])))+'<p class="help">A coleta lê títulos e trechos públicos dos jornais. Bloqueios não são contornados. Cenários são hipóteses; duas IAs também podem errar.</p>';
+  html+=panel('Possibilidades para acompanhar',(n.scenarios||[]).length?n.scenarios.map(s=>`<article class="rec"><h3>${esc(s.title)}</h3><p><strong>O que foi noticiado:</strong> ${esc(s.observation)}</p><p><strong>Uma possibilidade:</strong> ${esc(s.scenario)}</p><p><strong>O que observar:</strong> ${esc(s.watch_next)}</p><p class="sources">${(n.articles||[]).filter(a=>s.article_ids.includes(a.id)).map(a=>newsSource(a,data.demonstration)).join('')}</p></article>`).join(''):empty(data.demonstration?'Nenhum cenário neste exemplo.':'Nenhum cenário foi confirmado pela revisão. As notícias abaixo continuam disponíveis.'));
+  html+=details('Notícias e fontes',(n.articles||[]).map(a=>`<article class="rec"><h3>${newsSource(a,data.demonstration)}</h3><p class="muted">${esc(a.source)} · ${dt(a.published)}</p></article>`).join('')||empty('Nenhuma notícia encontrada com os filtros desta semana.'));
+  html+=details('O que foi possível consultar',table(['Fonte','Leitura','Período'],(n.sources||[]).map(s=>[esc(s.name),data.demonstration?'Exemplo estático':s.status==='read'?'Lida':s.status==='partial'?'Parcial':'Indisponível',data.demonstration?'Período ilustrativo':s.complete_window?'Feed alcançou o início da semana':'Cobertura incompleta'])))+'<p class="help">A coleta lê títulos e trechos públicos dos jornais. Bloqueios não são contornados. Cenários são hipóteses; duas IAs também podem errar.</p>';
   if(n.truncated)html+='<p class="help">A coleta atingiu o limite de notícias. A análise considera somente as notícias listadas.</p>';
-  return html+`<a href="/api/news/${n.id}/json">Baixar dados para outra IA</a>`;
+  return html+(data.demonstration?'':`<a href="/api/news/${n.id}/json">Baixar dados para outra IA</a>`);
 }
 const states=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
 function clearLocalityError(row){
@@ -241,16 +333,19 @@ function offerConfirmedReload(context,confirmation){
   };
 }
 async function render(){
+  if(!appliedContext)return;
+  const context=appliedContext;
+  syncContext();
   const version=++renderVersion;
   tableOverflowObserver?.disconnect();
-  const selectedScope=scope();
+  const selectedScope=context.scope;
   const query=params();
   // A filter change must never relabel a previous response as new data.
   $('content').setAttribute('aria-busy','true');
   $('content').innerHTML='<p class="loading-state" role="status">Carregando os dados selecionados…</p>';
   updateOverviewSummary({rows:0});
   $('banner').hidden=selectedScope!=='demo';
-  $('period-label').textContent=page==='finance'?monthLabel(query.get('end').slice(0,7)):dt(query.get('start'))+' a '+dt(query.get('end'));
+  $('period-label').textContent=page==='finance'?monthLabel(context.month):dt(query.get('start'))+' a '+dt(query.get('end'));
   try{
   const needsDashboard=['overview','campaigns','market','agents','insights'].includes(page);
   const data=needsDashboard?await api('/api/dashboard?'+query):null;if(version!==renderVersion)return;
@@ -259,11 +354,11 @@ async function render(){
     if(!data.summary.rows){
       html=`<section class="empty-state"><h2>Comece pelos resultados das campanhas</h2><p>O painel mostra quanto foi gasto e quais contatos chegaram ao escritório. Para começar, importe os resultados do período.</p><ol class="start-steps"><li><strong>Escolha sua região</strong><p>Defina as cidades atendidas para que o arquivo seja importado na região correta.</p><a href="/painel/settings#locations">Configurar cidades</a></li><li><strong>Prepare o arquivo</strong><p>Use o modelo com gastos, contatos e contratações. Não inclua dados pessoais.</p><a href="/api/templates/campaigns">Baixar modelo de resultados</a></li><li><strong>Importe e acompanhe</strong><p>Os números e os pontos que precisam de atenção aparecerão aqui.</p></li></ol><a class="button" href="/painel/campaigns#import">Importar resultados</a><div class="empty-links"><a href="/painel/finance">Definir orçamento</a><a href="/painel/settings#ai">Configurar IA</a></div></section><p class="help">Quer conhecer o painel primeiro? Selecione “Exemplo fictício” no campo acima.</p>`;
     }else{
-      html=`<div class="overview-board"><div class="overview-lead"><section class="result-ledger" aria-labelledby="result-heading"><div class="section-head"><h2 id="result-heading">Gastos ao longo do período</h2><a href="/painel/campaigns">Explorar resultados</a></div><div class="performance-plot">`+chart(data.evolution)+`</div></section><section class="review-desk" aria-labelledby="review-heading"><div class="section-head"><h2 id="review-heading">Pontos para revisar</h2></div>`+recsWithData(pending.slice(0,3),data,{compact:true})+`<div class="review-action">${analyzeButton(data)}</div>${!data.ai.connected&&isAdmin?'<div class="overview-connect"><p>Use uma IA para ajudar a revisar os resultados.</p><a href="/painel/settings#ai">Configurar IA</a></div>':''}</section></div><section class="campaign-workspace"><div class="section-head"><h2>Campanhas no período</h2><a href="/painel/campaigns">Ver detalhes</a></div>`+overviewCampaigns(data.campaigns)+`</section><section class="budget-workspace"><div class="section-head"><h2>Orçamento do mês</h2><a href="/painel/finance">Conferir gastos</a></div>`+budgetLine(data.budget)+`</section></div>`;
+      html=`<div class="overview-board"><div class="overview-lead"><section class="review-desk" aria-labelledby="review-heading"><div class="section-head"><h2 id="review-heading">Pontos para revisar</h2></div>`+recsWithData(pending.slice(0,3),data,{compact:true})+`<div class="review-action">${analyzeButton(data)}</div>${!data.ai.connected&&isAdmin?'<div class="overview-connect"><p>Use uma IA para ajudar a revisar os resultados.</p><a href="/painel/settings#ai">Configurar IA</a></div>':''}</section><section class="result-ledger" aria-labelledby="result-heading"><div class="section-head"><h2 id="result-heading">Gastos ao longo do período</h2><a href="/painel/campaigns">Explorar resultados</a></div><div class="performance-plot">`+chart(data.evolution)+`</div></section></div><section class="campaign-workspace"><div class="section-head"><h2>Campanhas no período</h2><a href="/painel/campaigns">Ver detalhes</a></div>`+overviewCampaigns(data.campaigns)+`</section><section class="budget-workspace"><div class="section-head"><h2>Orçamento do mês</h2><a href="/painel/finance">Conferir gastos</a></div>`+budgetLine(data.budget)+`</section></div>`;
 
     }
   }
-  if(page==='campaigns')html=metrics(data.summary)+panel('Resultados',overviewCampaigns(data.campaigns),'<a href="#import">Importar arquivo</a>')+details('Ver mais indicadores',metricTable(data.campaigns,true)+`<p class="help">Conversões são ações registradas nos anúncios. Não significam, por si só, uma contratação.</p>`)+details('Gastos por dia',chart(data.evolution))+details('Cidades e palavras-chave',metricTable(data.localities)+metricTable(data.keywords))+`<section id="import" class="panel"><h2>Importar resultados</h2>${importForm('campaigns')}${details('Como preparar o arquivo','<p class="help">Baixe o modelo acima e preencha uma linha por campanha, dia, cidade e palavra-chave. Na coluna scope, use “real” para seus dados ou “demo” para exemplos. Use datas no formato AAAA-MM-DD e ponto nos valores decimais. Salve como CSV separado por vírgulas. Não inclua nomes, telefones ou documentos de clientes.</p>')}</section>`;
+  if(page==='campaigns')html=metrics(data.summary)+panel('Resultados',overviewCampaigns(data.campaigns),'<a href="#import">Importar arquivo</a>')+details('Ver mais indicadores',metricTable(data.campaigns,true)+`<p class="help">Conversões são ações registradas nos anúncios. Não significam, por si só, uma contratação.</p>`)+details('Gastos por dia',chart(data.evolution))+details('Cidades e palavras-chave',metricTable(data.localities,false,'Cidade')+metricTable(data.keywords,false,'Palavra-chave'))+`<section id="import" class="panel"><h2>Importar resultados</h2>${importForm('campaigns')}${details('Como preparar o arquivo','<p class="help">Baixe o modelo acima e preencha uma linha por campanha, dia, cidade e palavra-chave. Na coluna scope, use “real” para seus dados ou “demo” para exemplos. Use datas no formato AAAA-MM-DD e ponto nos valores decimais. Salve como CSV separado por vírgulas. Não inclua nomes, telefones ou documentos de clientes.</p>')}</section>`;
   if(page==='market'){
     const rows=await api('/api/market?scope='+selectedScope);
     html=panel('Temas para explicar ao público',recsWithData(data.recommendations.filter(r=>r.category==='mercado').slice(0,5),data))+'<p class="help">Os indicadores ajudam a escolher temas. Eles não mostram quem precisa contratar um advogado.</p>'+details('Ver fontes',table(['Tema','Cidade','Data','Valor','Fonte'],rows.map(r=>[esc(r.topic),esc(r.locality),dt(r.date),num(r.value)+' '+esc(r.unit),esc(r.source)])))+details('Adicionar indicadores',importForm('market'));
@@ -276,9 +371,9 @@ async function render(){
       details('Histórico de análises',table(['Data','Análise','Resultado'],history.executions.map(e=>[dt(e.created_at),esc(({analise_deterministica:'Revisão dos resultados',conformidade:'Revisão de texto',relatorio:'Relatório',openai:'Análise com IA'})[e.agent]||e.agent),esc(({success:'Concluída',error:'Não concluída',skipped:'Já realizada'})[e.status]||e.status)])));
   }
   if(page==='finance'){
-    const f=await api(`/api/finance?scope=${selectedScope}&month=${query.get('end').slice(0,7)}`);
-    html=(f.current.legacy_software_allocation?'<p class="help">Seu plano antigo ainda reserva uma parte para ferramentas. Revise a distribuição; os gastos com software agora aparecem separados.</p>':'')+budgetLine(f.current)+panel('Onde foi gasto',table(['Tipo','Valor'],[['Anúncios importados',brl(f.current.imported_ads)],['Outras despesas de mídia',brl(f.current.manual_expenses)],['Ferramentas e IA (fora da verba de mídia)',brl(f.current.software_expenses)]]))+
-      '<section class="finance-expenses" aria-label="Despesas">'+panel('Despesas',table(['Data','Descrição','Valor'],f.expenses.map(e=>[dt(e.day),esc(e.reference),brl(e.amount)])))+
+    const f=await api(`/api/finance?scope=${selectedScope}&month=${context.month}`);
+    html=(f.current.legacy_software_allocation?'<p class="help">Seu plano antigo ainda reserva uma parte para ferramentas. Revise a distribuição; os gastos com software agora aparecem separados.</p>':'')+budgetLine(f.current)+'<p class="help">O saldo de mídia é o limite planejado menos anúncios importados e outras despesas de mídia deste mês. Ferramentas e IA são gastos separados e não reduzem esse saldo. As alocações do formulário são planejamento, não gastos realizados.</p>'+panel('Gastos realizados no mês',table(['Tipo','Valor'],[['Anúncios importados',brl(f.current.imported_ads)],['Outras despesas de mídia',brl(f.current.manual_expenses)],['Ferramentas e IA (fora da verba de mídia)',brl(f.current.software_expenses)]]))+
+      '<section class="finance-expenses" aria-label="Despesas">'+panel('Últimas despesas — todos os meses','<p class="help">Até 100 registros mais recentes, independentemente do mês selecionado. Os totais acima continuam mensais.</p>'+table(['Data','Descrição','Valor'],f.expenses.map(e=>[dt(e.day),esc(e.reference),brl(e.amount)])))+
       (isAdmin?details('Adicionar despesa',`<form id="expense"><div class="form-grid">${input('day','Data','date',today)}${input('reference','Descrição','text','','maxlength="100"')}${input('amount','Valor (R$)','number','','min="0.01" step="0.01"')}<label>Tipo<select name="category"><option value="infraestrutura">Ferramentas e IA</option><option value="reserva">Outras despesas</option><option value="anuncios_nao_importados">Anúncio não importado</option></select></label></div><p class="help">Não adicione aqui um gasto com anúncios que já foi importado.</p><button>Salvar despesa</button></form>`):'')+'</section>'+
       (isAdmin?details('Ajustar orçamento',budgetForm(f.current)):'')+
       details('Comparar com o mês anterior',table(['Mês','Gasto','Orçamento'],[f.current,f.previous].map(b=>[esc(monthLabel(b.month)),brl(b.spent),brl(b.planned)])))+
@@ -286,15 +381,14 @@ async function render(){
   }
   if(page==='reports'){
     const [rows,config]=await Promise.all([api('/api/reports?scope='+selectedScope),api('/api/settings?scope='+selectedScope)]);
-    html='<section class="report-create"><h2>Criar relatório</h2>'+ (isAdmin?`<form id="report" class="report-form"><div class="report-controls"><label>Semana que começa em<input name="week_start" type="date" value="${config.last_week}" required></label><button>Criar relatório</button></div><p class="help">Escolha uma segunda-feira. O relatório reúne os resultados até o domingo.</p></form>`:empty('Peça ao responsável para gerar um relatório.'))+'</section>'+
-      panel('Relatórios salvos',table(['Semana de','Baixar relatório'],rows.map(r=>[dt(r.week_start),`<span class="report-downloads"><a href="/api/reports/${r.id}/pdf?scope=${selectedScope}">Baixar PDF</a><a href="/api/reports/${r.id}/json?scope=${selectedScope}">Baixar para IA</a></span>`])))+
-      (isAdmin?details('Testar a conferência de erros','<p>Usamos apenas uma cópia fictícia: trocamos números e referências para testar a detecção. Seus relatórios não são alterados.</p><button id="report-self-test" class="secondary">Executar teste gratuito</button><div id="self-test-result" role="status"></div>'):'')+
-      details('Outras opções',`<p class="help">${config.scheduler_enabled?'Geração automática ativa: '+esc(config.schedule):'A geração automática está desativada.'} Um relatório salvo mantém os dados do momento em que foi criado.</p>`+table(['Semana de','Dados'],rows.map(r=>[dt(r.week_start),`<a href="/api/reports/${r.id}/json?scope=${selectedScope}">Baixar JSON</a>`])));
+    html='<section class="report-create"><h2>Criar relatório</h2><p class="help">Um retrato dos dados no momento da criação. Relatórios salvos não se atualizam quando novos registros chegam.</p>'+ (isAdmin?`<form id="report" class="report-form"><div class="report-controls"><label>Segunda-feira da semana<input name="week_start" type="date" value="${config.last_week}" required aria-describedby="report-week-hint"></label><button>Criar relatório</button></div><p id="report-week-hint" class="help">${dt(config.last_week)} a ${dt(periodRules.addDays(config.last_week,6))} · segunda a domingo.</p><p id="report-week-error" class="field-error" role="alert" hidden></p></form>`:empty('Peça ao responsável para gerar um relatório.'))+'</section>'+
+      panel('Relatórios salvos','<p class="help">Cada arquivo preserva os dados da sua criação. PDF é para leitura; JSON contém dados estruturados para outra IA ou ferramenta.</p>'+(rows.length?'<ul class="report-list">'+rows.map(r=>`<li><div class="report-week"><span class="help">Semana completa</span><p><time datetime="${esc(r.week_start)}">${dt(r.week_start)}</time> a <time datetime="${periodRules.addDays(r.week_start,6)}">${dt(periodRules.addDays(r.week_start,6))}</time></p></div><div class="report-downloads"><a href="/api/reports/${r.id}/pdf?scope=${selectedScope}">Baixar PDF</a><a href="/api/reports/${r.id}/json?scope=${selectedScope}">Exportar dados — JSON</a></div></li>`).join('')+'</ul>':empty('Nenhum relatório salvo neste ambiente.')))+
+      details('Opções avançadas',`<p class="help">${config.scheduler_enabled?'Geração automática ativa: '+esc(config.schedule):'A geração automática está desativada.'}</p>`+(isAdmin?'<p>O autoteste altera números e referências somente em uma cópia fictícia. Seus relatórios não são alterados.</p><button id="report-self-test" class="secondary">Executar teste gratuito</button><div id="self-test-result" role="status"></div>':''));
   }
-  if(page==='strategy'){const result=await api('/api/strategy?scope='+selectedScope);html=strategyPanel(result);}
+  if(page==='strategy'){const result=selectedScope==='demo'?window.LegalGrowthDemo.strategy({scope:selectedScope}):await api('/api/strategy?scope='+selectedScope);html=(result.demonstration?demoNotice():'')+strategyPanel(result);}
   if(page==='contracts'){html=contractIntro();if(isAdmin){const preview=await api('/api/contracts/demo');html+=contractPanel(preview);}}
-  if(page==='news'){const n=await api('/api/news?scope='+selectedScope);html=newsPanel(n,selectedScope)+'<p><a href="/painel/strategy">Análise estratégica: impacto social e viabilidade</a></p>';}
-  if(page==='insights'){const result=await api('/api/insights?'+query);html=insightPanel(data.ai,result.latest,Boolean(data.summary.rows));}
+  if(page==='news'){const n=selectedScope==='demo'?window.LegalGrowthDemo.news({scope:selectedScope}):await api('/api/news?scope='+selectedScope);html=(n.demonstration?demoNotice():'')+newsPanel(n,selectedScope)+'<p><a href="/painel/strategy">Análise estratégica: impacto social e viabilidade</a></p>';}
+  if(page==='insights'){const result=await api('/api/insights?'+query);html=insightPanel(data.ai,result.latest,Boolean(data.summary.rows))+(selectedScope==='demo'&&!result.latest?demoNotice()+insightFindings(window.LegalGrowthDemo.insight({scope:selectedScope})):selectedScope==='demo'?details('Conhecer um exemplo estático',demoNotice()+insightFindings(window.LegalGrowthDemo.insight({scope:selectedScope}))):'');}
   if(page==='settings'){
     const config=await api('/api/settings?scope='+selectedScope);
     html=locationsPanel(config)+aiPanel(config)+'<p><a href="/painel/contracts">Contratos e clientes — conhecer a conferência</a></p>'+`<p class="help">O orçamento fica em <a href="/painel/finance">Gastos</a>. Os relatórios ficam em <a href="/painel/reports">Relatórios</a>.</p>`;
@@ -306,9 +400,9 @@ async function render(){
   }catch(error){
     if(version!==renderVersion)return;
     currentData=null;
-    $('content').innerHTML='<div class="load-error"><p>Os dados selecionados não foram carregados.</p><button id="retry-load" class="secondary">Tentar novamente</button></div>';
+    $('content').innerHTML='<div class="load-error"><p>Os dados selecionados não foram carregados.</p>'+ (error.retryable?'<button id="retry-load" class="secondary">Tentar novamente</button>':'<p>Confira a mensagem acima e corrija a seleção antes de continuar.</p>')+'</div>';
     $('content').setAttribute('aria-busy','false');
-    $('retry-load').onclick=async()=>{
+    if($('retry-load'))$('retry-load').onclick=async()=>{
       message('');
       try{await render();focusContext($('content'));}
       catch(error){message(error.message,true);focusContext($('message'));}
@@ -351,7 +445,19 @@ async function action(task,success='Salvo.',progress='Aguarde…'){
   }
   finally{$('content').setAttribute('aria-busy','false');working=false;$('scope').disabled=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);}
 }
+function validateReportWeek(focus=false){
+  const field=document.querySelector('#report [name=week_start]');if(!field)return true;
+  const valid=periodRules.validDate(field.value)&&new Date(field.value+'T00:00:00Z').getUTCDay()===1;
+  const feedback=$('report-week-error');feedback.hidden=valid;
+  if(valid)field.removeAttribute('aria-invalid');else field.setAttribute('aria-invalid','true');
+  if(!valid){feedback.textContent='Escolha uma segunda-feira válida. O relatório cobre até o domingo seguinte.';field.setAttribute('aria-describedby','report-week-hint report-week-error');if(focus)field.focus();}
+  else field.setAttribute('aria-describedby','report-week-hint');
+  $('report-week-hint').textContent=valid?`${dt(field.value)} a ${dt(periodRules.addDays(field.value,6))} · segunda a domingo.`:'O período precisa começar em uma segunda-feira.';
+  return valid;
+}
 function bind(){
+  if($('report'))$('report').querySelector('[name=week_start]').onchange=()=>validateReportWeek();
+  syncContext();
   bindTableOverflow();
   // CSSOM preserves the strict CSP: no inline style attribute in generated HTML.
   document.querySelectorAll('[data-chart-date-position]').forEach(label=>label.style.setProperty('--date-position',label.dataset.chartDatePosition));
@@ -363,7 +469,7 @@ function bind(){
   if($('scan-news'))$('scan-news').onclick=()=>action(()=>post('/api/news?scope=real&refresh='+$('scan-news').dataset.refresh),r=>r.message,'Lendo os jornais e conferindo os cenários…');
   document.querySelectorAll('[data-decision]').forEach(button=>button.onclick=()=>action(()=>post(`/api/recommendations/${button.dataset.id}/decision`,{scope:scope(),decision:button.dataset.decision}),'Decisão salva. Nenhum anúncio foi alterado.'));
   document.querySelectorAll('[data-import]').forEach(form=>form.onsubmit=event=>{event.preventDefault();action(()=>api(`/api/import/${form.dataset.import}?scope=${scope()}`,{method:'POST',body:new FormData(form)}),r=>`${r.added} registro(s) adicionado(s).`);});
-  if($('analyze'))$('analyze').onclick=()=>action(()=>post('/api/analyze?'+new URLSearchParams({scope:scope(),start:$('start').value,end:$('end').value,use_ai:currentData.ai.connected})),r=>r.ai?.message||'Resultados revisados. Confira as recomendações.');
+  if($('analyze'))$('analyze').onclick=()=>action(()=>{const query=params();query.set('use_ai',currentData.ai.connected);return post('/api/analyze?'+query);},r=>r.ai?.message||'Resultados revisados. Confira as recomendações.');
   if($('regions')){
     $('locality-rows').oninput=event=>{const row=event.target.closest('.locality-row');if(row)clearLocalityError(row);};
     $('add-locality').onclick=()=>{
@@ -383,7 +489,7 @@ function bind(){
       action(()=>post('/api/regions',{scope:scope(),localities}),'Região salva. Os dados históricos foram preservados.');
     };
   }
-  for(const id of ['expense','budget','report'])if($(id))$(id).onsubmit=event=>{event.preventDefault();const form=new FormData(event.target),body={scope:scope(),...Object.fromEntries(form)};action(()=>id==='report'?post('/api/reports?'+new URLSearchParams({scope:scope(),week_start:body.week_start})):post('/api/'+({expense:'expenses',budget:'budget'}[id]),body),id==='report'?'Relatório pronto para baixar.':'Salvo.');};
+  for(const id of ['expense','budget','report'])if($(id))$(id).onsubmit=event=>{event.preventDefault();const form=new FormData(event.target),body={scope:scope(),...Object.fromEntries(form)};if(id==='report'&&!validateReportWeek(true))return;action(()=>id==='report'?post('/api/reports?'+new URLSearchParams({scope:scope(),week_start:body.week_start})):post('/api/'+({expense:'expenses',budget:'budget'}[id]),body),id==='report'?'Relatório pronto para baixar.':'Salvo.');};
   if($('show-key'))$('show-key').onclick=()=>{const input=$('api-key'),show=input.type==='password';input.type=show?'text':'password';$('show-key').textContent=show?'Ocultar':'Mostrar';$('show-key').setAttribute('aria-pressed',String(show));};
   if($('ai-connect'))$('ai-connect').onsubmit=event=>{
     event.preventDefault();const key=$('api-key').value.trim(),limit=new FormData(event.target).get('monthly_limit');
@@ -406,15 +512,30 @@ function bind(){
     catch(error){message(error.message,true);}finally{button.disabled=false;}
   };
 }
-$('refresh').onclick=()=>{message('');document.querySelector('.period-picker').open=false;render().catch(e=>message(e.message,true));};
-$('scope').onchange=()=>{message('');try{localStorage.setItem('lg-scope',scope());}catch{}render().catch(e=>message(e.message,true));};
-render().catch(e=>message(e.message,true));
+$('refresh').onclick=()=>{message('');if(!applyContext(true,true))return;document.querySelector('.period-picker').open=false;render().catch(e=>message(e.message,true));};
+$('finance-month').onchange=()=>{message('');if(!applyContext(true,true))return;render().catch(e=>message(e.message,true));};
+$('scope').onchange=()=>{
+  message('');try{localStorage.setItem('lg-scope',scope());}catch{}
+  const saved=rememberedPeriod(scope());$('start').value=saved.start;$('end').value=saved.end;$('finance-month').value=saved.end.slice(0,7);
+  if(applyContext(true,true))render().catch(e=>message(e.message,true));
+};
+window.addEventListener('popstate',()=>{
+  message('');
+  const url=new URL(location.href);
+  if(['real','demo'].includes(url.searchParams.get('scope'))){$('scope').value=url.searchParams.get('scope');try{localStorage.setItem('lg-scope',scope());}catch{}}
+  const saved=rememberedPeriod(scope());
+  $('start').value=url.searchParams.get('start')??saved.start;$('end').value=url.searchParams.get('end')??saved.end;
+  $('finance-month').value=url.searchParams.get('month')??saved.end.slice(0,7);
+  $('area').value=page==='campaigns'?(url.searchParams.get('area')||''):'';
+  if(applyContext(false,true))render().catch(e=>message(e.message,true));
+});
+if(applyContext(false,true))render().catch(e=>message(e.message,true));
 
 function strategyPanel(result){
   const uncertainty={high:'Alta',medium:'Média',low:'Baixa'};
   return `<div class="strategy-list">`+result.opportunities.map(item=>{
-    const source=/^https?:\/\//i.test(item.source_url||'')?`<a href="${esc(item.source_url)}" target="_blank" rel="noopener noreferrer">Ler fonte</a>`:'Fonte indisponível';
-    return `<article class="strategy-item"><header class="strategy-heading"><div><h2>${esc(item.title)}</h2><p class="source-context">${source}<span>Publicação: ${dt(item.published)}</span><span>Acontecimento: ${item.event_date?dt(item.event_date):'data não informada'}</span></p></div></header><dl class="dimension-scores">${[['Benefício social',item.social],['Potencial financeiro',item.financial]].map(([label,dimension])=>`<div><dt>${label}</dt><dd class="${dimension.score==null?'score-missing':''}">${dimension.score==null?'Dados insuficientes':num(dimension.score)+'/100'}</dd></div>`).join('')}</dl><div class="strategy-reading"><section><h3>Leitura social</h3><p>${esc(item.social_view)}</p></section><section><h3>Leitura financeira</h3><p>${esc(item.economic_view)}</p></section></div><dl class="analysis-status"><div><dt>Incerteza</dt><dd>${esc(uncertainty[item.uncertainty]||'Não informada')}</dd></div><div><dt>Conflito</dt><dd>${esc(item.conflict??'Não informado')}</dd></div><div><dt>Revisão humana</dt><dd>${item.human_review_required===true?'Necessária':item.human_review_required===false?'Não exigida nesta análise':'Não informada'}</dd></div></dl><div class="strategy-next"><h3>Próximo passo</h3><p>${esc(item.next_step)}</p></div>${details('Riscos e contraponto',`<p>${esc(item.devils_advocate)}</p><p><strong>${esc(item.question)}</strong></p>`)}${dimensionDetails('Benefício social',item.social)}${dimensionDetails('Potencial financeiro',item.financial)}${details('Fonte, contexto e método',`<dl class="context-facts"><div><dt>Confiabilidade da fonte</dt><dd>${esc(item.source_reliability||'Não informada')}</dd></div><div><dt>Cidades</dt><dd>${esc((item.cities||[]).join(', ')||'Não informadas')}</dd></div><div><dt>Áreas jurídicas</dt><dd>${esc((item.areas||[]).map(area=>areaName[area]||area).join(', ')||'Não informadas')}</dd></div><div><dt>Método</dt><dd>${esc(item.method==='deterministic'?'Regras locais, sem análise por IA':item.method||'Não informado')}</dd></div></dl>`)} </article>`;
+    const source=/^https?:\/\//i.test(item.source_url||'')?`<a href="${esc(item.source_url)}" target="_blank" rel="noopener noreferrer">Ler fonte</a>`:result.demonstration?'Fonte fictícia — exemplo':'Fonte indisponível';
+    return `<article class="strategy-item"><header class="strategy-heading"><div><h2>${esc(item.title)}</h2><p class="source-context">${source}<span>Publicação: ${dt(item.published)}</span><span>Acontecimento: ${item.event_date?dt(item.event_date):'data não informada'}</span></p></div></header><dl class="dimension-scores">${[['Benefício social',item.social],['Potencial financeiro',item.financial]].map(([label,dimension])=>`<div><dt>${label}</dt><dd class="${dimension.score==null?'score-missing':''}">${dimension.score==null?'Dados insuficientes':num(dimension.score)+'/100'}</dd></div>`).join('')}</dl><div class="strategy-reading"><section><h3>Leitura social</h3><p>${esc(item.social_view)}</p></section><section><h3>Leitura financeira</h3><p>${esc(item.economic_view)}</p></section></div><dl class="analysis-status"><div><dt>Incerteza</dt><dd>${esc(uncertainty[item.uncertainty]||'Não informada')}</dd></div><div><dt>Conflito</dt><dd>${esc(item.conflict??'Não informado')}</dd></div><div><dt>Revisão humana</dt><dd>${item.human_review_required===true?'Necessária':item.human_review_required===false?'Não exigida nesta análise':'Não informada'}</dd></div></dl><div class="strategy-next"><h3>Próximo passo</h3><p>${esc(item.next_step)}</p></div>${details('Riscos e contraponto',`<p>${esc(item.devils_advocate)}</p><p><strong>${esc(item.question)}</strong></p>`)}${dimensionDetails('Benefício social',item.social)}${dimensionDetails('Potencial financeiro',item.financial)}${details('Fonte, contexto e método',`<dl class="context-facts"><div><dt>Confiabilidade da fonte</dt><dd>${esc(item.source_reliability||'Não informada')}</dd></div><div><dt>Cidades</dt><dd>${esc((item.cities||[]).join(', ')||'Não informadas')}</dd></div><div><dt>Áreas jurídicas</dt><dd>${esc((item.areas||[]).map(area=>areaName[area]||area).join(', ')||'Não informadas')}</dd></div><div><dt>Método</dt><dd>${esc(item.method==='demonstration'?'Exemplo estático, sem execução de IA':item.method==='deterministic'?'Regras locais, sem análise por IA':item.method||'Não informado')}</dd></div></dl>`)} </article>`;
   }).join('')+`</div>`+(result.opportunities.length?'':empty('Ainda não há notícias coletadas neste ambiente.'))+`<p class="help">${esc(result.notice)}</p><a href="/painel/news">Voltar às notícias</a>`;
 }
 function dimensionDetails(label,dimension){
@@ -431,12 +552,12 @@ function contractIntro(){return panel('Por enquanto, apenas uma demonstração',
 function contractPanel(preview){
   const labels={name:'Nome',cpf:'CPF',rg:'RG',birth_date:'Nascimento',phone:'Telefone',email:'E-mail',address:'Endereço',city:'Cidade',state:'Estado',postal_code:'CEP',legal_area:'Área jurídica',service:'Serviço',contract_date:'Data do contrato',benefit_number:'Número do benefício'};
   const found=Object.entries(preview.fields).filter(([,f])=>f.value),missing=Object.entries(preview.fields).filter(([,f])=>!f.value);
-  return panel('Confira os dados do contrato','<dl class="contract-fields">'+found.map(([key,f])=>`<div><dt>${esc(labels[key]||key)}</dt><dd><strong>${esc(f.value)}</strong><p>${esc(f.status)} · ${esc([...new Set(f.origins.map(o=>'Página '+o.page))].join(', '))}</p><p class="help">${esc(f.reason)}</p></dd></div>`).join('')+'</dl>'+details('Campos não encontrados',`<p>${missing.map(([key])=>esc(labels[key]||key)).join(', ')}.</p>`)+ '<p class="help">Um formato válido não comprova identidade. Nesta demonstração nenhum cadastro de cliente é salvo.</p>');
+  return panel('Confira os dados do contrato','<dl class="contract-fields">'+found.map(([key,f])=>`<div><dt>${esc(labels[key]||key)}</dt><dd><strong>${esc(f.value)}</strong><p>${esc(f.status==='validado'?'Formato conferido':f.status)} · ${esc([...new Set(f.origins.map(o=>'Página '+o.page))].join(', '))}</p><p class="help">${esc(f.reason)}</p>${f.alternatives?.length?`<p class="help">Outros valores encontrados: ${f.alternatives.map(esc).join('; ')}.</p>`:''}</dd></div>`).join('')+'</dl>'+details('Campos não encontrados',`<p>${missing.map(([key])=>esc(labels[key]||key)).join(', ')}.</p>`)+ '<p class="help">Um formato válido não comprova identidade. Nesta demonstração nenhum cadastro de cliente é salvo.</p>');
 }
 
 function overviewCampaigns(campaigns){
   const rows=Object.entries(campaigns);
   if(!rows.length)return empty('Nenhuma campanha neste período.');
-  const mobile=rows.map(([name,values])=>`<article><h3>${esc(name)}</h3><dl><div><dt>Gasto</dt><dd>${brl(values.cost)}</dd></div><div><dt>Contatos qualificados</dt><dd>${num(values.qualified)}</dd></div><div><dt>Contratações</dt><dd>${num(values.hires)}</dd></div></dl></article>`).join('');
-  return `<div class="campaign-desktop">${metricTable(campaigns)}</div><div class="campaign-mobile">${mobile}</div>`;
+  const mobile=rows.map(([name,values])=>`<article><h3>${esc(name)}</h3><dl><div><dt>Gasto</dt><dd>${brl(values.cost)}</dd></div><div><dt>Contatos qualificados</dt><dd>${num(values.qualified)}</dd></div><div><dt>Contratações</dt><dd>${num(values.hires)}</dd></div><div><dt>Custo por qualificado</dt><dd>${brl(values.cpq)}</dd></div><div><dt>Custo por contratação</dt><dd>${brl(values.cph)}</dd></div></dl></article>`).join('');
+  return `<div class="campaign-desktop">${table(['Campanha','Gasto','Qualificados','Contratações','Custo por qualificado','Custo por contratação'],rows.map(([name,v])=>[esc(name),brl(v.cost),num(v.qualified),num(v.hires),brl(v.cpq),brl(v.cph)]))}</div><div class="campaign-mobile">${mobile}</div><p class="help">Custo por qualificado = gasto ÷ contatos qualificados; por contratação = gasto ÷ contratações. — significa valor indisponível, inclusive quando o divisor é zero. Menor custo não comprova qualidade ou retorno financeiro.</p>`;
 }

@@ -19,14 +19,19 @@
 ## Design atual
 
 - [Fonte de verdade visual](../DESIGN.md).
-- [Design engineering atual](DESIGN-ENGINEERING.md): implementação, testes, código explicado e exercício.
+- [Relatório da entrega em PDF](releases/LegalGrowth_Revisao_Implementada_v0.1.4.pdf).
+- [Revisão externa v57](VALIDATOR-REVIEW.md): implementação atual, testes, código explicado e exercício.
+- [Unlimited-OCR opcional](UNLIMITED-OCR.md): pesquisa, contrato desativado e condições futuras.
+- [Exemplos estáticos](DEMO-EXAMPLES.md): isolamento de escopo e custos.
+- [Design engineering v56](DESIGN-ENGINEERING.md): marco anterior.
 - [Arc: interação e código](ARC-INTERACTION-STUDY.md): navegação real, efeitos e adaptações.
 - [Cartier: composição e continuidade](CARTIER-REFERENCE.md): inspeção ao vivo e limites da adaptação.
 - [Pesquisa dos sete livros e produtos](DESIGN-ENGINEERING-RESEARCH.md).
 - [Capas v53](OPENING-V4.md): marco anterior.
 - [Estudo do tweet e skills](DESIGN-TWEET-REVIEW.md): fontes, seleção e instalação autorizada.
 - [Estudo do artigo LLM Skills](LLM-SKILLS-REVIEW.md): aplicação de erros acessíveis no formulário.
-- [Revisão independente atual](THE-CRITIC-DESIGN-ENGINEERING.md).
+- [Revisão independente atual](THE-CRITIC-VALIDATOR-REVIEW.md).
+- [Parecer anterior v56](THE-CRITIC-DESIGN-ENGINEERING.md).
 - [Revisão da abertura v53](THE-CRITIC-OPENING-V4.md): histórico.
 - [Revisão da seleção de localização](THE-CRITIC-LOCALITIES.md) e [validação do marco 0.1.0](VALIDATION-0.1.0.md).
 - [Abertura espacial anterior](OPENING-V1.md): histórico da composição.

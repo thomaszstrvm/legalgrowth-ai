@@ -1,0 +1,18 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={window:{}};
+vm.runInNewContext(fs.readFileSync('app/static/period-context.js','utf8'),context);
+const rules=context.window.LegalGrowthPeriod;
+assert.equal(rules.validate('2026-09-01','2026-09-30'),null);
+assert.equal(rules.validate('2024-02-29','2024-03-01'),null);
+assert.equal(rules.validate('2025-01-01','2026-01-02'),null);
+assert.equal(rules.validate('2025-01-01','2026-01-03').field,'end');
+assert.equal(rules.validate('','2026-09-30').field,'start');
+assert.equal(rules.validate('2026-09-01','').field,'end');
+assert.match(rules.validate('2026-10-23','2026-10-01').message,/posterior/);
+for(const date of ['2026-02-29','2026-09-31','0000-01-01','2026-1-01','<script>'])assert.equal(rules.validDate(date),false);
+assert.equal(rules.validMonth('2026-13'),false);
+assert.equal(rules.validMonth('2026-09'),true);
+assert.equal(rules.addDays('2026-12-28',6),'2027-01-03');
+assert.equal(rules.addDays('not-a-date',6),'');
+assert.equal(rules.analytical.has('finance'),false);
+console.log('Period rules: valid/leap dates, boundaries, missing/reversed range, month and weekly rollover passed.');

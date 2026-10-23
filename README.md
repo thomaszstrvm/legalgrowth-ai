@@ -15,24 +15,28 @@ a publicação pública será uma decisão separada. [Documentação](docs/READM
 
 </details>
 
-O Resumo abre com uma coleção navegável de dossiês. **Ver resultados** leva
-diretamente aos indicadores e filtros. Campanhas, orçamento, relatórios e análises
-continuam acessíveis pelo menu principal.
+O Resumo começa pelos indicadores e pontos para revisar. A coleção de dossiês
+continua abaixo da análise como navegação complementar. Campanhas, orçamento,
+relatórios e análises também permanecem no menu principal.
 
-Marco atual: **v0.1.3**, versão visual v56. Capas e cabeçalhos compartilham gravuras
-autorais, com cores coerentes nos dois temas. A interface sinaliza tabelas
-roláveis, cobertura parcial e recuperação após falhas de atualização. Veja as
-[decisões e validações](docs/DESIGN-ENGINEERING.md), o
-[estudo interativo da Arc](docs/ARC-INTERACTION-STUDY.md), a
-[avaliação da Cartier](docs/CARTIER-REFERENCE.md) e o
-[parecer independente](docs/THE-CRITIC-DESIGN-ENGINEERING.md).
-O ciclo de perseguir uma nota foi encerrado por decisão do proprietário;
-esta versão é apresentada com evidências e limitações, sem alegação de perfeição.
+Marco atual: **v0.1.4**, versão visual v57. O período acompanha a navegação; o
+orçamento tem seleção de mês e os relatórios mostram a semana completa. Exemplos
+estáticos explicam Notícias, Oportunidades e Insights sem chamar provedores.
+Veja a [revisão implementada](docs/VALIDATOR-REVIEW.md), o
+[parecer independente](docs/THE-CRITIC-VALIDATOR-REVIEW.md) e a
+[avaliação opcional do Unlimited-OCR](docs/UNLIMITED-OCR.md).
+OCR continua desativado e contratos reais continuam bloqueados.
+[Baixar o relatório desta entrega em PDF](docs/releases/LegalGrowth_Revisao_Implementada_v0.1.4.pdf):
+o que foi analisado, mudanças, antes/depois, testes, limitações e material de estudo.
+As referências [Arc](docs/ARC-INTERACTION-STUDY.md) e
+[Cartier](docs/CARTIER-REFERENCE.md) orientam a identidade, sem substituir
+clareza operacional. O ciclo de perseguir uma nota foi encerrado; esta versão
+é apresentada com evidências e limitações, sem alegação de perfeição.
 
 ## Início rápido no Windows / PowerShell
 
 Redesign e manutenção visual: [sistema de design atual](DESIGN.md),
-[implementação atual](docs/DESIGN-ENGINEERING.md) e [skills e origens](docs/DESIGN-SKILLS.md).
+[implementação atual](docs/VALIDATOR-REVIEW.md) e [skills e origens](docs/DESIGN-SKILLS.md).
 Capturas completas ficam em `output/design-review/` na máquina de desenvolvimento;
 essa pasta é ignorada pelo Git. As prévias acima acompanham o repositório.
 
@@ -55,6 +59,21 @@ Abra http://127.0.0.1:8000. Usuário `admin`, senha no campo `ADMIN_PASSWORD` do
 O navegador usa autenticação HTTP Basic. Apenas loopback em desenvolvimento; ao hospedar, HTTPS e limitação de tentativas no proxy são obrigatórios. Fechar todas as janelas do navegador encerra o cache usual de credenciais Basic; não há gestão de contas ou logout de sessão no MVP.
 
 Selecione **Exemplo fictício** no topo para visualizar 90 dias fictícios. O padrão é **Meus dados**, inicialmente vazio. A marcação `scope` é obrigatória em cada linha e validada contra o ambiente escolhido. Nomes, fontes e indicadores demonstrativos são inventados e rotulados. Nunca remova o rótulo para apresentar esses resultados como reais.
+
+## Período, orçamento e relatórios
+
+- Em Resumo, Campanhas, Recomendações e Insights, escolha datas e clique em **Aplicar**.
+  O intervalo aplicado acompanha os links, a recarga e o histórico. Editar um campo
+  sem aplicar não muda a análise. Cada ambiente mantém seu próprio último período
+  na sessão; URLs explícitas têm precedência.
+- **Orçamento e gastos** consulta um mês. Ao vir da análise, começa pelo mês da
+  data final. A lista de despesas mostra até 100 registros recentes de todos os
+  meses; os totais acima são mensais. Ferramentas e IA ficam fora do saldo de mídia.
+- **Relatórios** usa uma segunda-feira e cobre até domingo. O arquivo salvo é um
+  retrato daquele momento, não se atualiza sozinho. Baixe PDF para ler ou JSON para
+  analisar em outra ferramenta. Revise o conteúdo antes de compartilhá-lo.
+- Conexões e limite de IA são compartilhados por toda a instalação. Uma análise
+  solicitada com dados fictícios pode ter cobrança; abrir um exemplo estático não.
 
 ## Personalizar sua instalação
 
