@@ -1,0 +1,11 @@
+{
+  "notice": "PUBLIC TEST VECTOR ONLY. Generated with cryptography 47.0.0. Never use this key for real data.",
+  "version": "47.0.0",
+  "key": "HOuToQ9eA7SpVvmtfSPlFL7RypOePsN2HumRjUxFQYs=",
+  "labels": {
+    "c1": "Campanha sintetica"
+  },
+  "api_key": "synthetic-provider-key-not-valid",
+  "labels_token": "gAAAAABq2_OIokHO6fKSU_lHN6yY5QIBnQ0Q7nvrXWYnCmxDMwtJ6qhUpssOzzERWICvzivnEVqqF-ELFhcxn4GVgTxn8a-sC_NucdHwM-uruszErnY1-9U=",
+  "api_token": "gAAAAABq2_OIFgxAt0MUT_Sp_fjXiMw1cIOQn2VhncHY0MYXNNihZ7oOYasUbvMcmP5jkSt47KgnWQgwjsfGYHyB3OSLx1uk31Q1El0FZcMehxVB2FHd8Z1xXYLQlfW1PwBBtyYy25qd"
+}
