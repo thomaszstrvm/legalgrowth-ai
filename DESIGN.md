@@ -98,7 +98,7 @@ typography:
 rounded:
   control: "#81877e"
   panel: "8px"
-  cover: "30px"
+  cover: "4px"
 spacing:
   space-1: "4px"
   space-2: "8px"
@@ -135,7 +135,7 @@ components:
 
 # Design System: LegalGrowth
 
-Direção atual, 23/10/2026, v49: **arquivo espacial com capas gráficas autorais**. Antes dos dados,
+Direção atual, 23/10/2026, v53: **arquivo espacial com capas gráficas autorais**. Antes dos dados,
 o Resumo apresenta uma coleção de dossiês originais em perspectiva. O link
 **Ver resultados** leva diretamente aos indicadores. Tipografia editorial, lombadas,
 composição em arco transferem princípios observados ao vivo no
@@ -144,8 +144,12 @@ Não foram copiados imagens, logos ou código da referência. As capas usam comp
 individuais de tinta e retícula, com arte original em `_dossier_art.html`. A ilustração
 dos cabeçalhos internos permanece independente, em `_chapter_art.html`.
 
-Refinamento atual: recorte curvo em Campanhas, faixa dobrada sobre prancha de tinta
-em Relatórios e lente óptica em IA. `--cutout` permite inverter a impressão sem
+Refinamento atual: campos curvo e angular em sangria em Campanhas e Oportunidades,
+faixa dobrada sobre prancha de tinta em Relatórios e lente óptica em IA.
+O palco tem contorno único, com raio de 4px. As publicações usam vinco, lombada
+e aresta contínua; não simular páginas com linhas de um pixel. A ação Abrir
+é editorial e maior; não repetir a instrução abaixo dos controles.
+A implementação, pesquisa e critérios estão em docs/OPENING-V4.md. `--cutout` permite inverter a impressão sem
 alterar a paleta. A leitura das skills do tweet orienta o acabamento, sem importar
 seu preset completo: docs/DESIGN-TWEET-REVIEW.md.
 

@@ -1,5 +1,19 @@
 # Histórico de versões
 
+## 0.1.2 — 2026-10-23
+
+- Abertura editorial v53: campos gráficos em sangria, proporções de publicação,
+  vinco e lombada, aresta contínua e ação de abertura mais visível.
+- Dois temas e todos os destinos preservados; nenhuma mudança em regras de
+  negócio, APIs ou JavaScript funcional. Sem nova dependência.
+- Pesquisa de skills, posts e referências individuais documentada em
+  `docs/OPENING-V4.md`; nenhuma nova instalação persistente.
+- THE CRITIC: 9,0/10, aprovado no escopo da abertura após corrigir a serrilha
+  da aresta. Meta 9,9 ainda não atingida; integração tipográfica de IA permanece
+  oportunidade estética. Detalhes e limites em `docs/THE-CRITIC-OPENING-V4.md`.
+- 159 testes passaram; galeria em dez combinações de largura/tema e seis páginas
+  em 24 capturas verificadas. README com novas prévias e material de estudo.
+
 ## 0.1.1 — 2026-10-23
 
 - Estudo das skills indicadas pelo artigo LLM Skills, com fontes originais e

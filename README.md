@@ -19,10 +19,16 @@ O Resumo abre com uma coleção navegável de dossiês. **Ver resultados** leva
 diretamente aos indicadores e filtros. Campanhas, orçamento, relatórios e análises
 continuam acessíveis pelo menu principal.
 
+Marco atual: **v0.1.2**, abertura visual v53. A coleção usa campos gráficos em
+sangria e acabamento de encadernação, adaptados aos dois temas. Veja a
+[comparação e as decisões](docs/OPENING-V4.md) e o
+[parecer independente](docs/THE-CRITIC-OPENING-V4.md): 9,0/10 no escopo da abertura,
+após duas rodadas. A meta de portfólio de 9,9 continua em aberto.
+
 ## Início rápido no Windows / PowerShell
 
 Redesign e manutenção visual: [sistema de design atual](DESIGN.md),
-[implementação das capas atuais](docs/OPENING-V3.md) e [skills e origens](docs/DESIGN-SKILLS.md).
+[implementação das capas atuais](docs/OPENING-V4.md) e [skills e origens](docs/DESIGN-SKILLS.md).
 Capturas completas ficam em `output/design-review/` na máquina de desenvolvimento;
 essa pasta é ignorada pelo Git. As prévias acima acompanham o repositório.
 

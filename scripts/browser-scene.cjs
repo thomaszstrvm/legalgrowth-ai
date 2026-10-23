@@ -34,12 +34,10 @@ const {chromium} = require('playwright');
           const scene = document.querySelector('.workspace-scene').getBoundingClientRect();
           return {sceneHeight:scene.height, sceneTop:scene.top, sceneBottom:scene.bottom, resultTop:document.querySelector('.page-header').getBoundingClientRect().top, viewport:innerHeight,
             coverBottom:document.querySelector('.dossier[data-active=true]').getBoundingClientRect().bottom,
-            captionBottom:document.querySelector('.scene-caption a').getBoundingClientRect().bottom,
-            instructionVisible:getComputedStyle(document.querySelector('.scene-instruction')).display !== 'none'};
+            captionBottom:document.querySelector('.scene-caption a').getBoundingClientRect().bottom};
         });
         assert.ok(hierarchy.sceneTop < 180 && hierarchy.sceneBottom < hierarchy.resultTop, 'Editorial scene leads the first screen before results');
         assert.ok(hierarchy.coverBottom < hierarchy.viewport && hierarchy.captionBottom < hierarchy.viewport, 'Selected cover and opening action fit in first viewport');
-        assert.equal(hierarchy.instructionVisible,true);
         assert.ok(hierarchy.resultTop-hierarchy.sceneBottom>=28,'Scene and results have a distinct section interval');
         if(width <= 600) assert.ok(hierarchy.sceneHeight <= 560, `Opening scene at ${width}: ${hierarchy.sceneHeight}`);
         if(width <= 600){

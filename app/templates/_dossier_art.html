@@ -1,25 +1,21 @@
 {# Cover-only artwork. The L is a printing shape, never a metric or chart. #}
 {% macro dossier_art(chapter, class_name='dossier-art') -%}
-<svg class="{{ class_name }}" viewBox="0 0 240 240" fill="none" aria-hidden="true" focusable="false">
+<svg class="{{ class_name }}" viewBox="0 0 {{ '320 200' if chapter in ['overview', 'campaigns', 'strategy', 'news', 'market'] else '240 240' }}" fill="none" aria-hidden="true" focusable="false">
   {% if chapter in ['overview', 'campaigns'] %}
-  {# A quadrant is cut from a printing block; the L survives as its outer frame. #}
-  <path d="M16 16H224V38C123 38 62 107 62 184H224V224H16Z" fill="currentColor"/>
-  {% for i in range(8) %}
-  {% set radius = 130-i*15 %}
-  <path d="M{{ 224-radius }} 184A{{ radius }} {{ radius }} 0 0 1 224 {{ 184-radius }}" stroke="currentColor" stroke-width="3"/>
+  {# An open printing field runs beyond the trim; no axes or quantitative marks. #}
+  <path d="M0 0H320V22H288C175 22 80 91 80 174H320V200H0Z" fill="currentColor"/>
+  {% for i in range(6) %}
+  <path d="M{{ 103+i*26 }} 174C{{ 103+i*26 }} {{ 104+i*10 }} {{ 190+i*16 }} {{ 42+i*21 }} 320 {{ 42+i*21 }}" stroke="currentColor" stroke-width="3"/>
   {% endfor %}
-  <path d="M32 36V208H70" stroke="var(--cutout,var(--paper))" stroke-width="2.5"/>
-  <path d="M89 196H209M89 207H209M89 218H209" stroke="var(--cutout,var(--paper))" stroke-width="2.5" stroke-linecap="round" stroke-dasharray=".01 10"/>
+  <path d="M18 0V185H320" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
 
   {% elif chapter == 'finance' %}
   {# Opposing weighted planes: balance is compositional, with no quantitative axis. #}
   <path d="M16 20H224V80H76V220H16Z" fill="currentColor"/>
   <path d="M101 105H160V164H224V220H101Z" fill="currentColor"/>
-  {% for i in range(9) %}
-  <path d="M{{ 91+i*15 }} 32V68" stroke="var(--cutout,var(--paper))" stroke-width="3"/>
-  {% endfor %}
+  <path d="M91 38H208V62H91Z" fill="var(--cutout,var(--paper))"/>
   <path d="M32 96V202H60" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
-  <path d="M177 105H224M177 117H224M177 129H224M177 141H224" stroke="currentColor" stroke-width="3"/>
+  <path d="M177 105H224V141H177Z" stroke="currentColor" stroke-width="3"/>
   <path d="M117 181V204H207" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
 
   {% elif chapter in ['reports', 'contracts'] %}
@@ -48,13 +44,13 @@
   <path d="M44 154L197 96" stroke="currentColor" stroke-width="3"/>
 
   {% elif chapter in ['strategy', 'news', 'market'] %}
-  {# Angular routes share one corner and one direction, forming a coherent fan. #}
-  <path d="M16 16H71V117L123 169H224V224H100L16 140Z" fill="currentColor"/>
-  <path d="M94 16H132V79L163 110H224V148H147L94 95Z" fill="currentColor"/>
-  {% for i in range(7) %}
-  <path d="M{{ 146+i*11 }} 16V{{ 67-i*7 }}L{{ 171+i*7 }} {{ 92-i*7 }}H224" stroke="currentColor" stroke-width="2"/>
+  {# The angular field expands past the trim, balanced by the curved campaign field. #}
+  <path d="M0 0H60V90L120 150H320V200H94L0 106Z" fill="currentColor"/>
+  <path d="M90 0H127V49L178 100H320V136H161L90 65Z" fill="currentColor"/>
+  {% for i in range(6) %}
+  <path d="M{{ 153+i*23 }} 0V{{ 35-i*7 }}L{{ 198+i*17 }} {{ 80-i*7 }}H320" stroke="currentColor" stroke-width="2.5"/>
   {% endfor %}
-  <path d="M33 32V134L107 207H207M49 32V127L114 191H207" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
+  <path d="M19 0V99L104 184H320M35 0V92L111 168H320" stroke="var(--cutout,var(--paper))" stroke-width="2"/>
   {% else %}
   <path d="M26 18H94V150H222V218H26Z" fill="currentColor"/>
   <path d="M114 18V130H222" stroke="currentColor" stroke-width="3"/>
