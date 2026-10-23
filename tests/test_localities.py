@@ -15,6 +15,16 @@ from app.integrations import news as feeds
 START = date(2026, 10, 12)
 
 
+def test_region_field_errors_identify_row_without_echoing_input(client):
+    response = client.post('/api/regions', json={'scope': 'real', 'localities': ['Curitiba-PR', 'private@example.invalid-XX']})
+    assert response.status_code == 422
+    body = response.json()
+    assert body['errors'] == [{'row': 1, 'code': 'invalid_locality',
+                               'message': 'Confira o nome da cidade e selecione um estado válido.'}]
+    assert 'private@example.invalid' not in response.text
+    assert client.get('/api/settings?scope=real').json()['localities'] == []
+
+
 def configure(db, cities):
     config = db.scalar(select(Configuration).where(Configuration.scope == 'real'))
     if config: config.localities = cities

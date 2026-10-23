@@ -31,7 +31,11 @@ async function api(url,options={}){
   try{body=await response.json();}catch{
     throw Error('O servidor não retornou uma resposta válida. Atualize a página e tente novamente.');
   }
-  if(!response.ok)throw Error(typeof body?.detail==='string'?body.detail:'Não foi possível concluir a operação. Confira os campos e tente novamente.');
+  if(!response.ok){
+    const error=Error(typeof body?.detail==='string'?body.detail:'Não foi possível concluir a operação. Confira os campos e tente novamente.');
+    error.fields=Array.isArray(body?.errors)?body.errors:[];
+    throw error;
+  }
   return body;
 }
 
@@ -142,6 +146,24 @@ function newsPanel(data,selectedScope){
   return html+`<a href="/api/news/${n.id}/json">Baixar dados para outra IA</a>`;
 }
 const states=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+function clearLocalityError(row){
+  row.querySelector('.field-error')?.remove();
+  row.querySelectorAll('input,select').forEach(field=>{field.removeAttribute('aria-invalid');field.removeAttribute('aria-describedby');});
+}
+function showLocalityErrors(errors){
+  let firstField=null;
+  for(const error of errors){
+    if(error.code!=='invalid_locality'||!Number.isInteger(error.row)||error.row<0||error.row>=20)continue;
+    const row=$('locality-rows')?.children[error.row];if(!row)continue;
+    clearLocalityError(row);
+    const feedback=document.createElement('p');feedback.className='field-error';feedback.id=`location-error-${error.row}`;
+    feedback.textContent=`Cidade ${error.row+1}: confira o nome e selecione um estado válido.`;
+    row.append(feedback);
+    row.querySelectorAll('input,select').forEach(field=>{field.setAttribute('aria-invalid','true');field.setAttribute('aria-describedby',feedback.id);});
+    firstField??=row.querySelector('input');
+  }
+  firstField?.focus();return Boolean(firstField);
+}
 function localityRow(value=''){
   const separator=value.lastIndexOf('-'),city=separator<0?value:value.slice(0,separator),state=separator<0?'':value.slice(separator+1);
   return `<div class="locality-row"><label>Cidade<input name="city" value="${esc(city)}" maxlength="77" placeholder="Nome da cidade" autocomplete="off" required></label><label>Estado<select name="state" required><option value="">UF</option>${states.map(uf=>`<option ${uf===state?'selected':''}>${uf}</option>`).join('')}</select></label><button type="button" class="secondary" data-remove-locality aria-label="Remover cidade ${esc(city)}">Remover</button></div>`;
@@ -225,6 +247,7 @@ async function action(task,success='Salvo.',progress='Aguarde…'){
   if(working)return;working=true;
   const form=document.activeElement?.closest('form');
   form?.querySelector('.form-error')?.remove();
+  if(form?.id==='regions')form.querySelectorAll('.locality-row').forEach(clearLocalityError);
   document.querySelectorAll('button').forEach(b=>b.disabled=true);$('scope').disabled=true;
   message(progress);$('content').setAttribute('aria-busy','true');
   try{const result=await task();await render();message(typeof success==='function'?success(result):success);}
@@ -233,7 +256,8 @@ async function action(task,success='Salvo.',progress='Aguarde…'){
       message('Não foi possível concluir. Confira a mensagem no formulário.',true);
       const feedback=document.createElement('p');
       feedback.className='form-error';feedback.tabIndex=-1;feedback.textContent=error.message;
-      form.append(feedback);feedback.focus();
+      form.append(feedback);
+      if(form.id!=='regions'||!showLocalityErrors(error.fields||[]))feedback.focus();
     }else {message(error.message,true);$('message').focus();}
   }
   finally{$('content').setAttribute('aria-busy','false');working=false;$('scope').disabled=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);}
@@ -251,6 +275,7 @@ function bind(){
   document.querySelectorAll('[data-import]').forEach(form=>form.onsubmit=event=>{event.preventDefault();action(()=>api(`/api/import/${form.dataset.import}?scope=${scope()}`,{method:'POST',body:new FormData(form)}),r=>`${r.added} registro(s) adicionado(s).`);});
   if($('analyze'))$('analyze').onclick=()=>action(()=>post('/api/analyze?'+new URLSearchParams({scope:scope(),start:$('start').value,end:$('end').value,use_ai:currentData.ai.connected})),r=>r.ai?.message||'Resultados revisados. Confira as recomendações.');
   if($('regions')){
+    $('locality-rows').oninput=event=>{const row=event.target.closest('.locality-row');if(row)clearLocalityError(row);};
     $('add-locality').onclick=()=>{
       if($('locality-rows').children.length>=20){$('location-feedback').textContent='O limite é de 20 cidades.';return;}
       $('locality-rows').insertAdjacentHTML('beforeend',localityRow());

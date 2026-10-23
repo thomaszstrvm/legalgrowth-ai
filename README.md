@@ -70,7 +70,7 @@ que você já tenha salvo.
 3. Use **Adicionar cidade** para incluir outros municípios; **Remover** tira uma
    linha da seleção. A alteração só é persistida ao clicar em **Salvar região**.
 4. No CSV, use exatamente a grafia salva seguida de hífen e UF: `Curitiba-PR`.
-   A validação aceita os 27 estados e limita a lista a 20 cidades, mas não consulta
+   A validação aceita as 27 unidades federativas e limita a lista a 20 cidades, mas não consulta
    o IBGE nem comprova que um município existe. Confira a grafia.
 5. Em **Notícias regionais**, confira a região mostrada antes da coleta.
 
@@ -109,6 +109,10 @@ O repositório de desenvolvimento é [thomaszstrvm/legalgrowth-ai](https://githu
 **privado**. Cada entrega verificada recebe um commit; marcos recebem tags.
 O número da versão identifica uma entrega, não uma nota de design.
 Consulte [CHANGELOG.md](CHANGELOG.md) e [guia de versionamento](docs/VERSIONING.md).
+
+Para estudar as decisões de interface, veja também a
+[avaliação das skills de front-end](docs/LLM-SKILLS-REVIEW.md), incluindo o
+tratamento acessível de erros e a proteção dos valores digitados.
 
 Antes de atualizar, preserve `.env`, `.secrets/` e o banco em um backup local
 protegido. Com o servidor parado, atualize o código e execute:

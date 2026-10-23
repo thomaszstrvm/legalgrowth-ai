@@ -1,5 +1,16 @@
 # Histórico de versões
 
+## 0.1.1 — 2026-10-23
+
+- Estudo das skills indicadas pelo artigo LLM Skills, com fontes originais e
+  decisões em `docs/LLM-SKILLS-REVIEW.md`.
+- Erros de cidades identificam a linha, associam orientação aos campos e levam
+  o foco ao primeiro campo afetado. Valores enviados não são repetidos na resposta.
+- Mesmas regras de negócio e paletas; nenhuma dependência nova ou instalação
+  persistente de skill. A meta visual de 9,9 não é declarada alcançada.
+- 159 testes passaram; seis combinações de navegador verificadas. THE CRITIC
+  encerrou a pendência do erro por campo, sem alterar a avaliação anterior.
+
 ## 0.1.0 — 2026-10-23
 
 Primeiro marco versionado do MVP existente. Inclui o trabalho local anterior;

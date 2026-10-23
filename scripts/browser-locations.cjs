@@ -23,7 +23,7 @@ fs.mkdirSync(output,{recursive:true});
         if(url.pathname==='/api/settings')return route.fulfill({json:{localities:saved[scope],ai:{connections:{},insights_ready:false,monthly_limit:60}}});
         if(url.pathname==='/api/news')return route.fulfill({json:{latest:null,localities:saved[scope],coverage_note:'As fontes atuais cobrem o Vale do Paraíba (SP). Outras regiões precisam de fontes compatíveis.'}});
         if(url.pathname==='/api/regions'&&req.method()==='POST'){
-          if(rejectNextSave){rejectNextSave=false;return route.fulfill({status:422,json:{detail:'Confira os campos preenchidos e tente novamente.'}});}
+          if(rejectNextSave){rejectNextSave=false;return route.fulfill({status:422,json:{detail:'Revise as cidades indicadas antes de salvar.',errors:[{row:1,code:'invalid_locality',message:'Confira o nome da cidade e selecione um estado válido.'}]}});}
           const body=req.postDataJSON();assert.ok(['real','demo'].includes(body.scope));
           saved[body.scope]=body.localities;simulatedSaves++;
           return route.fulfill({json:{status:'saved'}});
@@ -48,7 +48,12 @@ fs.mkdirSync(output,{recursive:true});
       await page.screenshot({path:`${output}/settings-${theme}-${width}.png`,fullPage:true});
       rejectNextSave=true;await page.getByRole('button',{name:'Salvar região',exact:true}).click();
       await page.locator('#regions .form-error').waitFor();
+      assert.equal(await page.locator('[aria-invalid=true]').count(),2);
+      assert.equal(await page.locator('.locality-row').nth(1).getByRole('textbox').evaluate(e=>e===document.activeElement),true);
+      assert.equal(await page.locator('.locality-row').nth(1).getByRole('textbox').getAttribute('aria-describedby'),'location-error-1');
       await page.screenshot({path:`${output}/error-${theme}-${width}.png`,fullPage:true});
+      await page.locator('.locality-row').nth(1).getByRole('textbox').fill('Florianópolis');
+      assert.equal(await page.locator('[aria-invalid=true]').count(),0);
       assert.equal(saved.demo.length,3);
       await page.waitForFunction(()=>!document.getElementById('add-locality').disabled);
       await page.locator('[data-remove-locality]').last().focus();await page.keyboard.press('Tab');
@@ -80,7 +85,7 @@ fs.mkdirSync(output,{recursive:true});
     assert.deepEqual(errors,[]);
     const result={checks,errors,simulatedSaves,realMutations:0,externalRequests:0};
     fs.writeFileSync(`${output}/results.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result));
-    const sources=['app/static/app.js','app/static/arc.css','app/static/style.css','app/templates/dashboard.html','scripts/browser-locations.cjs'];
+    const sources=['app/static/app.js','app/static/arc.css','app/static/style.css','app/templates/dashboard.html','app/api.py','scripts/browser-locations.cjs'];
     fs.writeFileSync(`${output}/manifest.json`,JSON.stringify({generatedAt:new Date().toISOString(),sources:Object.fromEntries(sources.map(file=>[file,crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')]))},null,2));
   }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -72,6 +72,15 @@ async def conflict(request, error):
 @app.exception_handler(RequestValidationError)
 async def validation_error(request, error):
     # Never echo a submitted key, including when it fails validation.
+    if request.url.path == '/api/regions':
+        rows = sorted({item['loc'][2] for item in error.errors()
+                       if len(item['loc']) == 3 and item['loc'][:2] == ('body', 'localities')
+                       and type(item['loc'][2]) is int and 0 <= item['loc'][2] < 20})
+        if rows:
+            return JSONResponse({'detail': 'Revise as cidades indicadas antes de salvar.',
+                                 'errors': [{'row': index, 'code': 'invalid_locality',
+                                             'message': 'Confira o nome da cidade e selecione um estado válido.'}
+                                            for index in rows]}, status_code=422)
     return JSONResponse({'detail': 'Confira os campos preenchidos e tente novamente.'}, status_code=422)
 
 

@@ -609,6 +609,8 @@ body[data-page=reports] .task-board>.panel td:first-child {
 .locality-row { display:grid; grid-template-columns:minmax(0,1fr) 100px auto; gap:14px; align-items:end; margin:18px 0; }
 .locality-row label { min-width:0; }
 .locality-row input,.locality-row select { width:100%; }
+.locality-row .field-error { grid-column:1/-1; color:var(--warning); margin:0; font-size:14px; }
+.locality-row [aria-invalid=true] { border-color:var(--warning); }
 .location-actions { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0 8px; }
 @media(max-width:600px) {
   .locality-row { grid-template-columns:minmax(0,1fr) 80px; gap:10px; padding-bottom:18px; border-bottom:1px solid var(--line); }

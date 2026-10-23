@@ -37,3 +37,12 @@ de acabamento, sem defeito funcional comprovado.
 não se atribuiu uma nota artificial. O crítico não executou testes nem usou
 leitor de tela. Persistência e isolamento foram verificados pelo implementador.
 Evidências locais: `output/design-review/locations-v1/final/`.
+
+## Verificação pontual posterior — v0.1.1
+
+Após novo pedido de estudar as skills do artigo LLM Skills, a pendência de erro
+por campo foi implementada. O crítico visualizou seis capturas de erro em
+`locations-v1/accessibility/`, conferiu seis hashes e encerrou a pendência:
+“Cidade 2” indica onde corrigir; a orientação indica como corrigir. Não observou
+colisões ou cortes novos. Confirmou os atributos ARIA por leitura do código.
+Não realizou teste de leitor de tela. **A nota 8,7 permanece inalterada.**
