@@ -15,17 +15,18 @@ const ai={connected:false,insights_ready:false,connections:{openai:{name:'OpenAI
 const metric={rows:3,days:3,cost:240,impressions:2400,clicks:120,qualified:12,hires:2,contacts:15,appointments:4,conversions:8,ctr:5,cpc:2,cpq:20,cph:120};
 const budget={month:'2026-09',planned:2000,spent:240,balance:1760,consumed_percent:12,alerts:[],imported_ads:200,manual_expenses:40,software_expenses:80,legacy_software_allocation:true,allocations:{trabalhista:1200,previdenciario:600,infraestrutura:100,reserva:100}};
 const dashboard={summary:metric,campaigns:{'Campanha Sintética A':metric,'Campanha Sintética sem denominador':{...metric,cost:0,qualified:0,hires:0,cpq:null,cph:null},'Campanha Sintética custo zero':{...metric,cost:0,cpq:0,cph:0}},localities:{'Cidade Sintética-SP':metric},keywords:{'termo educativo sintético':metric},evolution:[{date:'2026-09-01',cost:100,clicks:50},{date:'2026-09-03',cost:0,clicks:0},{date:'2026-09-09',cost:140,clicks:70}],budget,ai,ai_priorities:[],recommendations:[{id:9101,status:'pending',category:'orcamento',title:'Comparar investimento sintético',rationale:'Recomendação fictícia para QA.',evidence:{areas:{trabalhista:metric,previdenciario:{...metric,cpq:30,cph:180}}}}]};
+const contentIdeas=[['2026-08-17','Organização de documentos'],[null,'Registros de trabalho'],['2026-02-30','Planejamento previdenciário']].map(([date,title],i)=>({id:9300+i,status:'pending',category:'mercado',title:'Conteúdo educativo: '+title,rationale:'Fixture educativa sintética.',evidence:{date,accessed:'2026-09-14T12:00:00',source:'Fonte sintética QA',locality:'Cidade Sintética-SP',value:10,unit:'unidades'}}));
 const settings={ai,localities:['Cidade Sintética-SP'],last_week:'2026-09-07',scheduler_enabled:false};
 const preview={real_ingestion_enabled:false,human_confirmation_required:true,fields:{name:{value:'Pessoa Exemplo — fictícia',status:'validado',reason:'Somente formato; não comprova identidade.',origins:[{page:1}],alternatives:['Pessoa Sintética']},cpf:{value:null,status:'ausente',reason:'Não encontrado.',origins:[]}}};
 const sources=['app/static/app.js','app/static/arc.css','app/static/style.css','app/static/tokens.css','app/static/period-context.js','app/static/demo-examples.js','app/static/scene.js','app/templates/dashboard.html','app/templates/_workspace_scene.html','app/templates/_dossier_art.html','scripts/browser-validator-review.cjs'];
 const hashes=()=>Object.fromEntries(sources.map(file=>[file,crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')]));
-const checks=[],failures=[],errors=[],unexpected=[],requests=[],screens=[];
+const checks=[],failures=[],errors=[],unexpected=[],requests=[],screens=[],componentStyles={};
 let browser,password;
-const state={connected:false,realState:'filled',failDashboard:false,failureStatus:0,networkFailure:false,empty:false};
+const state={marketCards:false,connected:false,realState:'filled',failDashboard:false,failureStatus:0,networkFailure:false,empty:false};
 async function check(name,fn){try{await fn();checks.push(name);console.log('PASS '+name);}catch(error){failures.push({name,error:error.message});console.log('FAIL '+name+': '+error.message);}}
 function mock(path,url){
  const connectedAI=state.connected?{...ai,connected:true,insights_ready:true,connections:{openai:{name:'OpenAI',connected:true},claude:{name:'Claude',connected:true}}}:ai;
- if(path==='/api/dashboard')return {...clone(dashboard),start:url.searchParams.get('start'),end:url.searchParams.get('end'),summary:state.empty?{...metric,rows:0}:metric,ai:connectedAI};
+ if(path==='/api/dashboard')return {...clone(dashboard),start:url.searchParams.get('start'),end:url.searchParams.get('end'),summary:state.empty?{...metric,rows:0}:metric,ai:connectedAI,...(state.marketCards?{recommendations:contentIdeas}:{})};
  if(path==='/api/settings')return {...settings,ai:connectedAI};
  if(path==='/api/finance')return {current:{...budget,month:url.searchParams.get('month')},previous:{...budget,month:'2026-08'},expenses:[{id:1,day:'2026-09-10',reference:'Despesa sintética setembro',amount:40},{id:2,day:'2026-08-05',reference:'Despesa sintética agosto',amount:80}]};
  if(path==='/api/reports')return [{id:9201,week_start:'2026-09-07'},{id:9202,week_start:'2026-08-31'}];
@@ -73,8 +74,10 @@ async function context(width=1440,theme='light',scale=1,height=900){
  return {ctx,page};
 }
 async function ready(page){await page.waitForFunction(()=>document.getElementById('content')?.getAttribute('aria-busy')==='false');await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);}
-async function go(page,name,scope='demo',extra=''){const response=await page.goto(origin+'/painel/'+name+'?scope='+scope+'&start=2026-09-01&end=2026-09-30'+extra);assert.equal(response.status(),200);await ready(page);}
-async function shot(page,name){await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo(0,0);});await page.screenshot({path:output+'/'+name+'.png',fullPage:true});screens.push(name);}
+async function go(page,name,scope='demo',extra=''){state.marketCards=name==='market';const response=await page.goto(origin+'/painel/'+name+'?scope='+scope+'&start=2026-09-01&end=2026-09-30'+extra);assert.equal(response.status(),200);await ready(page);}
+async function shot(page,name){
+ if(name.startsWith('insights-')&&!name.includes('-real-'))componentStyles[name]=await page.locator('.insight-start, .insight-start > div, .insight-start h2, .insight-start p, .insight-start .button').evaluateAll(items=>items.map(item=>{const s=getComputedStyle(item);return {tag:item.tagName,style:Object.fromEntries([...s].map(key=>[key,s.getPropertyValue(key)]))};}));
+await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo(0,0);});await page.screenshot({path:output+'/'+name+'.png',fullPage:true});screens.push(name);}
 async function noOverflow(page){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'Document horizontal overflow');}
 async function reportLayout(page){
  assert.equal(await page.locator('ul.report-list > li').count(),2);
@@ -88,6 +91,17 @@ async function openPeriod(page){if(!await page.locator('.period-picker').evaluat
 async function interactionChecks(){
  const {ctx,page}=await context();
  try{
+  await check('v58 indicator dates visible, never inferred from filters or access time',async()=>{
+   await go(page,'market');const date=page.locator('.rec > .rec-meta time');
+   assert.equal(await date.count(),1);assert.ok(await date.isVisible());assert.equal(await date.getAttribute('datetime'),'2026-08-17');assert.equal(await date.innerText(),'17/08/2026');
+   assert.equal(await page.getByText('Data do indicador não informada.',{exact:true}).count(),2);
+   assert.equal(await page.locator('.rec > .rec-meta time[datetime="2026-09-14"]').count(),0);
+  });
+  await check('v58 demo notice carries fixed context once',async()=>{
+   await go(page,'news');assert.equal(await page.locator('.demo-explanation').count(),1);assert.match(await page.locator('.demo-explanation').innerText(),/7 a 13 de setembro de 2026.*não acompanha os filtros/);
+   assert.equal(await page.getByText('Nomes, notícias e números fictícios.',{exact:false}).count(),1);
+   assert.equal(await page.locator('#scan-news').count(),0);
+  });
   await check('P1-01 URL, four-page navigation, reload and Back',async()=>{
    await go(page,'campaigns','demo','&area=trabalhista');
    for(const name of ['agents','insights','overview','campaigns']){
@@ -137,7 +151,7 @@ async function interactionChecks(){
   });
   for(const name of ['news','strategy','insights'])await check('P2-05 static demo '+name,async()=>{
    state.connected=false;await go(page,name);assert.ok(await page.getByRole('heading',{name:'Exemplo demonstrativo',exact:true}).isVisible());
-   assert.match(await page.locator('#content').innerText(),/Não é uma execução de IA/);assert.equal(await page.locator('#content a[href="null"],#content a[href*="/api/news/demo-"]').count(),0);
+   assert.match(await page.locator('#content').innerText(),/Nenhuma IA ou coleta foi executada/);assert.equal(await page.locator('#content a[href="null"],#content a[href*="/api/news/demo-"]').count(),0);
    if(name!=='insights')assert.equal(await page.locator('#scan-news,#insight-form').count(),0);
    if(name==='insights'){assert.equal(await page.locator('#insight-form').count(),0);assert.ok(await page.getByRole('heading',{name:'Exemplo: contatos qualificados registrados',exact:true}).isVisible());}
   });
@@ -196,6 +210,7 @@ async function matrix(){
  try{await interactionChecks();if(process.env.VALIDATOR_INTERACTIONS_ONLY!=='1')await matrix();}
  finally{await browser.close();}
  const after=hashes(),changedDuringRun=sources.filter(file=>before[file]!==after[file]);
+ fs.writeFileSync(output+'/component-styles.json',JSON.stringify(componentStyles,null,2));
  const result={passed:checks.length,checks,failures,errors,unexpected,requests,screens,captures:screens.length,changedDuringRun,realApiRequests:0,realMutations:0,externalRequestsAllowed:0,zoomMethod:'720x450 CSS viewport at deviceScaleFactor 2, equivalent reflow for 1440x900 at 200%; not actual browser or hardware zoom',limits:['Backend contract ingestion block is tested separately by coordinator.','No physical device, screen reader or end-user test.','Visual screenshots require independent review; asserts are not accessibility certification.']};
  fs.writeFileSync(output+'/results.json',JSON.stringify(result,null,2));fs.writeFileSync(output+'/manifest.json',JSON.stringify({generatedAt:new Date().toISOString(),before,after,changedDuringRun},null,2));
  console.log(JSON.stringify({passed:checks.length,failures,errors,unexpected,captures:screens.length,changedDuringRun}));

@@ -1,5 +1,22 @@
 # Histórico de versões
 
+## 0.1.5 — 2026-10-23
+
+- Manutenção v58: data do indicador visível nos cartões de ideias de conteúdo;
+  ausência/invalidez explícita, sem inferência a partir do filtro ou data de acesso.
+- Avisos demonstrativos menos repetitivos; cobrança/globalidade e limites reais
+  preservados. Demonstrações mantêm período fixo e isolamento.
+- Regras de `.insight-start` consolidadas em arc.css: 50 elementos/dez combinações
+  com propriedades calculadas idênticas. DESIGN.md, fontes, paleta e capas intactos.
+- Auxiliar do Impeccable sincronizado e cópia documentada; Taste Skill avaliada
+  pelo fluxo de aplicações, sem novo estilo ou dependência.
+- 179 testes Python; 156 grupos visuais/estados e 21 interações finais aprovados.
+  Três expectativas literais antigas atualizadas, sem esconder a primeira falha.
+- Chrome reproduziu abortos nativos de ViewTransition com contexto/navegação
+  preservados. QA mantém saída1; causa não determinada, sem supressão em produção.
+- THE CRITIC aprovou o escopo após22capturas, sem nova correção necessária.
+  PDF, limites, comparação, mentoria e status separado do OCR documentados.
+
 ## 0.1.4 — 2026-10-23
 
 - Revisão externa v57: contexto temporal explícito, período persistente entre

@@ -100,7 +100,7 @@ body[data-page=campaigns] .task-board>.metrics .metric:first-child strong { font
 .page-context select { background:var(--bg); }
 .overview-lead { grid-template-columns:minmax(0,1.65fr) minmax(290px,1fr); gap:36px; padding:0 0 28px; margin-bottom:28px; border-bottom:1px solid var(--line); align-items:start; }
 .result-ledger { padding:0; }
-.section-head h2,.result-ledger h2,.campaign-workspace .section-head h2,.budget-workspace h2,.connection-overview h2,.report-create h2,.insight-start h2,.task-board>.panel>h2 { font-family:var(--font-ui); font-size:20px; font-weight:650; line-height:1.3; letter-spacing:-.025em; }
+.section-head h2,.result-ledger h2,.campaign-workspace .section-head h2,.budget-workspace h2,.connection-overview h2,.report-create h2,.task-board>.panel>h2 { font-family:var(--font-ui); font-size:20px; font-weight:650; line-height:1.3; letter-spacing:-.025em; }
 .section-head a { font-size:13px; }
 .chart-frame { height:180px; }
 .chart-scale { font-size:12px; }
@@ -142,7 +142,7 @@ body:not([data-page=overview]) #content { background:transparent; border:0; bord
 .connection-editor>.disclosure { max-width:560px; }
 .connection-editor>.disclosure>summary { font-size:20px; font-weight:650; letter-spacing:-.025em; }
 .connection-workspace { grid-template-columns:minmax(0,1fr) minmax(0,616px); }
-.report-create,.insight-start { background:var(--chapter-paper,var(--bg)); border:0; border-left:4px solid var(--chapter-rule,var(--folio-tab)); border-radius:0; box-shadow:none; }
+.report-create { background:var(--chapter-paper,var(--bg)); border:0; border-left:4px solid var(--chapter-rule,var(--folio-tab)); border-radius:0; box-shadow:none; }
 .report-create h2 { padding-top:0; }
 body[data-page=finance] .task-board,body[data-page=reports] .task-board { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:0 44px; align-items:start; }
 body:is([data-page=finance],[data-page=reports]) .task-board>* { grid-column:1/-1; }
@@ -283,7 +283,7 @@ body[data-page=campaigns] .metric:not(:first-child)>small:first-child { display:
 body:not([data-page=overview]) #content { padding:0; }
 .connection-workspace { gap:24px; }
 .connection-overview { padding:0; }
-.connection-editor,.report-create,.insight-start,.task-board>#import { padding:22px 18px; }
+.connection-editor,.report-create,.task-board>#import { padding:22px 18px; }
 body[data-page=finance] .task-board>.budget-line { padding:22px 18px; }
 .report-controls { flex-direction:column; align-items:stretch; }
 .report-controls label { width:100%; }
@@ -298,7 +298,7 @@ body[data-page=finance] .balance { font-size:38px; }
 .finance-expenses td:first-child { grid-row:2; color:var(--muted); font-size:13px; }
 .finance-expenses td:last-child { grid-column:2; grid-row:2; font-size:14px; font-weight:600; }
 
-.connection-overview h2,.report-create h2,.insight-start h2,.connection-editor>.disclosure>summary { font-size:20px; }
+.connection-overview h2,.report-create h2,.connection-editor>.disclosure>summary { font-size:20px; }
 }
 /* The opening spread carries the same identity as the dossier covers.
    Layout only: DOM order, controls, values and event bindings stay intact. */
@@ -566,7 +566,7 @@ body:not([data-page=overview]) .page-header>.page-context {
 }
 body:not([data-page=overview]) nav a[aria-current]::after { background:var(--chapter-rule); }
 .chapter-art-small { display:none; }
-.report-create h2,.connection-overview h2,.connection-editor>.disclosure>summary,.insight-start h2,.task-board>#import h2 {
+.report-create h2,.connection-overview h2,.connection-editor>.disclosure>summary,.task-board>#import h2 {
   font-family:var(--font-display); font-size:30px; font-weight:450; line-height:1.15; letter-spacing:-.025em;
 }
 .connection-overview { padding-top:12px; }
@@ -576,10 +576,6 @@ body[data-page=reports] .task-board { grid-template-columns:minmax(290px,360px) 
 body[data-page=reports] .task-board>.panel { padding-top:28px; }
 body[data-page=reports] .task-board>.panel>.section-head { margin-bottom:24px; }
 
-.insight-start { padding:28px 32px; justify-content:flex-start; }
-.insight-start>div { max-width:660px; }
-.insight-start h2 { max-width:32ch; margin-bottom:12px; }
-.insight-start p { line-height:1.65; }
 @media(max-width:900px) {
 body:not([data-page=overview]) .page-heading { gap:24px; grid-template-columns:minmax(0,1fr) 88px; }
 body:not([data-page=overview]) .chapter-emblem { width:88px; height:88px; padding:12px; }
@@ -593,8 +589,7 @@ body:not([data-page=overview]) .page-heading { grid-template-columns:minmax(0,1f
 body:not([data-page=overview]) .page-header .page-heading h1 { font-size:clamp(32px,9vw,40px); padding:0; }
 body:not([data-page=overview]) .page-description { padding:0; font-size:14px; }
 body:not([data-page=overview]) .chapter-emblem { width:56px; height:64px; padding:8px; align-self:start; }
-.report-create h2,.connection-overview h2,.connection-editor>.disclosure>summary,.insight-start h2,.task-board>#import h2 { font-size:27px; }
-.insight-start { padding:22px 18px; }
+.report-create h2,.connection-overview h2,.connection-editor>.disclosure>summary,.task-board>#import h2 { font-size:27px; }
 
 }
 @media(max-width:380px) {
@@ -633,6 +628,25 @@ body:not([data-page=overview]) .chapter-emblem { width:56px; height:64px; paddin
 #locations .section-head { flex-wrap:wrap; gap:8px; }
 }
 
+
+/* Connection prompt: one owner for the effective v57 styles, including breakpoints. */
+.insight-start {
+  display:flex; align-items:center; justify-content:flex-start; gap:var(--space-8);
+  padding:28px 32px; color:var(--ledger-ink); background:var(--chapter-paper,var(--bg));
+  border:0; border-left:4px solid var(--chapter-rule,var(--folio-tab)); border-radius:0; box-shadow:none;
+}
+.insight-start>div { max-width:660px; }
+.insight-start h2 { color:inherit; font-family:var(--font-display); font-size:30px; font-weight:450; line-height:1.15; letter-spacing:-.025em; max-width:32ch; margin-bottom:12px; }
+.insight-start p { margin:0; color:var(--ledger-muted); max-width:58ch; line-height:1.65; }
+.insight-start .button { flex-shrink:0; background:var(--ledger-ink); color:var(--ledger-bg); }
+.insight-start :focus-visible { outline-color:var(--ledger-ink); }
+@media(max-width:700px) {
+  .insight-start { align-items:flex-start; flex-direction:column; gap:var(--space-5); }
+}
+@media(max-width:600px) {
+  .insight-start { padding:22px 18px; }
+  .insight-start h2 { font-size:27px; }
+}
 
 /* Native cross-document transitions progressively enhance ordinary links. */
 @view-transition { navigation:auto; }

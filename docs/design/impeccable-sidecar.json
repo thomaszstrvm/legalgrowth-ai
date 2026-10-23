@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T21:26:48.175863+00:00",
+  "title": "Design System: LegalGrowth",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "displayName": "Verde de ação",
+        "role": "primary",
+        "canonical": "#315747",
+        "tonalRamp": [
+          "oklch(15% 0.05152 165.28)",
+          "oklch(26% 0.05152 165.28)",
+          "oklch(38% 0.05152 165.28)",
+          "oklch(49% 0.05152 165.28)",
+          "oklch(61% 0.05152 165.28)",
+          "oklch(72% 0.05152 165.28)",
+          "oklch(84% 0.05152 165.28)",
+          "oklch(95% 0.05152 165.28)"
+        ]
+      },
+      "canvas": {
+        "displayName": "Superfície neutra",
+        "role": "neutral",
+        "canonical": "#f7f8f5",
+        "tonalRamp": [
+          "oklch(15% 0.00409 121.56)",
+          "oklch(26% 0.00409 121.56)",
+          "oklch(38% 0.00409 121.56)",
+          "oklch(49% 0.00409 121.56)",
+          "oklch(61% 0.00409 121.56)",
+          "oklch(72% 0.00409 121.56)",
+          "oklch(84% 0.00409 121.56)",
+          "oklch(95% 0.00409 121.56)"
+        ]
+      },
+      "scene-bg": {
+        "displayName": "Palco de dossiês",
+        "role": "brand",
+        "canonical": "#eef1eb",
+        "tonalRamp": [
+          "oklch(15% 0.00856 128.56)",
+          "oklch(26% 0.00856 128.56)",
+          "oklch(38% 0.00856 128.56)",
+          "oklch(49% 0.00856 128.56)",
+          "oklch(61% 0.00856 128.56)",
+          "oklch(72% 0.00856 128.56)",
+          "oklch(84% 0.00856 128.56)",
+          "oklch(95% 0.00856 128.56)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "Corpo operacional",
+        "purpose": "Leitura, tabelas e formulários."
+      },
+      "display": {
+        "displayName": "Título editorial",
+        "purpose": "Título principal da página."
+      }
+    },
+    "shadows": [
+      {
+        "purpose": "Seletor de período; removida quando entra no fluxo móvel.",
+        "value": "0 12px 32px #172b3a24",
+        "name": "floating-shadow"
+      }
+    ],
+    "motion": [
+      {
+        "purpose": "Estado e pressão do ponteiro; escala .98, removida sob movimento reduzido.",
+        "value": "background-color 140ms, border-color 140ms, transform 140ms cubic-bezier(.23,1,.32,1)",
+        "name": "button-color"
+      },
+      {
+        "purpose": "Realce do summary.",
+        "value": "background-color 160ms",
+        "name": "disclosure-background"
+      },
+      {
+        "purpose": "Marca de abertura.",
+        "value": "transform 180ms ease-out",
+        "name": "disclosure-mark"
+      },
+      {
+        "purpose": "Aplicado sob prefers-reduced-motion: reduce.",
+        "value": "transition: none !important; scroll-behavior: auto !important",
+        "name": "reduced-motion"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "max-380",
+        "value": "380px"
+      },
+      {
+        "name": "max-600",
+        "value": "600px"
+      },
+      {
+        "name": "max-700",
+        "value": "700px"
+      },
+      {
+        "name": "max-767",
+        "value": "767px"
+      },
+      {
+        "name": "max-800",
+        "value": "800px"
+      },
+      {
+        "name": "max-900",
+        "value": "900px"
+      },
+      {
+        "name": "max-1000",
+        "value": "1000px"
+      },
+      {
+        "name": "max-1100",
+        "value": "1100px"
+      },
+      {
+        "name": "max-1180",
+        "value": "1180px"
+      },
+      {
+        "name": "min-601",
+        "value": "601px"
+      },
+      {
+        "name": "min-901",
+        "value": "901px"
+      },
+      {
+        "name": "min-1280",
+        "value": "1280px"
+      },
+      {
+        "name": "min-1600",
+        "value": "1600px"
+      },
+      {
+        "name": "min-1800",
+        "value": "1800px"
+      }
+    ],
+    "brandAsset": {
+      "path": "app/templates/_workspace_scene.html",
+      "origin": "Capas originais em HTML e SVG inline.",
+      "role": "Links para áreas existentes; sem dependência de imagens externas."
+    },
+    "source": {
+      "document": "DESIGN.md",
+      "sha256": "83a3d7a84cfa9290d1d2ed813a7e9de4cbf529677184e83df6a68297c102c04e",
+      "revision": "v57, preservada na manutenção v58"
+    }
+  },
+  "components": [
+    {
+      "html": "<button class=\"ds-button\" type=\"button\">Aplicar</button>",
+      "description": "Ação principal existente.",
+      "name": "Botão primário",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:44px;padding:9px 18px;border:1px solid transparent;border-radius:var(--radius-control);background:var(--accent);color:var(--on-accent);font:600 16px/1.55 \"Manrope\",\"Segoe UI\",sans-serif;cursor:pointer;transition:background-color 140ms,border-color 140ms}.ds-button:hover{background:var(--accent-hover)}.ds-button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.ds-button:active{filter:brightness(.9)}.ds-button:disabled{opacity:.55;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button{font-size:15px;line-height:1.6;transition:background-color 140ms,border-color 140ms,transform 140ms cubic-bezier(.23,1,.32,1)}.ds-button:active:not(:disabled):not(:focus-visible){transform:scale(.98)}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}",
+      "kind": "button",
+      "refersTo": "button-primary"
+    },
+    {
+      "html": "<button class=\"ds-button ds-secondary\" type=\"button\">Alterar período</button>",
+      "description": "Ação de apoio com contorno.",
+      "name": "Botão secundário",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:44px;padding:9px 18px;border:1px solid transparent;border-radius:var(--radius-control);background:var(--accent);color:var(--on-accent);font:600 16px/1.55 \"Manrope\",\"Segoe UI\",sans-serif;cursor:pointer;transition:background-color 140ms,border-color 140ms}.ds-button:hover{background:var(--accent-hover)}.ds-button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.ds-button:active{filter:brightness(.9)}.ds-button:disabled{opacity:.55;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-secondary{background:var(--bg);color:var(--ink);border-color:var(--control)}.ds-secondary:hover,.ds-secondary:focus-visible{background:var(--soft);border-color:var(--accent)}.ds-button{font-size:15px;line-height:1.6;transition:background-color 140ms,border-color 140ms,transform 140ms cubic-bezier(.23,1,.32,1)}.ds-button:active:not(:disabled):not(:focus-visible){transform:scale(.98)}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}",
+      "kind": "button",
+      "refersTo": "button-secondary"
+    },
+    {
+      "html": "<label class=\"ds-label\">Nome<input class=\"ds-input\" name=\"nome\" placeholder=\"Nome do escritório\"></label>",
+      "description": "Entrada nativa com rótulo visível.",
+      "name": "Campo com label",
+      "css": ".ds-label{display:flex;flex-direction:column;gap:6px;font:600 14px/1.55 \"Manrope\",\"Segoe UI\",sans-serif;color:var(--ink)}.ds-input{min-width:0;min-height:44px;padding:9px var(--space-3);color:var(--ink);background:var(--bg);border:1px solid var(--control);border-radius:var(--radius-control);caret-color:var(--accent);font:400 16px/1.55 \"Manrope\",\"Segoe UI\",sans-serif}.ds-input::placeholder{color:var(--muted);opacity:1}.ds-input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}",
+      "kind": "input",
+      "refersTo": "input"
+    },
+    {
+      "html": "<nav class=\"ds-nav\" aria-label=\"Exemplo de navegação\"><a class=\"ds-nav-link\" href=\"#resumo\" aria-current=\"page\">Resumo</a><a class=\"ds-nav-link\" href=\"#campanhas\">Campanhas</a></nav>",
+      "description": "Navegação horizontal; a aplicação usa o menu recolhível até 1180px. Exemplo de links, não uma reprodução do controle de abertura.",
+      "name": "Navegação",
+      "css": ".ds-nav{display:flex;gap:4px;border-bottom:1px solid var(--line);background:var(--nav-bg)}.ds-nav-link{position:relative;display:flex;align-items:center;min-height:46px;padding:10px 8px;white-space:nowrap;color:var(--muted);text-decoration:none;font:400 13px/1.6 \"Manrope\",\"Segoe UI\",sans-serif}.ds-nav-link:hover{color:var(--ink);background:var(--soft)}.ds-nav-link[aria-current]{color:var(--ink);font-weight:650}.ds-nav-link[aria-current]::after{content:\"\";position:absolute;inset:auto 8px -1px;height:2px;background:var(--accent)}.ds-nav-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px}",
+      "kind": "nav",
+      "refersTo": "navigation-link"
+    },
+    {
+      "html": "<details class=\"ds-disclosure\"><summary><span>Ver detalhes</span><i class=\"ds-mark\" aria-hidden=\"true\"></i></summary><div>Informações complementares.</div></details>",
+      "description": "Detalhamento com details e summary nativos.",
+      "name": "Disclosure",
+      "css": ".ds-disclosure{border-block:1px solid var(--line);font:400 16px/1.55 \"Manrope\",\"Segoe UI\",sans-serif;color:var(--ink)}.ds-disclosure>summary{cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:var(--space-6);min-height:64px;align-items:center;color:var(--ink);list-style:none;padding:var(--space-4);font-size:18px;transition:background-color 160ms}.ds-disclosure>summary::-webkit-details-marker{display:none}.ds-disclosure>summary:is(:hover,:focus-visible),.ds-disclosure[open]>summary{background:var(--soft)}.ds-disclosure>summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.ds-mark{width:20px;height:20px;position:relative}.ds-mark::before,.ds-mark::after{content:\"\";position:absolute;background:currentColor;width:16px;height:2px;top:9px;left:2px}.ds-mark::after{transform:rotate(90deg);transition:transform 180ms ease-out}.ds-disclosure[open]>summary .ds-mark::after{transform:rotate(0)}.ds-disclosure>div{padding:var(--space-6) var(--space-4)}@media(prefers-reduced-motion:reduce){.ds-disclosure>summary,.ds-mark::after{transition:none}}.ds-disclosure[open]>summary{background:transparent;color:var(--accent);font-weight:650}.ds-disclosure[open]>summary:hover{background:var(--soft)}",
+      "kind": "custom",
+      "refersTo": "disclosure"
+    }
+  ],
+  "narrative": {
+    "northStar": "editorial operacional",
+    "overview": "O Resumo apresenta contexto, indicadores, atenção e análise antes da coleção de dossiês.",
+    "keyCharacteristics": [
+      "Superfícies de trabalho neutras, tinta grafite e verde discreto nas ações.",
+      "Newsreader nos títulos e capas; Manrope em controles, valores e texto.",
+      "A navegação principal é horizontal em telas largas e usa o menu existente até 1180px."
+    ],
+    "rules": [],
+    "dos": [
+      "Mantém todos os destinos; a galeria é um acesso complementar a cinco áreas, não substitui a navegação completa."
+    ],
+    "donts": [
+      "Não usar a cena artística sobre informações operacionais nem diminuir contraste para imitar a textura CRT da referência.",
+      "Não bloquear a navegação para exibir efeitos."
+    ]
+  }
+}

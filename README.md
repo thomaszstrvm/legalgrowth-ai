@@ -19,7 +19,17 @@ O Resumo começa pelos indicadores e pontos para revisar. A coleção de dossiê
 continua abaixo da análise como navegação complementar. Campanhas, orçamento,
 relatórios e análises também permanecem no menu principal.
 
-Marco atual: **v0.1.4**, versão visual v57. O período acompanha a navegação; o
+Marco atual: **v0.1.5**, manutenção visual v58. Datas de indicadores agora aparecem
+nos cartões; avisos demonstrativos foram reduzidos e o CSS de conexão consolidado,
+com paridade verificada nos dois temas. Consulte a [manutenção v58](docs/MAINTENANCE-V58.md),
+o [parecer independente](docs/THE-CRITIC-MAINTENANCE-V58.md), a
+[investigação dos abortos no Chrome](docs/VIEW-TRANSITION-CHROME.md) e o
+[PDF desta manutenção](docs/releases/LegalGrowth_Manutencao_v0.1.5.pdf).
+O Impeccable foi sincronizado sem alterar DESIGN.md; a Taste foi avaliada seletivamente,
+sem instalar outro estilo ou dependência. Os abortos nativos continuam documentados,
+sem causa raiz confirmada. O OCR permanece apenas uma interface técnica opcional.
+
+Base preservada da **v0.1.4/v57**. O período acompanha a navegação; o
 orçamento tem seleção de mês e os relatórios mostram a semana completa. Exemplos
 estáticos explicam Notícias, Oportunidades e Insights sem chamar provedores.
 Veja a [revisão implementada](docs/VALIDATOR-REVIEW.md), o
