@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-23",
+  "version": "1.1.0",
+  "tests": [
+    {
+      "composition": "LegalGrowth20s",
+      "firstFrame": 1,
+      "lastFrame": 599,
+      "observedFrames": 599,
+      "expectedFrames": 599,
+      "elapsedSeconds": 19.933299999999814,
+      "effectiveFps": 30.000050167308252,
+      "p95FrameGapMs": 36.200000000186265,
+      "maxFrameGapMs": 48,
+      "hiddenSamples": 0,
+      "audioChunks": 469,
+      "audioSeconds": 20.0,
+      "audioP95AbsDriftMs": 22.437933332687265,
+      "audioMaxAbsDriftMs": 23.826000000191527,
+      "signedAudioDriftRangeMs": [
+        -23.826000000191527,
+        -4.35866666723328
+      ],
+      "maxChunkGapMs": 3.552713678800501e-12,
+      "matchedPcmFingerprints": 469,
+      "checks": {
+        "complete": true,
+        "coverage": true,
+        "fps": true,
+        "frame_p95": true,
+        "no_long_stall": true,
+        "foreground": true,
+        "audio_p95": true,
+        "audio_max": true
+      },
+      "passed": true,
+      "environment": "Chrome claro"
+    },
+    {
+      "composition": "LegalGrowth20sDark",
+      "firstFrame": 1,
+      "lastFrame": 599,
+      "observedFrames": 599,
+      "expectedFrames": 599,
+      "elapsedSeconds": 19.927700000000186,
+      "effectiveFps": 30.00848065757686,
+      "p95FrameGapMs": 36,
+      "maxFrameGapMs": 48.200000000186265,
+      "hiddenSamples": 0,
+      "audioChunks": 469,
+      "audioSeconds": 20.0,
+      "audioP95AbsDriftMs": 24.420400000528453,
+      "audioMaxAbsDriftMs": 25.777999999820445,
+      "signedAudioDriftRangeMs": [
+        -25.777999999820445,
+        -5.4516666664876645
+      ],
+      "maxChunkGapMs": 3.552713678800501e-12,
+      "matchedPcmFingerprints": 469,
+      "checks": {
+        "complete": true,
+        "coverage": true,
+        "fps": true,
+        "frame_p95": true,
+        "no_long_stall": true,
+        "foreground": true,
+        "audio_p95": true,
+        "audio_max": true
+      },
+      "passed": true,
+      "environment": "Chrome escuro"
+    },
+    {
+      "composition": "LegalGrowth20s",
+      "firstFrame": 1,
+      "lastFrame": 599,
+      "observedFrames": 598,
+      "expectedFrames": 599,
+      "elapsedSeconds": 19.930299999999814,
+      "effectiveFps": 29.954391052819354,
+      "p95FrameGapMs": 36,
+      "maxFrameGapMs": 68.70000000018626,
+      "hiddenSamples": 0,
+      "audioChunks": 469,
+      "audioSeconds": 20.0,
+      "audioP95AbsDriftMs": 24.23286666678095,
+      "audioMaxAbsDriftMs": 25.66466666667111,
+      "signedAudioDriftRangeMs": [
+        -25.66466666667111,
+        -12.023666666487465
+      ],
+      "maxChunkGapMs": 3.552713678800501e-12,
+      "matchedPcmFingerprints": 469,
+      "checks": {
+        "complete": true,
+        "coverage": true,
+        "fps": true,
+        "frame_p95": true,
+        "no_long_stall": true,
+        "foreground": true,
+        "audio_p95": true,
+        "audio_max": true
+      },
+      "passed": true,
+      "environment": "Codex claro"
+    },
+    {
+      "composition": "LegalGrowth20sDark",
+      "firstFrame": 1,
+      "lastFrame": 599,
+      "observedFrames": 599,
+      "expectedFrames": 599,
+      "elapsedSeconds": 19.931599999999627,
+      "effectiveFps": 30.002608922515563,
+      "p95FrameGapMs": 35.200000000186265,
+      "maxFrameGapMs": 62.59999999962747,
+      "hiddenSamples": 0,
+      "audioChunks": 469,
+      "audioSeconds": 20.0,
+      "audioP95AbsDriftMs": 23.524866666859623,
+      "audioMaxAbsDriftMs": 24.157666666859257,
+      "signedAudioDriftRangeMs": [
+        -24.157666666859257,
+        8.330333332952744
+      ],
+      "maxChunkGapMs": 3.552713678800501e-12,
+      "matchedPcmFingerprints": 469,
+      "checks": {
+        "complete": true,
+        "coverage": true,
+        "fps": true,
+        "frame_p95": true,
+        "no_long_stall": true,
+        "foreground": true,
+        "audio_p95": true,
+        "audio_max": true
+      },
+      "passed": true,
+      "environment": "Codex escuro"
+    }
+  ],
+  "negativeTests": {
+    "audio-delay": true,
+    "long-stall": true,
+    "missing-chunk": true
+  },
+  "limitations": [
+    "React frame commits, not physical monitor measurement",
+    "Audio output timestamps, not speaker or Bluetooth loopback",
+    "One final pass per theme/browser",
+    "No encoded MP4 export"
+  ],
+  "implementationCommit": "178caaa",
+  "sha256": {
+    "media\\legalgrowth-presentation\\src\\Cinematic.tsx": "4a16ef59404b46a6037872ccd4dd56c6114c71c404ebc89ecc02dd9cd53f7ba0",
+    "media\\legalgrowth-presentation\\src\\visuals.tsx": "eba38f78ae328ab41718c141b27e199e21de9debe5b8b44cf83ba89f12e4b51f",
+    "media\\legalgrowth-presentation\\public\\audio\\legalgrowth-original.wav": "e0f8dfe3f3640b74ea7aa56644138f29503fffe7ee80e472183760643e42ba20"
+  }
+}

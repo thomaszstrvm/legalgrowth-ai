@@ -70,3 +70,11 @@ Validação desta revisão: ESLint + TypeScript passaram; gerados dez quadros (6
 ## Composição minimalista — revisão v4
 
 Removido o cartão com fundo e a pilha de textos da análise: agora “Análise de IA” e “Segunda revisão” aparecem em momentos separados. Títulos em Instrument Sans Medium; capas, cores e trilha original preservadas nos dois temas. Máscaras isolam a cena nova e a chamada de investimento corresponde ao gráfico. Pesquisa, decisões, mentoria e validação: [FILM-COMPOSITION-V4.md](../../docs/FILM-COMPOSITION-V4.md).
+
+## Filme 1.1.0 - ritmo e diagnóstico de reprodução
+
+Capas abrem em sequência; câmera chega antes para leitura; mensagens de IA têm troca mais ágil. Textos de saída desaparecem antes das máscaras. As imagens estáticas agora usam `Img`; trilha, duração, paleta e interface original preservadas.
+
+Para medir playback, abra a composição com `?playbackQA=1`, vá ao início e recarregue **antes de cada passagem**. Use 1x, volume 1, loop desligado e aba em primeiro plano. O JSON surge no canto ao terminar. Sem o parâmetro, não há observador Web Audio. Não use esse modo durante uso cotidiano ou para exportação.
+
+O validador `scripts/analyze-playback.py` requer Python e NumPy. Ele compara os buffers realmente agendados com o WAV original; não substitui o player por um relógio simulado. Métodos, critérios, resultados, limites e exercício: [FILM-PLAYBACK-V6.md](../../docs/FILM-PLAYBACK-V6.md). Referências recentes de Anthropic/OpenAI e literatura: [FILM-RESEARCH-MOTION-SOUND.md](../../docs/FILM-RESEARCH-MOTION-SOUND.md).
