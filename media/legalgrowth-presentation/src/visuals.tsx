@@ -1,7 +1,7 @@
 import React from "react";
 import {
   AbsoluteFill,
-  CanvasImage,
+  Img,
   Easing,
   interpolate,
   staticFile,
@@ -164,9 +164,10 @@ export const Detail = ({
         ...style,
       }}
     >
-      <CanvasImage
+      <Img
         src={staticFile("screens/" + src)}
         premountFor={fps}
+        pauseWhenLoading
         style={{
           position: "absolute",
           maxWidth: "none",
@@ -189,9 +190,10 @@ export const Cover = ({
 }) => {
   const { fps } = useVideoConfig();
   return (
-    <CanvasImage
+    <Img
       src={staticFile(`covers/${name}-${theme}.png`)}
       premountFor={fps}
+      pauseWhenLoading
       style={{
         width: 420,
         height: 572,

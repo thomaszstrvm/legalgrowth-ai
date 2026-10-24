@@ -58,16 +58,16 @@ export const SceneMask = ({
 }: FilmProps & { children: React.ReactNode }) => {
   const f = useCurrentFrame(),
     { fps } = useVideoConfig();
-  // Opaque backing prevents pieces of the previous title leaking through the wipe.
+  // Mask the opaque incoming stage itself: outgoing pixels stay visible until
+  // replaced, instead of cutting to an empty background before every scene.
   return (
-    <AbsoluteFill style={{ background: colors(theme).bg }}>
-      <AbsoluteFill
-        style={{
-          clipPath: `inset(0 0 0 ${(1 - motionProgress(f, 0, 0.4 * fps)) * 100}%)`,
-        }}
-      >
-        {children}
-      </AbsoluteFill>
+    <AbsoluteFill
+      style={{
+        background: colors(theme).bg,
+        clipPath: `inset(0 0 0 ${(1 - motionProgress(f, 0, 0.4 * fps)) * 100}%)`,
+      }}
+    >
+      {children}
     </AbsoluteFill>
   );
 };
@@ -109,9 +109,13 @@ export const PromiseScene = ({ theme }: FilmProps) => {
     { fps } = useVideoConfig();
   const p = motionProgress(f, 0.25 * fps, 0.9 * fps),
     exit = motionProgress(f, 2.65 * fps, 0.35 * fps);
+  const fanLeft = motionProgress(f, 0.42 * fps, 0.8 * fps);
+  const fanRight = motionProgress(f, 0.56 * fps, 0.8 * fps);
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 120, top: 88 }}>
+      <div
+        style={{ position: "absolute", left: 120, top: 88, opacity: 1 - exit }}
+      >
         <Brand size={43} />
       </div>
       <div
@@ -121,6 +125,7 @@ export const PromiseScene = ({ theme }: FilmProps) => {
           top: 330,
           width: 880,
           translate: `0 ${-exit * 35}px`,
+          opacity: 1 - exit,
         }}
       >
         <MaskText>Campanhas e</MaskText>
@@ -146,7 +151,8 @@ export const PromiseScene = ({ theme }: FilmProps) => {
             top: 65,
             width: 390,
             height: 531,
-            rotate: "-12deg",
+            rotate: `${-12 * fanLeft}deg`,
+            translate: `${(1 - fanLeft) * 115}px 0`,
           }}
         />
         <Cover
@@ -158,7 +164,8 @@ export const PromiseScene = ({ theme }: FilmProps) => {
             top: 75,
             width: 390,
             height: 531,
-            rotate: "14deg",
+            rotate: `${14 * fanRight}deg`,
+            translate: `${-(1 - fanRight) * 125}px 0`,
           }}
         />
         <Cover
@@ -194,10 +201,17 @@ export const DashboardScene = ({ theme }: FilmProps) => {
   const f = useCurrentFrame(),
     { fps } = useVideoConfig();
   const reveal = motionProgress(f, 0, 0.8 * fps),
-    camera = motionProgress(f, 0.7 * fps, 2.7 * fps);
+    camera = motionProgress(f, 0.65 * fps, 2.1 * fps);
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 120, top: 88 }}>
+      <div
+        style={{
+          position: "absolute",
+          left: 120,
+          top: 88,
+          opacity: 1 - motionProgress(f, 3.65 * fps, 0.3 * fps),
+        }}
+      >
         <MaskText size={64}>Visão geral.</MaskText>
       </div>
       <div
@@ -210,6 +224,7 @@ export const DashboardScene = ({ theme }: FilmProps) => {
           overflow: "hidden",
           width: 1590,
           height: 730,
+          opacity: 1 - motionProgress(f, 3.75 * fps, 0.25 * fps),
           borderRadius: 12,
           boxShadow:
             theme === "dark" ? "0 40px 90px #0008" : "0 40px 90px #26332625",
@@ -241,7 +256,15 @@ export const ResultsScene = ({ theme }: FilmProps) => {
   const drift = motionProgress(f, 0, 4 * fps);
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 120, top: 386, width: 600 }}>
+      <div
+        style={{
+          position: "absolute",
+          left: 120,
+          top: 386,
+          width: 600,
+          opacity: 1 - motionProgress(f, 3.65 * fps, 0.3 * fps),
+        }}
+      >
         <MaskText size={80}>Investimento.</MaskText>
         <div style={{ marginTop: 38, color: colors(theme).muted }}>
           <MaskText size={32} delay={0.35}>
@@ -256,6 +279,7 @@ export const ResultsScene = ({ theme }: FilmProps) => {
           top: 298,
           clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`,
           scale: 1 + drift * 0.025,
+          opacity: 1 - motionProgress(f, 3.75 * fps, 0.25 * fps),
           transformOrigin: "left center",
         }}
       >
@@ -275,8 +299,8 @@ export const IntelligenceScene = ({ theme }: FilmProps) => {
     { fps } = useVideoConfig();
   const cover = motionProgress(f, 0.12 * fps, 1.15 * fps);
   const firstIn = motionProgress(f, 0.15 * fps, 0.65 * fps);
-  const firstOut = motionProgress(f, 2.05 * fps, 0.25 * fps);
-  const secondIn = motionProgress(f, 2.35 * fps, 0.65 * fps);
+  const firstOut = motionProgress(f, 2.05 * fps, 0.2 * fps);
+  const secondIn = motionProgress(f, 2.25 * fps, 0.55 * fps);
   // Two short beats replace the former five-level heading/subtitle/excerpt stack.
   // Their opacity windows do not overlap, so words never cross over one another.
   return (
@@ -292,6 +316,7 @@ export const IntelligenceScene = ({ theme }: FilmProps) => {
           fontWeight: 500,
           lineHeight: 1.1,
           letterSpacing: "-.025em",
+          opacity: 1 - motionProgress(f, 4.65 * fps, 0.3 * fps),
         }}
       >
         <div

@@ -1,5 +1,6 @@
 import { Sequence, staticFile, useVideoConfig } from "remotion";
 import { Audio } from "@remotion/media";
+import { PlaybackAudit } from "./PlaybackAudit";
 import {
   DashboardScene,
   FilmProps,
@@ -15,6 +16,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
   // Absolute cue times keep the composition exactly 600 frames, not 648.
   return (
     <>
+      <PlaybackAudit />
       <Audio
         src={staticFile("audio/legalgrowth-original.wav") + "?score=2"}
         premountFor={fps}
