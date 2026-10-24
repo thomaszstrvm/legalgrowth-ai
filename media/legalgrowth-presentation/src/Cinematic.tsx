@@ -103,40 +103,6 @@ const MaskText = ({
     </div>
   );
 };
-const Demo = ({
-  theme,
-  analysis = false,
-}: FilmProps & { analysis?: boolean }) => (
-  <div
-    style={{
-      position: "absolute",
-      left: 104,
-      bottom: 45,
-      fontSize: 23,
-      color: colors(theme).muted,
-    }}
-  >
-    {analysis
-      ? "Exemplo de análise · IA configurável, sujeita a erros"
-      : "Demonstração com dados fictícios"}
-  </div>
-);
-const Kicker = ({
-  children,
-  theme,
-}: FilmProps & { children: React.ReactNode }) => (
-  <div
-    style={{
-      fontSize: 23,
-      letterSpacing: ".025em",
-      color: colors(theme).muted,
-      marginBottom: 25,
-    }}
-  >
-    {children}
-  </div>
-);
-
 export const PromiseScene = ({ theme }: FilmProps) => {
   const f = useCurrentFrame(),
     { fps } = useVideoConfig();
@@ -156,9 +122,8 @@ export const PromiseScene = ({ theme }: FilmProps) => {
           translate: `0 ${-exit * 35}px`,
         }}
       >
-        <Kicker theme={theme}>Marketing jurídico</Kicker>
-        <MaskText>Seu marketing,</MaskText>
-        <MaskText delay={0.16}>mais claro.</MaskText>
+        <MaskText>Campanhas e</MaskText>
+        <MaskText delay={0.16}>resultados.</MaskText>
       </div>
       <div
         style={{
@@ -232,7 +197,7 @@ export const DashboardScene = ({ theme }: FilmProps) => {
   return (
     <Stage theme={theme}>
       <div style={{ position: "absolute", left: 104, top: 82 }}>
-        <MaskText size={72}>Uma visão do escritório.</MaskText>
+        <MaskText size={72}>Visão geral.</MaskText>
       </div>
       <div
         style={{
@@ -264,7 +229,6 @@ export const DashboardScene = ({ theme }: FilmProps) => {
           />
         </div>
       </div>
-      <Demo theme={theme} />
     </Stage>
   );
 };
@@ -274,16 +238,14 @@ export const ResultsScene = ({ theme }: FilmProps) => {
  const reveal=motionProgress(f,.18*fps,1.25*fps),drift=motionProgress(f,0,4*fps);
  return <Stage theme={theme}>
   <div style={{position:"absolute",left:104,top:94}}>
-   <Kicker theme={theme}>Investimentos e resultados</Kicker>
-   <MaskText size={85}>Veja o que os dados mostram.</MaskText>
+   <MaskText size={85}>Investimento e resultados.</MaskText>
   </div>
   <div style={{position:"absolute",left:104,top:470,width:590}}>
-   <MaskText size={64} delay={.4}>Compare.</MaskText>
-   <MaskText size={64} delay={.55}>Antes de decidir.</MaskText>
+   <MaskText size={64} delay={.4}>Compare períodos.</MaskText>
   </div>
   <div style={{position:"absolute",left:750,top:340,clipPath:`inset(0 ${(1-reveal)*100}% 0 0)`,scale:1+drift*.025,transformOrigin:"left center"}}>
    <Detail src={`overview-${theme}.png`} sourceWidth={2880} crop={[1475,2125,1325,640]} width={1050}/>
-  </div><Demo theme={theme}/>
+  </div>
  </Stage>;
 };
 
@@ -295,10 +257,9 @@ export const IntelligenceScene = ({ theme }: FilmProps) => {
   return (
     <Stage theme={theme}>
       <div style={{ position: "absolute", left: 104, top: 100 }}>
-        <Kicker theme={theme}>Insights de IA</Kicker>
-        <MaskText size={93}>Uma análise.</MaskText>
+        <MaskText size={93}>Análise de IA.</MaskText>
         <MaskText delay={0.14} size={93}>
-          Uma segunda revisão.
+          Segunda revisão.
         </MaskText>
       </div>
       <div
@@ -347,12 +308,9 @@ export const IntelligenceScene = ({ theme }: FilmProps) => {
             width: 390,
           }}
         >
-          A decisão
-          <br />
-          continua sua.
+          Você decide.
         </div>
       </div>
-      <Demo theme={theme} analysis />
     </Stage>
   );
 };
@@ -369,7 +327,7 @@ export const SignatureScene = ({ theme }: FilmProps) => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: 330,
+          top: 420,
           display: "flex",
           justifyContent: "center",
           alignItems: "baseline",
@@ -393,7 +351,7 @@ export const SignatureScene = ({ theme }: FilmProps) => {
         style={{
           position: "absolute",
           left: 700,
-          top: 535,
+          top: 625,
           width: 520,
           height: 2,
           background: colors(theme).accent,
@@ -401,33 +359,6 @@ export const SignatureScene = ({ theme }: FilmProps) => {
           transformOrigin: "center",
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 600,
-          textAlign: "center",
-          opacity: line,
-          fontSize: 39,
-        }}
-      >
-        Entenda. Compare. Decida.
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 120,
-          textAlign: "center",
-          fontSize: 24,
-          color: colors(theme).muted,
-          opacity: p,
-        }}
-      >
-        Inteligência de marketing jurídico
-      </div>
     </Stage>
   );
 };

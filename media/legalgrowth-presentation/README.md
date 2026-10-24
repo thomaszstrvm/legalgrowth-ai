@@ -60,3 +60,9 @@ Leia `../../docs/REMOTION-PRESENTATION.md` e o parecer em `../../docs/THE-CRITIC
 ## Atualização da trilha - revisão 2
 
 Motivo mais espaçado, pulso restrito às cenas do produto, dinâmica suave inspirada no ritmo observado em The Sea We Breathe e efeitos pontuais. Música e efeitos estão separados em `public/audio/music-stem.wav` e `effects-stem.wav`; o filme usa a soma em `legalgrowth-original.wav`. Detalhes, decisões, exercício e verificação: [AUDIO-SCORE.md](../../docs/AUDIO-SCORE.md).
+
+## Textos finais — 23/10/2026
+
+Revisão pontual em `src/Cinematic.tsx`: removidos os rodapés adicionais, os pequenos rótulos de contexto e os slogans. Títulos diretos apresentam campanhas, visão geral, investimento e análise de IA; a marca encerra o filme. As capturas reais mantêm seus próprios avisos de exemplo fictício. Os dois temas compartilham o mesmo texto; fontes, assets, áudio e duração não foram alterados.
+
+Validação desta revisão: ESLint + TypeScript passaram; gerados dez quadros (60, 150, 270, 420 e 570 em cada tema), confirmando 600 frames a 30 fps. Evidências locais em `output/film-final-copy/`, a partir da raiz. THE CRITIC aprovou o ajuste pontual sem cortes ou colisões observáveis; sua revisão foi estática e não certifica áudio ou movimento. Não foi exportado novo MP4 nesta revisão.
