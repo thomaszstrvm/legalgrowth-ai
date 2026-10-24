@@ -31,7 +31,7 @@ O botão Render do Studio permite exportar a composição selecionada.
 - `scripts/compose-audio.py`: trilha e efeitos originais, gerados localmente; Python + NumPy.
 - Cenas antigas em `src/scenes` e `src/illustrations.tsx` são histórico da proposta v4; não estão registradas nem são usadas no filme atual.
 
-Newsreader nos títulos e Manrope no texto seguem DESIGN.md. Instrument Sans permanece no histórico da v4, sem substituir a identidade atual.
+Instrument Sans Medium conduz os títulos do filme por solicitação do usuário. Newsreader permanece na marca e nas capas; o painel continua com Newsreader/Manrope conforme DESIGN.md. Arquivos locais e licenças são preservados.
 Mantenha a mesma história nos dois temas: altere o componente compartilhado, não copie a composição.
 O estágio lógico e a separação por cena facilitam outra proporção; **1080 x 1920 ainda exige reenquadramento próprio**. A escala atual preserva proporções, mas não é uma versão vertical pronta.
 
@@ -66,3 +66,7 @@ Motivo mais espaçado, pulso restrito às cenas do produto, dinâmica suave insp
 Revisão pontual em `src/Cinematic.tsx`: removidos os rodapés adicionais, os pequenos rótulos de contexto e os slogans. Títulos diretos apresentam campanhas, visão geral, investimento e análise de IA; a marca encerra o filme. As capturas reais mantêm seus próprios avisos de exemplo fictício. Os dois temas compartilham o mesmo texto; fontes, assets, áudio e duração não foram alterados.
 
 Validação desta revisão: ESLint + TypeScript passaram; gerados dez quadros (60, 150, 270, 420 e 570 em cada tema), confirmando 600 frames a 30 fps. Evidências locais em `output/film-final-copy/`, a partir da raiz. THE CRITIC aprovou o ajuste pontual sem cortes ou colisões observáveis; sua revisão foi estática e não certifica áudio ou movimento. Não foi exportado novo MP4 nesta revisão.
+
+## Composição minimalista — revisão v4
+
+Removido o cartão com fundo e a pilha de textos da análise: agora “Análise de IA” e “Segunda revisão” aparecem em momentos separados. Títulos em Instrument Sans Medium; capas, cores e trilha original preservadas nos dois temas. Máscaras isolam a cena nova e a chamada de investimento corresponde ao gráfico. Pesquisa, decisões, mentoria e validação: [FILM-COMPOSITION-V4.md](../../docs/FILM-COMPOSITION-V4.md).

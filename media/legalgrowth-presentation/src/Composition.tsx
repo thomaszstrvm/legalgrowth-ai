@@ -11,7 +11,7 @@ import {
 } from "./Cinematic";
 export const LegalGrowthFilm = ({ theme }: FilmProps) => {
   const { fps } = useVideoConfig();
-  // Twelve-frame overlaps keep the outgoing image under the incoming mask.
+  // Twelve-frame overlaps preserve cue times; SceneMask isolates the incoming scene.
   // Absolute cue times keep the composition exactly 600 frames, not 648.
   return (
     <>
@@ -32,7 +32,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
         durationInFrames={4.4 * fps}
         premountFor={fps}
       >
-        <SceneMask>
+        <SceneMask theme={theme}>
           <DashboardScene theme={theme} />
         </SceneMask>
       </Sequence>
@@ -42,7 +42,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
         durationInFrames={4.4 * fps}
         premountFor={fps}
       >
-        <SceneMask>
+        <SceneMask theme={theme}>
           <ResultsScene theme={theme} />
         </SceneMask>
       </Sequence>
@@ -52,7 +52,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
         durationInFrames={5.4 * fps}
         premountFor={fps}
       >
-        <SceneMask>
+        <SceneMask theme={theme}>
           <IntelligenceScene theme={theme} />
         </SceneMask>
       </Sequence>
@@ -62,7 +62,7 @@ export const LegalGrowthFilm = ({ theme }: FilmProps) => {
         durationInFrames={4 * fps}
         premountFor={fps}
       >
-        <SceneMask>
+        <SceneMask theme={theme}>
           <SignatureScene theme={theme} />
         </SceneMask>
       </Sequence>

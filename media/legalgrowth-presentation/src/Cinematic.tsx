@@ -6,14 +6,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { loadFont } from "@remotion/fonts";
-import { staticFile } from "remotion";
 import { Brand, Cover, Detail, dark, light } from "./visuals";
-void loadFont({
-  family: "Manrope",
-  url: staticFile("fonts/manrope.ttf"),
-  weight: "100 900",
-});
 export type FilmTheme = "light" | "dark";
 export type FilmProps = { theme: FilmTheme };
 const smooth = {
@@ -39,7 +32,7 @@ export const Stage = ({
       style={{
         background: c.bg,
         color: c.ink,
-        fontFamily: "Manrope",
+        fontFamily: "Instrument Sans",
         overflow: "hidden",
       }}
     >
@@ -59,23 +52,29 @@ export const Stage = ({
     </AbsoluteFill>
   );
 };
-export const SceneMask = ({ children }: { children: React.ReactNode }) => {
+export const SceneMask = ({
+  children,
+  theme,
+}: FilmProps & { children: React.ReactNode }) => {
   const f = useCurrentFrame(),
     { fps } = useVideoConfig();
+  // Opaque backing prevents pieces of the previous title leaking through the wipe.
   return (
-    <AbsoluteFill
-      style={{
-        clipPath: `inset(0 0 0 ${(1 - motionProgress(f, 0, 0.4 * fps)) * 100}%)`,
-      }}
-    >
-      {children}
+    <AbsoluteFill style={{ background: colors(theme).bg }}>
+      <AbsoluteFill
+        style={{
+          clipPath: `inset(0 0 0 ${(1 - motionProgress(f, 0, 0.4 * fps)) * 100}%)`,
+        }}
+      >
+        {children}
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
 const MaskText = ({
   children,
   delay = 0,
-  size = 112,
+  size = 104,
   style,
 }: {
   children: React.ReactNode;
@@ -90,10 +89,12 @@ const MaskText = ({
     <div style={{ overflow: "hidden", ...style }}>
       <div
         style={{
-          fontFamily: "Newsreader",
+          fontFamily: "Instrument Sans",
+          fontWeight: 500,
           fontSize: size,
-          lineHeight: 1.02,
-          letterSpacing: "-.035em",
+          lineHeight: 1.12,
+          letterSpacing: size >= 64 ? "-.025em" : "0em",
+          paddingBottom: "0.1em",
           translate: `0 ${(1 - p) * 112}%`,
           opacity: p,
         }}
@@ -110,15 +111,15 @@ export const PromiseScene = ({ theme }: FilmProps) => {
     exit = motionProgress(f, 2.65 * fps, 0.35 * fps);
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 104, top: 82 }}>
+      <div style={{ position: "absolute", left: 120, top: 88 }}>
         <Brand size={43} />
       </div>
       <div
         style={{
           position: "absolute",
-          left: 104,
-          top: 310,
-          width: 1000,
+          left: 120,
+          top: 330,
+          width: 880,
           translate: `0 ${-exit * 35}px`,
         }}
       >
@@ -196,8 +197,8 @@ export const DashboardScene = ({ theme }: FilmProps) => {
     camera = motionProgress(f, 0.7 * fps, 2.7 * fps);
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 104, top: 82 }}>
-        <MaskText size={72}>Visão geral.</MaskText>
+      <div style={{ position: "absolute", left: 120, top: 88 }}>
+        <MaskText size={64}>Visão geral.</MaskText>
       </div>
       <div
         style={{
@@ -234,82 +235,99 @@ export const DashboardScene = ({ theme }: FilmProps) => {
 };
 
 export const ResultsScene = ({ theme }: FilmProps) => {
- const f=useCurrentFrame(),{fps}=useVideoConfig();
- const reveal=motionProgress(f,.18*fps,1.25*fps),drift=motionProgress(f,0,4*fps);
- return <Stage theme={theme}>
-  <div style={{position:"absolute",left:104,top:94}}>
-   <MaskText size={85}>Investimento e resultados.</MaskText>
-  </div>
-  <div style={{position:"absolute",left:104,top:470,width:590}}>
-   <MaskText size={64} delay={.4}>Compare períodos.</MaskText>
-  </div>
-  <div style={{position:"absolute",left:750,top:340,clipPath:`inset(0 ${(1-reveal)*100}% 0 0)`,scale:1+drift*.025,transformOrigin:"left center"}}>
-   <Detail src={`overview-${theme}.png`} sourceWidth={2880} crop={[1475,2125,1325,640]} width={1050}/>
-  </div>
- </Stage>;
+  const f = useCurrentFrame(),
+    { fps } = useVideoConfig();
+  const reveal = motionProgress(f, 0.18 * fps, 1.25 * fps);
+  const drift = motionProgress(f, 0, 4 * fps);
+  return (
+    <Stage theme={theme}>
+      <div style={{ position: "absolute", left: 120, top: 386, width: 600 }}>
+        <MaskText size={80}>Investimento.</MaskText>
+        <div style={{ marginTop: 38, color: colors(theme).muted }}>
+          <MaskText size={32} delay={0.35}>
+            Acompanhe os gastos.
+          </MaskText>
+        </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          left: 790,
+          top: 298,
+          clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`,
+          scale: 1 + drift * 0.025,
+          transformOrigin: "left center",
+        }}
+      >
+        <Detail
+          src={`overview-${theme}.png`}
+          sourceWidth={2880}
+          crop={[1475, 2125, 1325, 640]}
+          width={990}
+        />
+      </div>
+    </Stage>
+  );
 };
 
 export const IntelligenceScene = ({ theme }: FilmProps) => {
   const f = useCurrentFrame(),
     { fps } = useVideoConfig();
-  const p = motionProgress(f, 0, 0.8 * fps),
-    reveal = motionProgress(f, 0.6 * fps, 0.9 * fps);
+  const cover = motionProgress(f, 0.12 * fps, 1.15 * fps);
+  const firstIn = motionProgress(f, 0.15 * fps, 0.65 * fps);
+  const firstOut = motionProgress(f, 2.05 * fps, 0.25 * fps);
+  const secondIn = motionProgress(f, 2.35 * fps, 0.65 * fps);
+  // Two short beats replace the former five-level heading/subtitle/excerpt stack.
+  // Their opacity windows do not overlap, so words never cross over one another.
   return (
     <Stage theme={theme}>
-      <div style={{ position: "absolute", left: 104, top: 100 }}>
-        <MaskText size={93}>Análise de IA.</MaskText>
-        <MaskText delay={0.14} size={93}>
-          Segunda revisão.
-        </MaskText>
+      <div
+        style={{
+          position: "absolute",
+          left: 144,
+          top: 402,
+          width: 1000,
+          fontFamily: "Instrument Sans",
+          fontSize: 104,
+          fontWeight: 500,
+          lineHeight: 1.1,
+          letterSpacing: "-.025em",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            opacity: firstIn * (1 - firstOut),
+            translate: `0 ${(1 - firstIn) * 28 - firstOut * 18}px`,
+          }}
+        >
+          Análise de IA
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            opacity: secondIn,
+            translate: `0 ${(1 - secondIn) * 28}px`,
+          }}
+        >
+          Segunda revisão
+        </div>
       </div>
       <div
         style={{
           position: "absolute",
-          right: 150,
-          top: 62,
-          transform: `perspective(1600px) rotateY(${-12 * (1 - p)}deg) rotateZ(7deg)`,
-          opacity: p,
+          left: 1240,
+          top: 214,
+          transform: `perspective(1800px) rotateY(${-16 + cover * 10 + secondIn * 4}deg) rotateZ(${-8 + cover * 3}deg)`,
+          translate: `${(1 - cover) * 70}px ${(1 - cover) * 16}px`,
+          opacity: cover,
         }}
       >
         <Cover
           name="insights"
           theme={theme}
-          style={{ width: 270, height: 368 }}
+          style={{ width: 420, height: 572 }}
         />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          left: 104,
-          top: 455,
-          width: 1712,
-          height: 430,
-          overflow: "hidden",
-          clipPath: `inset(0 0 ${(1 - reveal) * 100}% 0)`,
-          borderTop: `1px solid ${colors(theme).line}`,
-          paddingTop: 70,
-        }}
-      >
-        <Detail
-          src={`insight-film-${theme}.png`}
-          sourceWidth={1760}
-          crop={[0, 0, 1760, 384]}
-          width={1190}
-          style={{ translate: `${(1 - reveal) * 35}px 0` }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 1300,
-            top: 110,
-            fontFamily: "Newsreader",
-            fontSize: 53,
-            lineHeight: 1.05,
-            width: 390,
-          }}
-        >
-          Você decide.
-        </div>
       </div>
     </Stage>
   );
@@ -330,7 +348,7 @@ export const SignatureScene = ({ theme }: FilmProps) => {
           top: 420,
           display: "flex",
           justifyContent: "center",
-          alignItems: "baseline",
+          alignItems: "center",
           gap: 30,
           opacity: p,
           translate: `0 ${(1 - p) * 30}px`,
@@ -339,8 +357,9 @@ export const SignatureScene = ({ theme }: FilmProps) => {
         <Brand size={146} />
         <span
           style={{
-            fontFamily: "Manrope",
+            fontFamily: "Instrument Sans",
             fontSize: 49,
+            marginTop: 22,
             color: colors(theme).accent,
           }}
         >
