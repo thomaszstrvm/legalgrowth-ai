@@ -15,11 +15,13 @@ def summarize(rows):
 
 
 def groups(rows, dimension):
+    """Campaign database identity is stable; the display label is not an identity."""
     grouped = {}
     for row in rows:
-        key = row.campaign.name if dimension == 'campaign' else row.campaign.area if dimension == 'area' else getattr(row, dimension)
+        key = row.campaign_id if dimension == 'campaign' else row.campaign.area if dimension == 'area' else getattr(row, dimension)
         grouped.setdefault(str(key), []).append(row)
-    return {key: summarize(value) for key, value in grouped.items()}
+    return {key: summarize(value) | ({'label': value[0].campaign.name} if dimension == 'campaign' else {})
+            for key, value in grouped.items()}
 
 
 def evolution(rows):

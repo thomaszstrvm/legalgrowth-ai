@@ -1,6 +1,6 @@
 from datetime import date, datetime, timezone
 from decimal import Decimal
-from sqlalchemy import String, Date, DateTime, Numeric, ForeignKey, UniqueConstraint, CheckConstraint, JSON, Text
+from sqlalchemy import String, Date, DateTime, Numeric, ForeignKey, UniqueConstraint, CheckConstraint, JSON, Text, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db import Base
 
@@ -168,6 +168,25 @@ class AIUsage(Base):
     calls: Mapped[int] = mapped_column(default=0)
 
 
+class AICall(Base):
+    """Operational metadata, deliberately without prompts, responses or identifiers."""
+    __tablename__ = 'ai_calls'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    scope: Mapped[str | None] = mapped_column(String(4))
+    provider: Mapped[str] = mapped_column(String(30))
+    model: Mapped[str] = mapped_column(String(80))
+    operation: Mapped[str] = mapped_column(String(40))
+    status: Mapped[str] = mapped_column(String(20))
+    attempted: Mapped[bool]
+    latency_ms: Mapped[int] = mapped_column(BigInteger)
+    input_tokens: Mapped[int | None] = mapped_column(BigInteger)
+    output_tokens: Mapped[int | None] = mapped_column(BigInteger)
+    total_tokens: Mapped[int | None] = mapped_column(BigInteger)
+    cache_read_tokens: Mapped[int | None] = mapped_column(BigInteger)
+    cache_creation_tokens: Mapped[int | None] = mapped_column(BigInteger)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+
+
 class AIReview(Scoped, Base):
     __tablename__ = 'ai_reviews'
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -197,6 +216,13 @@ class CampaignInsight(Scoped, Base):
     reviewer: Mapped[str] = mapped_column(String(30))
     status: Mapped[str] = mapped_column(String(30))
     payload: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+
+
+class InsightClaim(Base):
+    __tablename__ = 'insight_claims'
+    fingerprint: Mapped[str] = mapped_column(String(64), primary_key=True)
+    owner: Mapped[str] = mapped_column(String(32))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 

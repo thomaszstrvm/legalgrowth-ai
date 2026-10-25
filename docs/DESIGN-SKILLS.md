@@ -1,5 +1,13 @@
 # Skills locais de design
 
+Atualização 25/10/2026: as oito skills do registro de origem estão presentes e
+seus SHA-256 correspondem ao registro. A [triagem dos 30 itens](PLUGIN-SELECTION-2026-10-25.md)
+separa instalação confirmada, estudo documental e recurso ausente; inclui o
+[inventário verificado](skill-inventory-2026-10-25.json). Nenhum pacote ou hook novo
+foi instalado. `AGENTS.md` existe hoje; a observação abaixo sobre sua ausência
+descreve somente a inspeção de 22/10. Taste de Leonxlnx foi estudada, mas não está
+instalada nas raízes consultadas; não é a mesma skill que `design-taste`.
+
 Atualização 23/10/2026: `design-taste`, `retro-print` e `taste-typography` foram
 instaladas na pasta global de skills do Codex, após autorização explícita.
 [Triagem do tweet, fontes e aplicação contextual](DESIGN-TWEET-REVIEW.md).

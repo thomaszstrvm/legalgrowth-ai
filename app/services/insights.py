@@ -2,18 +2,22 @@
 import json
 import hashlib
 import re
+import uuid
+from contextlib import contextmanager
 from pathlib import Path
 from datetime import timedelta
 from typing import Literal
 from cryptography.fernet import InvalidToken
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import select
+from sqlalchemy import select, delete
+from sqlalchemy.exc import IntegrityError
 from app.integrations.openai import AIError
-from app.models import CampaignInsight
+from app.models import CampaignInsight, InsightClaim
 from app.config import settings
 from app.repositories import metrics, audit
 from app.services.metrics import summarize
 from app.services import ai
+from app.services.ai_observability import observe_call
 from app.services.privacy import seal_labels, open_labels
 
 DEFINITIONS = 'Conversões são ações do anúncio; contratações são registros do escritório. Zero é ausência de registro, não prova de ausência de atividade. Sem custos de operação, receita ou margem, não se pode afirmar lucro ou retorno financeiro. Comparações com dias faltantes são limitadas.'
@@ -137,9 +141,53 @@ def analysis_signature(analyst, reviewer):
     specification = {'version': '1.2', 'analyst': analyst, 'reviewer': reviewer,
         'models': {p: ai.PROVIDERS[p].MODEL for p in (analyst, reviewer)},
         'instructions': [ANALYST, REVIEWER], 'schemas': [api_schema(Analysis), api_schema(Review)],
+        # Cache compatibility includes constraints intentionally omitted for providers.
+        'local_schemas': [Analysis.model_json_schema(), Review.model_json_schema()],
         'max_output_tokens': 2000}
     canonical = json.dumps(specification, sort_keys=True, ensure_ascii=True, separators=(',', ':'))
     return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+
+def cached(db, scope, start, end, analyst, signature, evidence, labels, fingerprint):
+    previous = db.scalar(select(CampaignInsight).where(
+        CampaignInsight.scope == scope, CampaignInsight.start == start, CampaignInsight.end == end,
+        CampaignInsight.analyst == analyst, CampaignInsight.status.in_(['reviewed', 'partial'])
+    ).order_by(CampaignInsight.id.desc()).limit(1))
+    if (previous and previous.payload.get('analysis_signature') == signature
+            and previous.payload.get('request_fingerprint') == fingerprint):
+        old_labels = open_labels(previous.payload['encrypted_labels'])
+        if previous.payload.get('snapshot') == evidence and old_labels == labels:
+            return {**public(previous), 'reused': True}
+
+
+def request_fingerprint(db, scope, start, end, signature, evidence, labels):
+    # Local-only identities; never add IDs or names to the provider payload.
+    days = (end - start).days + 1
+    identities = sorted({r.campaign_id for r in metrics(db, scope, start - timedelta(days=days), end)})
+    content = {'scope': scope, 'start': str(start), 'end': str(end),
+               'signature': signature, 'evidence': evidence, 'labels': labels,
+               'campaign_ids': identities}
+    return hashlib.sha256(json.dumps(content, sort_keys=True, ensure_ascii=True,
+                                    separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+
+
+@contextmanager
+def claim(db, fingerprint):
+    """Short SQL transactions, never a database lock across a provider request."""
+    owner = uuid.uuid4().hex
+    db.add(InsightClaim(fingerprint=fingerprint, owner=owner))
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise AIError('Já existe uma análise igual em andamento. Aguarde e consulte novamente. Se persistir após uma interrupção do servidor, solicite recuperação ao administrador.', 409) from None
+    try:
+        yield
+    finally:
+        db.rollback()
+        db.execute(delete(InsightClaim).where(InsightClaim.fingerprint == fingerprint,
+                                              InsightClaim.owner == owner))
+        db.commit()
 
 
 def generate(db, scope, start, end, analyst, actor):
@@ -148,15 +196,22 @@ def generate(db, scope, start, end, analyst, actor):
     if not all(connections.values()):
         raise AIError('Conecte OpenAI e Claude em Configurações: uma IA faz a análise e a outra confere.', 409)
     evidence, labels = snapshot(db, scope, start, end)
-    previous = db.scalar(select(CampaignInsight).where(
-        CampaignInsight.scope == scope, CampaignInsight.start == start, CampaignInsight.end == end,
-        CampaignInsight.analyst == analyst, CampaignInsight.status.in_(['reviewed', 'partial'])
-    ).order_by(CampaignInsight.id.desc()).limit(1))
     signature = analysis_signature(analyst, reviewer)
-    if previous and previous.payload.get('analysis_signature') == signature:
-        old_labels = open_labels(previous.payload['encrypted_labels'])
-        if previous.payload.get('snapshot') == evidence and old_labels == labels:
-            return {**public(previous), 'reused': True}
+    fingerprint = request_fingerprint(db, scope, start, end, signature, evidence, labels)
+    reused = cached(db, scope, start, end, analyst, signature, evidence, labels, fingerprint)
+    if reused:
+        return reused
+    with claim(db, fingerprint):
+        # Another request may have finished between our first read and acquisition.
+        reused = cached(db, scope, start, end, analyst, signature, evidence, labels, fingerprint)
+        if reused:
+            return reused
+        return generate_claimed(db, scope, start, end, analyst, reviewer, actor,
+                                connections, evidence, labels, signature, fingerprint)
+
+
+def generate_claimed(db, scope, start, end, analyst, reviewer, actor,
+                     connections, evidence, labels, signature, fingerprint):
     try:
         keys = {p: ai.cipher().decrypt(c.encrypted_key.encode()).decode() for p, c in connections.items()}
     except InvalidToken:
@@ -168,16 +223,19 @@ def generate(db, scope, start, end, analyst, actor):
     ai.reserve(db, min(c.monthly_limit for c in connections.values()), calls=2)
     record = CampaignInsight(scope=scope, start=start, end=end, analyst=analyst, reviewer=reviewer, status='failed', payload={})
     payload = {'snapshot': evidence, 'encrypted_labels': protected_labels, 'findings': [], 'excluded': 0,
+               'request_fingerprint': fingerprint,
                'analysis_version': '1.2', 'analysis_signature': signature, 'review_reason': 'manual_request',
                'models': {p: ai.PROVIDERS[p].MODEL for p in connections},
                'coverage': {'expected_days': evidence['expected_days'], 'campaigns': sum(k.startswith('c') and k[1:].isdigit() for k in labels)}}
     phase = 'analysis'
     try:
-        draft = check_analysis(ai.PROVIDERS[analyst].structured(keys[analyst], ANALYST, compact(evidence), api_schema(Analysis)), evidence['facts'])
+        with observe_call(db, analyst, 'insights_analysis', scope):
+            draft = check_analysis(ai.PROVIDERS[analyst].structured(keys[analyst], ANALYST, compact(evidence), api_schema(Analysis)), evidence['facts'])
         payload['draft'] = draft.model_dump()
         phase = 'review'
         review_content = compact({'evidence': evidence, 'analysis': draft.model_dump()})
-        review = Review.model_validate(ai.PROVIDERS[reviewer].structured(keys[reviewer], REVIEWER, review_content, api_schema(Review)))
+        with observe_call(db, reviewer, 'insights_review', scope):
+            review = Review.model_validate(ai.PROVIDERS[reviewer].structured(keys[reviewer], REVIEWER, review_content, api_schema(Review)))
         ids = {f.id for f in draft.findings}
         if {v.finding_id for v in review.verdicts} != ids or len(review.verdicts) != len(ids):
             raise ValueError('Incomplete review')

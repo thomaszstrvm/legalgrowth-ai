@@ -10,6 +10,7 @@ from app.config import settings
 from app.models import AIConnection, ClaudeConnection, AIUsage, AIReview, AgentExecution, Recommendation, now
 from app.repositories import audit
 from app.integrations import openai, claude
+from app.services.ai_observability import observe_call
 
 PROVIDERS = {'openai': openai, 'claude': claude}
 CONNECTIONS = {'openai': AIConnection, 'claude': ClaudeConnection}
@@ -17,7 +18,7 @@ NAMES = {'openai': 'OpenAI', 'claude': 'Claude'}
 
 # Conservative local allowance, not a provider invoice. Retained even after failures.
 # This is a fixed local quota, NOT a measured cost or exchange-rate conversion.
-# Price-based upper bounds and provider usage accounting are not implemented yet.
+# Price-based upper bounds are not implemented; measured tokens are separate.
 ALLOWANCE_PER_CALL = Decimal('1.00')
 
 
@@ -65,7 +66,8 @@ def connect(db, body, actor):
     key = body.api_key.get_secret_value()
     # Verify before replacing the existing connection. Neither request nor response is logged.
     provider = PROVIDERS[body.provider]
-    provider.verify_key(key)
+    with observe_call(db, body.provider, 'connection_check'):
+        provider.verify_key(key)
     encrypted = cipher(create=True).encrypt(key.encode()).decode()
     record = db.get(CONNECTIONS[body.provider], 1)
     if record:
@@ -140,7 +142,8 @@ def prioritize(db, scope, start, end, actor):
         raise openai.AIError('A chave salva não pôde ser aberta. Conecte novamente.') from None
     reserve(db, connection.monthly_limit)
     try:
-        selected = PROVIDERS[connection.provider].prioritize(key, candidates)
+        with observe_call(db, connection.provider, 'priorities', scope):
+            selected = PROVIDERS[connection.provider].prioritize(key, candidates)
         db.add(AIReview(scope=scope, start=start, end=end, recommendation_ids=selected))
         db.add(AgentExecution(scope=scope, agent=connection.provider, status='success', detail=f'{len(selected)} prioridades; sem publicação'))
         audit(db, scope, actor, 'ai_analysis', f'{start} a {end}; apenas contagens e métricas')

@@ -1,5 +1,7 @@
 # LegalGrowth AI
 
+Projeto de portfólio com dados fictícios e validação explícita de limites; não representa prontidão para produção. Estado e evidências atuais: [mapa do projeto](docs/CURRENT-STATE.md).
+
 MVP local de inteligência de marketing jurídico, com FastAPI, SQLAlchemy 2, Alembic, Pandas, Jinja2 e APScheduler. Sem serviços pagos obrigatórios e sem publicação automática. Interface em português, temas claro/escuro e API autenticada. O estado detalhado da nova especificação está em [docs/EVOLUTION-2026-10-22.md](docs/EVOLUTION-2026-10-22.md).
 
 Projeto sob [licença MIT](LICENSE), em desenvolvimento em repositório privado;

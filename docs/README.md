@@ -1,5 +1,12 @@
 # Guia da documentação
 
+Comece pelo [estado atual e mapa de contratos](CURRENT-STATE.md). Ele separa o
+vigente do histórico, sem substituir instruções globais ou apagar conhecimento.
+
+- [Consolidação de 25/10](CONSOLIDATION-2026-10-25.md): tarefas, resultados e limites.
+- [Fluxo mínimo de engenharia](ENGINEERING-WORKFLOW.md): dependências e transferência ao Validador.
+- [Triagem dos 30 plugins](PLUGIN-SELECTION-2026-10-25.md): páginas, fontes e escolhas sem instalação.
+
 ## Começar
 
 - [README principal](../README.md): instalação, execução, acesso e recursos.

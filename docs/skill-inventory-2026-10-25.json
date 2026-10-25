@@ -1,0 +1,80 @@
+{
+  "checked_on": "2026-10-25",
+  "method": "Read-only presence, SHA-256, and session catalog check; no installation or hook execution",
+  "source": "docs/design-skill-sources.json",
+  "source_pdf_sha256": "30fd3ccb307ca9cab3988b713baee4b3ad67743acc5d9a7ff628c3e1dbb19388",
+  "items": [
+    {
+      "name": "frontend-design",
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "present": true,
+      "recorded_sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+      "actual_sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "webapp-testing",
+      "path": ".agents/skills/webapp-testing/SKILL.md",
+      "present": true,
+      "recorded_sha256": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2",
+      "actual_sha256": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "ux-dashboard",
+      "path": ".agents/skills/ux-dashboard/SKILL.md",
+      "present": true,
+      "recorded_sha256": "257a3a7398e468e9c037ccbf20d17f04af591499f28eb554dbbf26462efa5298",
+      "actual_sha256": "257a3a7398e468e9c037ccbf20d17f04af591499f28eb554dbbf26462efa5298",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines/SKILL.md",
+      "present": true,
+      "recorded_sha256": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f",
+      "actual_sha256": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+      "present": true,
+      "recorded_sha256": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9",
+      "actual_sha256": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "impeccable",
+      "path": ".agents/skills/impeccable/SKILL.md",
+      "present": true,
+      "recorded_sha256": "88e9a46a91b6ddd1059f03f578bd0f9bbe6d212d6a395124379b9bb5c97c5cf2",
+      "actual_sha256": "88e9a46a91b6ddd1059f03f578bd0f9bbe6d212d6a395124379b9bb5c97c5cf2",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "critique-visual-hierarchy",
+      "path": ".agents/skills/critique-visual-hierarchy/SKILL.md",
+      "present": true,
+      "recorded_sha256": "e9c210156b5cd6c049922c0ca2ab65dbed96bc3c2d2bfaa0b4b1ea47c89ec4b1",
+      "actual_sha256": "e9c210156b5cd6c049922c0ca2ab65dbed96bc3c2d2bfaa0b4b1ea47c89ec4b1",
+      "matches_record": true,
+      "session_catalog_present": true
+    },
+    {
+      "name": "design-token-audit",
+      "path": ".agents/skills/design-token-audit/SKILL.md",
+      "present": true,
+      "recorded_sha256": "1cd6dd80d6ba771adde34bbf6e1d6e82e7abebb62c69ae2430b28a0dba12bbd7",
+      "actual_sha256": "1cd6dd80d6ba771adde34bbf6e1d6e82e7abebb62c69ae2430b28a0dba12bbd7",
+      "matches_record": true,
+      "session_catalog_present": true
+    }
+  ]
+}

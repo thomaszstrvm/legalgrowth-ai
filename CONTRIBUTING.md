@@ -3,6 +3,36 @@
 Comece pelo [README](README.md) e pelo [guia da documentação](docs/README.md).
 O código original usa a [licença MIT](LICENSE).
 
+## Escopo e evidências
+
+O [estado atual](docs/CURRENT-STATE.md) aponta os contratos vigentes; não é necessário
+reler os estudos históricos. Para tarefas com dependências, siga o
+[fluxo mínimo](docs/ENGINEERING-WORKFLOW.md): objetivo, responsável, dependências,
+teste e evidência. O [ciclo de consolidação](docs/CONSOLIDATION-2026-10-25.md) demonstra
+o processo. Preserve sempre o diff existente; a revisão independente não implementa
+a própria correção nem substitui o Validador externo.
+
+Novas regressões devem falhar antes da correção quando viável. A fixture de testes
+bloqueia transportes HTTP reais do httpx; use `MockTransport` e dados sintéticos.
+Isso não é um firewall para outras bibliotecas ou para scripts fora do pytest.
+
+CI preparada em `.github/workflows/checks.yml`: pytest, migrações SQLite descartáveis
+e contratos JavaScript nativos. Não foi executada remotamente nesta rodada.
+Não há chaves, serviços pagos ou publicação. O disparo por PR/manual depende da
+publicação autorizada do workflow e pode consumir a franquia de Actions do proprietário.
+
+Comandos adicionais de consolidação:
+
+- `python scripts/verify-migrations.py --sqlite-only`: upgrade/check/downgrade/upgrade/check.
+- `node scripts/test-campaign-labels.cjs`: IDs distintos, rótulos e escape HTML.
+- `python scripts/verify-migrations.py` mantém o check histórico completo: atualmente
+  falha em PostgreSQL offline na migração de dados `9b27d3e1a102`; não ignore a falha.
+  PostgreSQL real continua exigindo ambiente descartável e validação própria.
+
+No sandbox Windows desta rodada, `TestClient` travou em `socketpair()` antes do app.
+O diagnóstico foi obtido com `-o faulthandler_timeout=15`; execução autorizada fora
+dessa restrição passou. Não remova asserções nem dependências para contornar o sintoma.
+
 ## Ambiente e mudanças
 
 Use Python 3.12 ou superior, ambiente virtual e `requirements-dev.txt`.

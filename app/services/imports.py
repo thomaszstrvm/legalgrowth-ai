@@ -1,5 +1,6 @@
 import csv
 import io
+from decimal import Decimal
 from sqlalchemy import select
 from pydantic import ValidationError
 from app.schemas import MetricRow, MarketRow
@@ -73,6 +74,12 @@ def import_campaigns(db, content, scope, actor='admin'):
 
 def import_market(db, content, scope, actor='admin'):
     rows = parse_csv(content, MarketRow)
+    # SQLite Numeric is stored through a binary float. Reject values whose
+    # four-decimal reload would differ; do not silently round valid input.
+    if db.get_bind().dialect.name == 'sqlite':
+        for row in rows:
+            if Decimal(format(float(row.value), '.4f')) != row.value:
+                raise ValueError('Indicador excede a precisão exata suportada pelo SQLite; nenhum valor foi gravado')
     allowed = regions(db, scope)
     if any(r.scope != scope or r.locality not in allowed for r in rows):
         raise ValueError('Ambiente ou localidade incompatível')

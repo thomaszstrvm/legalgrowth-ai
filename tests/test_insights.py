@@ -4,6 +4,7 @@ import secrets
 from datetime import date
 import httpx
 import pytest
+from pydantic import Field, ValidationError, create_model
 from pypdf import PdfReader
 from sqlalchemy import select
 from app.integrations import openai, claude
@@ -38,6 +39,45 @@ def draft(content):
 
 def reviewer(content, verdict='supported'):
     return {'verdicts': [{'finding_id': f['id'], 'verdict': verdict, 'reason': 'Compatível com os dados apresentados.'} for f in json.loads(content)['analysis']['findings']]}
+
+
+def test_local_only_limit_change_invalidates_cached_insight(db, two_connections, monkeypatch):
+    load(db)
+    calls = []
+
+    def analyze(k, i, content, schema):
+        calls.append('analysis')
+        return draft(content)
+
+    def review(k, i, content, schema):
+        calls.append('review')
+        return reviewer(content)
+
+    monkeypatch.setattr(openai, 'structured', analyze)
+    monkeypatch.setattr(claude, 'structured', review)
+    original = insights.generate(db, 'demo', START, END, 'openai', 'admin')
+    assert original['status'] == 'reviewed'
+    assert insights.generate(db, 'demo', START, END, 'openai', 'admin')['reused'] is True
+    reduced = insights.api_schema(insights.Analysis)
+    signature = insights.analysis_signature('openai', 'claude')
+    saved = db.scalar(select(CampaignInsight))
+    original_fingerprint = saved.payload['request_fingerprint']
+    # Keep model names/configuration/other fields identical; change only a local limit.
+    finding = create_model('Finding', __base__=insights.Finding,
+                           explanation=(str, Field(min_length=10, max_length=40)))
+    analysis = create_model('Analysis', __base__=insights.Analysis,
+                            findings=(list[finding], Field(max_length=6)))
+    monkeypatch.setattr(insights, 'Analysis', analysis)
+    assert insights.api_schema(analysis) == reduced
+    with pytest.raises(ValidationError):
+        analysis.model_validate(saved.payload['draft'])
+    assert insights.analysis_signature('openai', 'claude') != signature
+    result = insights.generate(db, 'demo', START, END, 'openai', 'admin')
+    assert result['id'] != original['id']
+    assert not result.get('reused', False)
+    assert result['status'] == 'failed' and not result['findings']
+    assert calls == ['analysis', 'review', 'analysis']
+    assert db.get(CampaignInsight, result['id']).payload['request_fingerprint'] != original_fingerprint
 
 
 @pytest.mark.parametrize('analyst', ['openai', 'claude'])

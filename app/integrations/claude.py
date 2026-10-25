@@ -17,6 +17,8 @@ def request(method, path, key, payload=None):
         payload['messages'] = [{'role': 'user', 'content': prepare(messages[0]['content'])}]
         identifier_check(payload.get('system', ''))
     try:
+        from app.services.ai_observability import mark_request, capture_usage
+        mark_request()
         with httpx.Client(timeout=httpx.Timeout(40, connect=8), follow_redirects=False, trust_env=False) as client:
             response = client.request(method, BASE_URL + path, headers={
                 'x-api-key': key, 'anthropic-version': '2023-06-01'}, json=payload)
@@ -33,7 +35,9 @@ def request(method, path, key, payload=None):
     if response.status_code >= 300:
         raise AIError('O Claude não concluiu a solicitação. Tente novamente mais tarde.')
     try:
-        return response.json()
+        result = response.json()
+        capture_usage(result, 'claude')
+        return result
     except ValueError:
         raise AIError('A resposta do Claude não pôde ser lida.') from None
 

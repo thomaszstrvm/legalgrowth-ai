@@ -1,0 +1,52 @@
+{
+  "checked_on": "2026-10-25",
+  "base": "036ba1f26d08011729e15727eda2641d2c9ce4d4",
+  "python": {
+    "tests": 236,
+    "failures": 0,
+    "errors": 0,
+    "warnings": 6,
+    "evidence": "pytest.xml"
+  },
+  "javascript": {
+    "period_context": "passed",
+    "demo_examples": "passed",
+    "campaign_labels": "passed",
+    "syntax_all_app_static_js": "passed"
+  },
+  "sqlite_migrations": "upgrade/check/downgrade/upgrade/check passed",
+  "postgresql_full_offline": "FAILED: historical data migration 9b27d3e1a102 requires online result mappings",
+  "postgresql_live": "not executed",
+  "remote_ci": "not executed",
+  "independent_review": {
+    "tests_passed": 54,
+    "finding": "cache identity mismatch corrected and retested",
+    "external_validator": "received: 213 passed, 1 preparation failure, 22 TestClient deselected; local-only schema cache defect reproduced"
+  },
+  "skill_hashes_verified": 8,
+  "pdf_items_classified": 30,
+  "workflow_yaml": "parsed; read-only permissions, no secret references",
+  "limitations": [
+    "No current visual or audiovisual validation in this backend cycle",
+    "No multi-process database concurrency test",
+    "No real database migrated; additive migrations required before integration",
+    "No new packages/hooks/proxies installed; no push/deploy"
+  ],
+  "cache_contract_increment": {
+    "date": "2026-10-25",
+    "scope": "portfolio",
+    "receipt_sha256": "9c3b92f5d288e3937c44a8c68ff943412ddd3fd4ef9491395577ab40efac81d3",
+    "before": "1 regression failed",
+    "after": "1 regression passed",
+    "related_tests_passed": 86,
+    "testclient_deselected": 2,
+    "warnings": 1,
+    "provider_network": "mocked; httpx real transport blocked by fixture",
+    "junit": "temporary workspace: legalgrowth-cache-scope-gs9aastj/scope.xml",
+    "external_recheck": "2026-10-25 07:15 UTC: final static review cleared cache/docs for commit preparation; not a new independent execution",
+    "previous_package": "historical; does not include this increment",
+    "junit_sha256": "cb2be684d5eb6c13c5609d23518228cdf23cd958bbf128bbdc3679c14e9ce261",
+    "final_review_limitations": "JUnit 86 cases/hash, full schemas, external payload, regression/control and receipt checked; 2 deselections, warning and red/green documented by implementer but adjacent logs/commands absent and not independently checked."
+  },
+  "original_run_note": "Top-level python/javascript/sqlite/limitations fields describe the original implementation run; subsequent external review and cache_contract_increment have separate scope."
+}

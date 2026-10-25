@@ -142,7 +142,8 @@ class MarketRow(BaseModel):
     topic: str = Field(min_length=1, max_length=120)
     area: Area
     locality: str = Field(max_length=80)
-    value: Decimal = Field(ge=0, le=1_000_000_000_000)
+    value: Decimal = Field(ge=0, le=Decimal('999999999999.9999'),
+                           max_digits=16, decimal_places=4, allow_inf_nan=False)
     unit: str = Field(min_length=1, max_length=60)
     _labels = field_validator('source', 'topic', 'unit', 'locality')(aggregate_label)
 

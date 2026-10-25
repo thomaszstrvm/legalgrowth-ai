@@ -7,6 +7,16 @@ from app.db import Base, get_db
 from app.api import app
 from app.config import settings
 from pydantic import SecretStr
+import httpx
+
+
+@pytest.fixture(autouse=True)
+def no_external_http(monkeypatch):
+    """TestClient and MockTransport remain usable; real HTTP is never a fixture."""
+    def forbidden(*args, **kwargs):
+        raise AssertionError('Real HTTP forbidden in tests; use httpx.MockTransport')
+    monkeypatch.setattr(httpx.HTTPTransport, 'handle_request', forbidden)
+    monkeypatch.setattr(httpx.AsyncHTTPTransport, 'handle_async_request', forbidden)
 
 
 @pytest.fixture

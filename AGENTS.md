@@ -2,6 +2,26 @@
 
 Estas regras complementam as instruções globais de engenharia e mentoria do usuário.
 
+## Consolidação e execução
+
+- Comece por `docs/CURRENT-STATE.md`, Git HEAD/status/diff e somente os documentos
+  do escopo. Defina objetivo, contexto necessário e critério verificável de sucesso.
+- Preserve alterações locais. Para bugs, reproduza a falha, faça a menor correção
+  suficiente e execute as verificações de `CONTRIBUTING.md`; registre limites.
+- Para trabalho com dependências, use o registro simples de
+  `docs/ENGINEERING-WORKFLOW.md`. Paralelize apenas arquivos/responsabilidades
+  independentes, no máximo três subagentes; integre antes da revisão final.
+- Revisores técnicos operam primeiro em leitura e não aprovam o próprio trabalho.
+  Revisão interna não representa aprovação do Validador externo. Prepare evidências
+  explícitas; limite a duas rodadas ordinárias, sem perseguir notas subjetivas.
+- Acione skills pelo problema: design → fonte visual aprovada e skill pertinente;
+  navegador → webapp-testing; vídeo → Remotion separado; texto → procedimento
+  restrito em `docs/PLUGIN-SELECTION-2026-10-25.md`. Não leia todas por rotina.
+- Responda com resultado, evidência e limites; concisão não elimina mentoria ou riscos.
+  Não instalar dependências externas, executar scripts de terceiros, ativar hooks,
+  conexões ou configurações globais sem apresentar origem/versão/permissões e obter
+  autorização. Não fazer push, deploy, PR ou alterar visibilidade sem autorização.
+
 ## Relatório de entregas substanciais
 
 Por pedido do proprietário, toda tarefa deste porte deve incluir um PDF em

@@ -25,9 +25,10 @@ def analyze(db, scope, start, end, actor='admin'):
         previous = metrics(db, scope, start - timedelta(days=length), start - timedelta(days=1))
         current_groups, previous_groups = groups(rows, 'campaign'), groups(previous, 'campaign')
         period = {'start': start.isoformat(), 'end': end.isoformat(), 'source': 'CSV autorizado de campanhas' if scope == 'real' else 'CSV sintético de demonstração'}
-        for name, current in current_groups.items():
-            old = previous_groups.get(name)
-            evidence = {**period, 'campaign': name, 'current': current, 'previous': old}
+        for campaign_id, current in current_groups.items():
+            name = current['label']
+            old = previous_groups.get(campaign_id)
+            evidence = {**period, 'campaign_id': campaign_id, 'campaign': name, 'current': current, 'previous': old}
             if current['cost'] and not current['conversions']:
                 recommend(f'Revisar mensuração: {name}', 'campanhas', 'Há gasto sem conversões registradas. Conferir rastreamento e termos de pesquisa antes de concluir ineficácia.', evidence, 'alta')
             if old and old['cpc'] and current['cpc'] and current['cpc'] > old['cpc'] * 1.2:
