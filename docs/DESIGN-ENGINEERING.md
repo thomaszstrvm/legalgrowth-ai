@@ -2,7 +2,7 @@
 
 Versão visual: v56. Data: 23/10/2026. Base recuperável: v0.1.2 (`df405cb`).
 
-Esta rodada encerra a busca aberta por uma nota 9,9, conforme decisão do proprietário. O critério de entrega é a implementação verificada, com parecer independente e limitações explícitas. A avaliação adicional da Cartier está em [CARTIER-REFERENCE.md](CARTIER-REFERENCE.md).
+Decidi encerrar nesta rodada a busca aberta por uma nota 9,9. O critério de entrega é a implementação verificada, com parecer independente e limitações explícitas. A avaliação adicional da Cartier está em [CARTIER-REFERENCE.md](CARTIER-REFERENCE.md).
 
 ## Problemas tratados
 

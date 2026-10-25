@@ -1,6 +1,6 @@
 # Filme 1.1.1 - correção da cena de orçamento
 
-23/10/2026. Substitui a cena financeira da 1.1.0 após rejeição explícita do usuário. A revisão anterior melhorou reprodução e transições, mas manteve conteúdo técnico inadequado à propaganda.
+23/10/2026. Substitui a cena financeira da 1.1.0 após minha rejeição explícita à cena anterior. A revisão anterior melhorou reprodução e transições, mas manteve conteúdo técnico inadequado à propaganda.
 
 ## Correção
 
@@ -51,9 +51,8 @@ ampliado da captura existente (1030,585,850,220); o ramo claro conserva seu layo
  Movimento mantém máscara, aproximação breve e repouso para leitura, calculados
  por frame. Não foram acrescentados números, interfaces ou capacidades fictícias.
 
-Referências: identidade DESIGN.md v59/v60; skills Remotion markup e Emil Design
-Engineering (foco, hierarquia, movimento com propósito). Vídeo Apple indicado pelo
-usuário: https://youtu.be/FUfGcZ092b0 . Seus quadros não foram observados nesta
+Para orientar o projeto, adotei a identidade DESIGN.md v59/v60; skills Remotion markup e Emil Design
+Engineering (foco, hierarquia, movimento com propósito). Vídeo Apple que indiquei como referência: https://youtu.be/FUfGcZ092b0 . Seus quadros não foram observados nesta
 rodada; não se atribuem movimentos específicos a ele. Princípios gerais são
 orientação, não alegação de reprodução da referência ou certificação WCAG.
 

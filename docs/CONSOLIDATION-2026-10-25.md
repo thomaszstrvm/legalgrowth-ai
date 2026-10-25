@@ -5,7 +5,7 @@ commit, push, deploy ou alteração de visibilidade. Não há nova versão publi
 
 ## Incremento após revisão externa — contrato local do cache
 
-Escopo confirmado pelo proprietário: **portfólio**, dados fictícios e engenharia
+Defini o escopo como **portfólio**, com dados fictícios e engenharia
 cuidadosa; não é autorização de produção. Esta seção atualiza os estados de revisão
 e concorrência abaixo, mantendo os resultados originais como históricos.
 

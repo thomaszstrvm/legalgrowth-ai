@@ -1,7 +1,6 @@
 # Versões e privacidade
 
-O repositório `thomaszstrvm/legalgrowth-ai` foi criado como **privado** por pedido
-do proprietário. A licença MIT não muda a visibilidade no GitHub. Tornar público
+Escolhi manter meu repositório `thomaszstrvm/legalgrowth-ai` **privado** desde sua criação. A licença MIT não muda a visibilidade no GitHub. Tornar público
 depende de uma decisão futura, após uma nova revisão de arquivos e permissões.
 
 ## Convenção

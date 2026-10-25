@@ -24,4 +24,4 @@ Nenhuma fotografia, logotipo, fonte proprietária ou código da Cartier foi inco
 
 ## Encerramento desta rodada
 
-O proprietário aprovou encerrar o objetivo aberto de perseguir uma nota 9,9. Esta entrega será concluída por critérios verificáveis: corrigir os achados do crítico, preservar fluxos e temas, executar os testes, registrar limitações e atualizar a versão privada. Não representa declaração de perfeição nem de nota 9,9 alcançada. Futuras rodadas devem partir de problemas observados por pessoas usando o produto, em vez de novas notas isoladas de IA.
+Decidi encerrar o objetivo aberto de perseguir uma nota 9,9. Esta entrega será concluída por critérios verificáveis: corrigir os achados do crítico, preservar fluxos e temas, executar os testes, registrar limitações e atualizar a versão privada. Não representa declaração de perfeição nem de nota 9,9 alcançada. Futuras rodadas devem partir de problemas observados por pessoas usando o produto, em vez de novas notas isoladas de IA.

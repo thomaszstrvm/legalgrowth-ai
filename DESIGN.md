@@ -462,7 +462,7 @@ associação acessível e atualização ao abrir detalhes/redimensionar. Avisos 
 análise não verificada recuperam seu padding. Notícias identifica cobertura
 parcial usando a paleta de avisos existente. Cartier foi comparada ao vivo como
 referência de escala, cor e continuidade; nenhuma camada adicional de efeitos.
-O ciclo por nota foi encerrado por decisão do proprietário. Próximas melhorias
+Decidi encerrar o ciclo por nota. Próximas melhorias
 devem responder a problemas de uso observados, com escopo e verificação definidos.
 
 

@@ -2,7 +2,7 @@
 
 <!-- impeccable:product-schema 1 -->
 
-Registro do pedido explícito e das decisões já fornecidas pelo usuário nesta conversa; não requer nova entrevista sobre fatos assentados.
+Registro aqui os objetivos e as decisões que defini para meu projeto; os fatos já assentados não exigem uma nova entrevista.
 
 ## Platform
 
@@ -10,11 +10,11 @@ web
 
 ## Users
 
-Usuários de marketing jurídico com pouca familiaridade tecnológica. O usuário quer leitura simples, inclusive em relatórios.
+Usuários de marketing jurídico com pouca familiaridade tecnológica. Quero oferecer uma leitura simples, inclusive nos relatórios.
 
 ## Product Purpose
 
-Reunir investimento, resultados de campanhas e análises para que o escritório decida o que revisar.
+Meu objetivo é reunir investimento, resultados de campanhas e análises para que o escritório decida o que revisar.
 
 ## Capabilities and Constraints
 
@@ -22,7 +22,7 @@ Evoluir o sistema existente em FastAPI/JavaScript, sem inventar funcionalidades.
 
 ## Brand Commitments
 
-Nome LegalGrowth. Linguagem em português simples. Usuário rejeitou a aparência genérica e pediu comparação visual com sites reais encontrados no Awwwards e referências corporativas. Legency é somente um exemplo, não uma cópia obrigatória. Autorizou redesenho abrangente e subagentes de design/revisão; pediu execução, sem nova rodada apenas de planejamento.
+Nome LegalGrowth. Linguagem em português simples. Rejeitei a aparência genérica e pedi uma comparação visual com sites reais encontrados no Awwwards e referências corporativas. Legency é somente um exemplo, não uma cópia obrigatória. Autorizei um redesenho abrangente com apoio de subagentes de design/revisão e pedi execução, sem nova rodada apenas de planejamento.
 
 ## Evidence on Hand
 
