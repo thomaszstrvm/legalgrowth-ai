@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-25",
+  "base_commit": "85848168a164ae29450fcfbe3499b82bd18a5286",
+  "status": "Em desenvolvimento",
+  "repository": "thomaszstrvm/legalgrowth-ai",
+  "visibility": "private",
+  "videos": [
+    {
+      "path": "media/legalgrowth-presentation/releases/2026-10-25/LegalGrowth20sDark-1.1.1-contour-r7-reviewed.mp4",
+      "bytes": 2578384,
+      "sha256": "812438043058e7f6c168577838443f371faab22a7feab492b12db815bba538d5",
+      "version": "R7 historical",
+      "status": "Em desenvolvimento",
+      "duration_seconds": 20,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "frames": 600,
+      "audio": "AAC stereo 48000 Hz"
+    },
+    {
+      "path": "media/legalgrowth-presentation/releases/2026-10-25/LegalGrowth-product60-v1-reviewed-in-development.mp4",
+      "bytes": 3232398,
+      "sha256": "6bb1b66a7d38deb6b83b8a9c5246b426c0fcc769a9b701ecb1f16a4ecfafa196",
+      "version": "Product60 v1",
+      "status": "Em desenvolvimento",
+      "duration_seconds": 20,
+      "width": 1920,
+      "height": 1080,
+      "fps": 60,
+      "frames": 1200,
+      "audio": "AAC stereo 48000 Hz"
+    }
+  ],
+  "sources": [
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-launch60.tsx",
+      "bytes": 11105,
+      "sha256": "b608e94a05b8ec8345ab64cfd28a71be82fad6d36aba13de2899cd2292b75685"
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-case.json",
+      "bytes": 13718,
+      "sha256": "50cd1baf516ecaed96aedae3a2d839154420b563e08b689e02ac1ea83632d656"
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-case.ts",
+      "bytes": 13831,
+      "sha256": "ccdffc09a56c984283a1b83e9a82768e6f0a1f5fb44eff4bb6134f7ce9602cc0"
+    },
+    {
+      "path": "media/legalgrowth-presentation/scripts/product-launch60-audio.py",
+      "bytes": 6790,
+      "sha256": "6474ede4997fd06e9cad541420f4274c4accdddf73f39f1c6692b2a87ec508d4"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/audio/product-launch60-v1.wav",
+      "bytes": 3840044,
+      "sha256": "e8bdc71a4485825177cae198ccbf1184fdc02b7c3aefd29debf595636193d446"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/audio/product-launch60-v1.json",
+      "bytes": 6789,
+      "sha256": "34e39ed05bed7ff5c6ebec3cf3d6e9d59e6d8c4f7a2e2221b02e9fb761337882"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/fonts/newsreader.ttf",
+      "bytes": 451664,
+      "sha256": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/fonts/manrope.ttf",
+      "bytes": 164700,
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    }
+  ],
+  "independent_review": {
+    "result": "Apto para publicacao privada WIP; no sampled visual/factual blocker",
+    "original_relative_to_separate_validator": "output/reviews/product-launch60-2026-10-25-v1/review.md",
+    "sha256": "9bee89612dabb158a069840c6927130f90a4552d221f30712aa0689755629f7c",
+    "coverage": "10 contact sheets and 6 direct MP4 frames; hashes of both MP4s and eight source/assets verified; no rerun of implementer tests"
+  },
+  "checks_reused_from_delivery": [
+    "TypeScript passed",
+    "ESLint passed",
+    "full MP4 decode passed",
+    "1200 frames / 60fps / 20s / 1080p",
+    "40 beat stills and 83 final samples",
+    "47 historical file identities preserved"
+  ],
+  "audio_independent": {
+    "integrated_lufs": -26.16,
+    "true_peak_dbtp": -15.12,
+    "clipping": false,
+    "internal_silence_50ms_or_longer": false,
+    "tail_seconds": 19.674,
+    "human_listening": false
+  },
+  "limitations": [
+    "Editorial representation, not live UI recording",
+    "Synthetic case only; no production/paid AI validation",
+    "No certified continuous human playback, one-pass comprehension or physical phone test",
+    "R7 exact historical export; current main composition sources are later work and not claimed to reproduce it",
+    "CI must be verified against the publication commit; existing workflow does not render Remotion"
+  ],
+  "source_hash_basis": "sources: local render-time bytes; git_sources: repository blob bytes (text line endings normalized by Git). MP4 hashes are identical in both locations.",
+  "git_sources": [
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-launch60.tsx",
+      "bytes": 11105,
+      "sha256": "b608e94a05b8ec8345ab64cfd28a71be82fad6d36aba13de2899cd2292b75685"
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-case.json",
+      "bytes": 13267,
+      "sha256": "7686c664e7f8bbe73ffea2fa9d18e8490c5851a3ddf4ac4793037555a42f17d3"
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/experiments/product-case.ts",
+      "bytes": 13378,
+      "sha256": "ba6559fc18475a271e685ea410f99ca499ae78f2032872c2925e2afbcdaa31d1"
+    },
+    {
+      "path": "media/legalgrowth-presentation/scripts/product-launch60-audio.py",
+      "bytes": 6790,
+      "sha256": "6474ede4997fd06e9cad541420f4274c4accdddf73f39f1c6692b2a87ec508d4"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/audio/product-launch60-v1.wav",
+      "bytes": 3840044,
+      "sha256": "e8bdc71a4485825177cae198ccbf1184fdc02b7c3aefd29debf595636193d446"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/audio/product-launch60-v1.json",
+      "bytes": 6467,
+      "sha256": "b8fd19f2178635cfd77d473e07c6219b6eb386a8f26da6bac844dc4fba6357ba"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/fonts/newsreader.ttf",
+      "bytes": 451664,
+      "sha256": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1"
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/fonts/manrope.ttf",
+      "bytes": 164700,
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    }
+  ]
+}

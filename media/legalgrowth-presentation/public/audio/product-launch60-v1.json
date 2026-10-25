@@ -1,0 +1,322 @@
+{
+  "version": "product-launch60-v1",
+  "origin": "Original deterministic offline NumPy synthesis; no imported music or external service",
+  "license": "MIT, same as project",
+  "duration_seconds": 20,
+  "video_fps": 60,
+  "video_frames": 1200,
+  "sample_rate": 48000,
+  "channels": 2,
+  "bpm": 120,
+  "beat_seconds": 0.5,
+  "beat_frames": 30,
+  "beat_grid": [
+    {
+      "beat": 1,
+      "frame": 0,
+      "seconds": 0.0,
+      "sample": 0
+    },
+    {
+      "beat": 2,
+      "frame": 30,
+      "seconds": 0.5,
+      "sample": 24000
+    },
+    {
+      "beat": 3,
+      "frame": 60,
+      "seconds": 1.0,
+      "sample": 48000
+    },
+    {
+      "beat": 4,
+      "frame": 90,
+      "seconds": 1.5,
+      "sample": 72000
+    },
+    {
+      "beat": 5,
+      "frame": 120,
+      "seconds": 2.0,
+      "sample": 96000
+    },
+    {
+      "beat": 6,
+      "frame": 150,
+      "seconds": 2.5,
+      "sample": 120000
+    },
+    {
+      "beat": 7,
+      "frame": 180,
+      "seconds": 3.0,
+      "sample": 144000
+    },
+    {
+      "beat": 8,
+      "frame": 210,
+      "seconds": 3.5,
+      "sample": 168000
+    },
+    {
+      "beat": 9,
+      "frame": 240,
+      "seconds": 4.0,
+      "sample": 192000
+    },
+    {
+      "beat": 10,
+      "frame": 270,
+      "seconds": 4.5,
+      "sample": 216000
+    },
+    {
+      "beat": 11,
+      "frame": 300,
+      "seconds": 5.0,
+      "sample": 240000
+    },
+    {
+      "beat": 12,
+      "frame": 330,
+      "seconds": 5.5,
+      "sample": 264000
+    },
+    {
+      "beat": 13,
+      "frame": 360,
+      "seconds": 6.0,
+      "sample": 288000
+    },
+    {
+      "beat": 14,
+      "frame": 390,
+      "seconds": 6.5,
+      "sample": 312000
+    },
+    {
+      "beat": 15,
+      "frame": 420,
+      "seconds": 7.0,
+      "sample": 336000
+    },
+    {
+      "beat": 16,
+      "frame": 450,
+      "seconds": 7.5,
+      "sample": 360000
+    },
+    {
+      "beat": 17,
+      "frame": 480,
+      "seconds": 8.0,
+      "sample": 384000
+    },
+    {
+      "beat": 18,
+      "frame": 510,
+      "seconds": 8.5,
+      "sample": 408000
+    },
+    {
+      "beat": 19,
+      "frame": 540,
+      "seconds": 9.0,
+      "sample": 432000
+    },
+    {
+      "beat": 20,
+      "frame": 570,
+      "seconds": 9.5,
+      "sample": 456000
+    },
+    {
+      "beat": 21,
+      "frame": 600,
+      "seconds": 10.0,
+      "sample": 480000
+    },
+    {
+      "beat": 22,
+      "frame": 630,
+      "seconds": 10.5,
+      "sample": 504000
+    },
+    {
+      "beat": 23,
+      "frame": 660,
+      "seconds": 11.0,
+      "sample": 528000
+    },
+    {
+      "beat": 24,
+      "frame": 690,
+      "seconds": 11.5,
+      "sample": 552000
+    },
+    {
+      "beat": 25,
+      "frame": 720,
+      "seconds": 12.0,
+      "sample": 576000
+    },
+    {
+      "beat": 26,
+      "frame": 750,
+      "seconds": 12.5,
+      "sample": 600000
+    },
+    {
+      "beat": 27,
+      "frame": 780,
+      "seconds": 13.0,
+      "sample": 624000
+    },
+    {
+      "beat": 28,
+      "frame": 810,
+      "seconds": 13.5,
+      "sample": 648000
+    },
+    {
+      "beat": 29,
+      "frame": 840,
+      "seconds": 14.0,
+      "sample": 672000
+    },
+    {
+      "beat": 30,
+      "frame": 870,
+      "seconds": 14.5,
+      "sample": 696000
+    },
+    {
+      "beat": 31,
+      "frame": 900,
+      "seconds": 15.0,
+      "sample": 720000
+    },
+    {
+      "beat": 32,
+      "frame": 930,
+      "seconds": 15.5,
+      "sample": 744000
+    },
+    {
+      "beat": 33,
+      "frame": 960,
+      "seconds": 16.0,
+      "sample": 768000
+    },
+    {
+      "beat": 34,
+      "frame": 990,
+      "seconds": 16.5,
+      "sample": 792000
+    },
+    {
+      "beat": 35,
+      "frame": 1020,
+      "seconds": 17.0,
+      "sample": 816000
+    },
+    {
+      "beat": 36,
+      "frame": 1050,
+      "seconds": 17.5,
+      "sample": 840000
+    },
+    {
+      "beat": 37,
+      "frame": 1080,
+      "seconds": 18.0,
+      "sample": 864000
+    },
+    {
+      "beat": 38,
+      "frame": 1110,
+      "seconds": 18.5,
+      "sample": 888000
+    },
+    {
+      "beat": 39,
+      "frame": 1140,
+      "seconds": 19.0,
+      "sample": 912000
+    },
+    {
+      "beat": 40,
+      "frame": 1170,
+      "seconds": 19.5,
+      "sample": 936000
+    }
+  ],
+  "cues": [
+    {
+      "name": "opening",
+      "seconds": 0,
+      "frame": 0
+    },
+    {
+      "name": "campaign",
+      "seconds": 3,
+      "frame": 180
+    },
+    {
+      "name": "review_point",
+      "seconds": 6,
+      "frame": 360
+    },
+    {
+      "name": "evidence",
+      "seconds": 8,
+      "frame": 480
+    },
+    {
+      "name": "report",
+      "seconds": 12,
+      "frame": 720
+    },
+    {
+      "name": "closing",
+      "seconds": 16,
+      "frame": 960
+    }
+  ],
+  "tail_end_seconds": 19.8,
+  "peak_dbfs": -15.099444939776838,
+  "rms_dbfs": -28.127750829957165,
+  "gain_policy": "Fixed moderate levels, attenuation-only ceiling .48; no target-LUFS normalization",
+  "generator_sha256": "6474ede4997fd06e9cad541420f4274c4accdddf73f39f1c6692b2a87ec508d4",
+  "wav": {
+    "name": "product-launch60-v1.wav",
+    "bytes": 3840044,
+    "sha256": "e8bdc71a4485825177cae198ccbf1184fdc02b7c3aefd29debf595636193d446"
+  },
+  "checks": {
+    "finite": true,
+    "no_sample_clipping": true,
+    "silent_endpoints": true,
+    "deterministic_pcm": true,
+    "metadata_readback": true,
+    "forty_beat_grid": true,
+    "continuity": "Nonzero signal in each100ms window sampled from0.1 through19.6s",
+    "previous_audio_and_generator_hashes_unchanged": 30
+  },
+  "limitations": [
+    "Not listened to; musical and perceived synchronization review pending",
+    "RMS is not LUFS; true peak not inferred from sample peak",
+    "Beat positions and video fps are timing metadata, not a rendered-video validation"
+  ],
+  "loudness_measurement": {
+    "tool": "Existing @remotion/compositor-win32-x64-msvc/ffmpeg.exe loudnorm",
+    "execution": "Official outside-sandbox approval; sandbox filter-query initially exited3221225477; outside-sandbox filters and measurement exited0",
+    "input_integrated_lufs": -26.15,
+    "input_true_peak_dbtp": -15.1,
+    "input_lra_lu": 4.4,
+    "input_threshold_lufs": -36.34,
+    "command": "ffmpeg.exe -hide_banner -nostdin -i public/audio/product-launch60-v1.wav -af loudnorm=I=-24:TP=-2:LRA=7:print_format=json -c:a pcm_s16le -f null -",
+    "interpretation": "Only INPUT measurements describe delivered WAV. Normalized output was discarded; WAV was not modified. No target -14LUFS or listening approval claimed."
+  }
+}
