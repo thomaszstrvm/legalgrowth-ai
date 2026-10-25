@@ -1,0 +1,42 @@
+{
+  "recorded_at_utc": "2026-10-25T08:38:44.948720+00:00",
+  "files": [
+    {
+      "path": "media/legalgrowth-presentation/src/Cinematic.tsx",
+      "sha256": "6ee8e657d3a59bcdab265771f993f270aff5c5a1af25ebd571fa223aa7d3c0cb"
+    },
+    {
+      "path": "media/legalgrowth-presentation/README.md",
+      "sha256": "aee35ffa8ef5bf811b2d2d9d92a8d567cc6524908f22825519d5b30b619614f7"
+    }
+  ],
+  "source_delta_verified": "Only two dark conditional string literals changed; light literals and all other source bytes after newline normalization unchanged.",
+  "checks": {
+    "tsc_noEmit_exit": 0,
+    "eslint_Cinematic_exit": 0,
+    "origin": "Actual tool execution this turn; no original stdout file was created, no log reconstruction."
+  },
+  "preview": {
+    "composition": "LegalGrowth20sDark",
+    "frame": 60,
+    "observed_lines": [
+      "Como",
+      "acompanhar",
+      "suas campanhas?"
+    ],
+    "font_px": 104,
+    "containers_client_width": 880,
+    "containers_scroll_width": 880,
+    "container_heights": [
+      243,
+      127
+    ],
+    "evidence": "Screenshot inspected in tool; DOM measurements preserved here, not a saved screenshot."
+  },
+  "limits": [
+    "Single keyframe, no continuous playback/audio certification",
+    "No transition correction",
+    "No new independent review",
+    "No commit/push/render"
+  ]
+}

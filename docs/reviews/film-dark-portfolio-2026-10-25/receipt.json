@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-25T08:19:38.2984678Z",
+  "scope": "technical review only, dark portfolio increment; no browser or tests",
+  "git_head": "c072cbc45fb77f9cadf2147ecbde5371b34625fb",
+  "reviewer_configuration": {
+    "model_requested": "gpt-6-astra",
+    "configuration_source": "spawn_agent accepted request; not independent runtime attestation",
+    "reasoning_requested": "high",
+    "agent": "film_technical_review"
+  },
+  "paths_relative_to": "repository root",
+  "files": [
+    {
+      "path": "media/legalgrowth-presentation/src/Cinematic.tsx",
+      "sha256": "2f9124d375a92d0a196a96df7ad8a66c31a137047125565a265060072b09a11d",
+      "bytes": 12292
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/Composition.tsx",
+      "sha256": "6fc0672354b867d89eefdee930cd1c7238e8400974e59cf70a60e10cf7b76b8a",
+      "bytes": 1967
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/Root.tsx",
+      "sha256": "95630b9b701cc3c9bf0176d344cfdab116fdde29f8de6f305620d794ed64c8cb",
+      "bytes": 574
+    },
+    {
+      "path": "media/legalgrowth-presentation/src/visuals.tsx",
+      "sha256": "eba38f78ae328ab41718c141b27e199e21de9debe5b8b44cf83ba89f12e4b51f",
+      "bytes": 4041
+    },
+    {
+      "path": "media/legalgrowth-presentation/public/screens/overview-dark.png",
+      "sha256": "8175e04d394445402bbb3d0006129eafb9e77393c152d2adfaa779659108a81c",
+      "bytes": 1099036
+    },
+    {
+      "path": "media/legalgrowth-presentation/package.json",
+      "sha256": "17d37e0649b08a15ead93095ced2266bc2539757902aed530d987b93d76ead43",
+      "bytes": 944
+    },
+    {
+      "path": "media/legalgrowth-presentation/package-lock.json",
+      "sha256": "611f1e2c0f1d25792dafea5cff136c9a50773ebdf767d5ff14db48c1104119cc",
+      "bytes": 197012
+    },
+    {
+      "path": "docs/FILM-CORRECTION-V7.md",
+      "sha256": "b9af5fe96d67800bf73e0e46a54508cbbfb328166ea446cde2a58c1e412ed206",
+      "bytes": 6781
+    },
+    {
+      "path": "output/pdf/film-dark-portfolio-2026-10-25.pdf",
+      "sha256": "0dd65b4e9a02bb91ec6c604d418ed1d1fa46545cfbab25ee2ac5ef12ca0435e5",
+      "bytes": 3300
+    },
+    {
+      "path": "docs/reviews/film-dark-portfolio-2026-10-25/Cinematic-vs-HEAD.patch",
+      "sha256": "8aeae69e6d2f8eed8f22de08f11e0dbb8fdf4afcf11900d4e5b05e6d70d756d2",
+      "bytes": 5552
+    },
+    {
+      "path": "docs/reviews/film-dark-portfolio-2026-10-25/report-page-1.png",
+      "sha256": "a8ffbd1cfd28fc2623f9067fbef7f2db6e9aa576e8496e0fe053b8b4d32652db",
+      "bytes": 130712
+    },
+    {
+      "path": "docs/reviews/film-dark-portfolio-2026-10-25/report-generator.py",
+      "sha256": "038ed0b842bd1a34a986229d03cabd9907c97886aae599095cbc2f57800653ba",
+      "bytes": 3090
+    }
+  ],
+  "preserved_this_round": [
+    "docs/reviews/film-dark-portfolio-2026-10-25/Cinematic-vs-HEAD.patch",
+    "docs/reviews/film-dark-portfolio-2026-10-25/report-page-1.png",
+    "docs/reviews/film-dark-portfolio-2026-10-25/report-generator.py"
+  ],
+  "existing_pdf": "output/pdf/film-dark-portfolio-2026-10-25.pdf",
+  "evidence_limits": [
+    "Patch includes pre-existing V7 ResultsScene changes; not a dark-increment-only patch.",
+    "No original TypeScript/ESLint log files preserved: prior exit codes are recorded from tool results and documentation, not recreated as original logs.",
+    "PNG is the prior PDF report page, not a film frame.",
+    "Report generator archived verbatim, not executed in this review.",
+    "No new tests, browser inspection or audiovisual certification.",
+    "No credentials, real database, session directories or Validador folder accessed."
+  ],
+  "completed_at_utc": "2026-10-25T08:20:46.8842303Z",
+  "final_identity_check": "All 12 recorded files unchanged at completion",
+  "report": {
+    "path": "docs/reviews/film-dark-portfolio-2026-10-25/review.md",
+    "sha256": "556e1b1e7499e7530a09382d7ce2da09e35ebe81829c5508c686a4065a3cf54f"
+  }
+}

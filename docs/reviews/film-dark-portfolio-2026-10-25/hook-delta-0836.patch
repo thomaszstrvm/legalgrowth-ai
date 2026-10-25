@@ -1,0 +1,24 @@
+--- media/legalgrowth-presentation/src/Cinematic.tsx (before this increment)
++++ media/legalgrowth-presentation/src/Cinematic.tsx
+@@ -128,8 +128,8 @@
+           opacity: 1 - exit,
+         }}
+       >
+-        <MaskText>{theme === "dark" ? "Onde investir" : "Campanhas e"}</MaskText>
+-        <MaskText delay={0.16}>{theme === "dark" ? "nas campanhas?" : "resultados."}</MaskText>
++        <MaskText>{theme === "dark" ? "Como acompanhar" : "Campanhas e"}</MaskText>
++        <MaskText delay={0.16}>{theme === "dark" ? "suas campanhas?" : "resultados."}</MaskText>
+       </div>
+       <div
+         style={{
+--- media/legalgrowth-presentation/README.md (before this increment)
++++ media/legalgrowth-presentation/README.md
+@@ -32,7 +32,7 @@
+ - Cenas antigas em `src/scenes` e `src/illustrations.tsx` são histórico da proposta v4; não estão registradas nem são usadas no filme atual.
+ 
+ Instrument Sans Medium conduz os títulos do filme por solicitação do usuário. Newsreader permanece na marca e nas capas; o painel continua com Newsreader/Manrope conforme DESIGN.md. Arquivos locais e licenças são preservados.
+-Mantenha a mesma história nos dois temas: altere o componente compartilhado, não copie a composição.
++Os temas compartilham componentes e tempos, mas o roteiro escuro é uma apresentação de portfólio para recrutadores e clientes de desenvolvimento. Seus textos e enquadramento diferem do claro, que permanece preservado. O filme apresenta um projeto demonstrativo com dados fictícios, sem promessa de produto lançado ou avaliação jurídica. Mantenha essas diferenças explícitas por tema no componente compartilhado. Veja o [incremento de portfólio](../../docs/FILM-CORRECTION-V7.md).
+ O estágio lógico e a separação por cena facilitam outra proporção; **1080 x 1920 ainda exige reenquadramento próprio**. A escala atual preserva proporções, mas não é uma versão vertical pronta.
+ 
+ ## Assets, licenças e regeneração

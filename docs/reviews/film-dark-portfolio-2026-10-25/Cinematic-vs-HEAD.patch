@@ -1,0 +1,145 @@
+diff --git a/media/legalgrowth-presentation/src/Cinematic.tsx b/media/legalgrowth-presentation/src/Cinematic.tsx
+index 1642665..e0265dd 100644
+--- a/media/legalgrowth-presentation/src/Cinematic.tsx
++++ b/media/legalgrowth-presentation/src/Cinematic.tsx
+@@ -128,8 +128,8 @@ export const PromiseScene = ({ theme }: FilmProps) => {
+           opacity: 1 - exit,
+         }}
+       >
+-        <MaskText>Campanhas e</MaskText>
+-        <MaskText delay={0.16}>resultados.</MaskText>
++        <MaskText>{theme === "dark" ? "Onde investir" : "Campanhas e"}</MaskText>
++        <MaskText delay={0.16}>{theme === "dark" ? "nas campanhas?" : "resultados."}</MaskText>
+       </div>
+       <div
+         style={{
+@@ -202,6 +202,28 @@ export const DashboardScene = ({ theme }: FilmProps) => {
+     { fps } = useVideoConfig();
+   const reveal = motionProgress(f, 0, 0.8 * fps),
+     camera = motionProgress(f, 0.65 * fps, 2.1 * fps);
++  // Dark portfolio cut: focus the real summary, not the entire application.
++  // The light branch below remains unchanged.
++  if (theme === "dark") {
++    return (
++      <Stage theme={theme}>
++        <div style={{ position: "absolute", left: 120, top: 110 }}>
++          <MaskText size={96}>Contatos em contexto.</MaskText>
++        </div>
++        <div style={{ position: "absolute", left: 120, top: 320,
++          width: 1400, overflow: "hidden", borderRadius: 12,
++          clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`,
++          scale: 0.97 + camera * 0.03, transformOrigin: "left center" }}>
++          <Detail src="overview-dark.png" sourceWidth={2880}
++            crop={[1030, 585, 850, 220]} width={1400} />
++        </div>
++        <div style={{ position: "absolute", left: 120, top: 780,
++          fontSize: 64, color: dark.muted, opacity: reveal }}>
++          Exemplo fict├¡cio ┬À mesmo per├¡odo
++        </div>
++      </Stage>
++    );
++  }
+   return (
+     <Stage theme={theme}>
+       <div
+@@ -226,8 +248,7 @@ export const DashboardScene = ({ theme }: FilmProps) => {
+           height: 730,
+           opacity: 1 - motionProgress(f, 3.75 * fps, 0.25 * fps),
+           borderRadius: 12,
+-          boxShadow:
+-            theme === "dark" ? "0 40px 90px #0008" : "0 40px 90px #26332625",
++          boxShadow: "0 40px 90px #26332625",
+         }}
+       >
+         <div
+@@ -249,46 +270,43 @@ export const DashboardScene = ({ theme }: FilmProps) => {
+   );
+ };
+ 
++// Product chapter, not a financial report: no axes, dates or disclaimers.
+ export const ResultsScene = ({ theme }: FilmProps) => {
+   const f = useCurrentFrame(),
+     { fps } = useVideoConfig();
+-  const reveal = motionProgress(f, 0.18 * fps, 1.25 * fps);
+-  const drift = motionProgress(f, 0, 4 * fps);
++  const enter = motionProgress(f, 0.08 * fps, 0.95 * fps);
++  const settle = motionProgress(f, 0.5 * fps, 1.6 * fps);
++  const leave = motionProgress(f, 3.65 * fps, 0.3 * fps);
+   return (
+     <Stage theme={theme}>
+       <div
+         style={{
+           position: "absolute",
+-          left: 120,
+-          top: 386,
+-          width: 600,
+-          opacity: 1 - motionProgress(f, 3.65 * fps, 0.3 * fps),
++          left: 302,
++          top: 197,
++          opacity: enter,
++          transformOrigin: "50% 50%",
++          transform: `perspective(2000px) translateX(${(1 - enter) * -110}px) rotateY(${-24 + settle * 18}deg) rotateZ(${-5 + settle * 3}deg) scale(${0.94 + settle * 0.06})`,
+         }}
+       >
+-        <MaskText size={80}>Investimento.</MaskText>
+-        <div style={{ marginTop: 38, color: colors(theme).muted }}>
+-          <MaskText size={32} delay={0.35}>
+-            Acompanhe os gastos.
+-          </MaskText>
+-        </div>
++        <Cover
++          name="finance"
++          theme={theme}
++          style={{ width: 480, height: 654 }}
++        />
+       </div>
+       <div
+         style={{
+           position: "absolute",
+-          left: 790,
+-          top: 298,
+-          clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`,
+-          scale: 1 + drift * 0.025,
+-          opacity: 1 - motionProgress(f, 3.75 * fps, 0.25 * fps),
+-          transformOrigin: "left center",
++          left: 950,
++          top: 433,
++          width: 800,
++          opacity: 1 - leave,
+         }}
+       >
+-        <Detail
+-          src={`overview-${theme}.png`}
+-          sourceWidth={2880}
+-          crop={[1475, 2125, 1325, 640]}
+-          width={990}
+-        />
++        <MaskText size={112} delay={0.25}>
++          Or├ºamento
++        </MaskText>
+       </div>
+     </Stage>
+   );
+@@ -335,7 +353,7 @@ export const IntelligenceScene = ({ theme }: FilmProps) => {
+             translate: `0 ${(1 - secondIn) * 28}px`,
+           }}
+         >
+-          Segunda revis├úo
++          {theme === "dark" ? <>Revis├úo por<br />outra IA</> : "Segunda revis├úo"}
+         </div>
+       </div>
+       <div
+@@ -403,6 +421,13 @@ export const SignatureScene = ({ theme }: FilmProps) => {
+           transformOrigin: "center",
+         }}
+       />
++      {theme === "dark" && (
++        <div style={{ position: "absolute", left: 120, right: 120, top: 690,
++          textAlign: "center", opacity: p, fontSize: 64, lineHeight: 1.35 }}>
++          <div style={{ color: dark.muted }}>Projeto demonstrativo de Thomas Marques</div>
++          <div style={{ marginTop: 30 }}>Conhe├ºa o projeto</div>
++        </div>
++      )}
+     </Stage>
+   );
+ };

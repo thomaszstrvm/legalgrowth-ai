@@ -32,7 +32,7 @@ O botão Render do Studio permite exportar a composição selecionada.
 - Cenas antigas em `src/scenes` e `src/illustrations.tsx` são histórico da proposta v4; não estão registradas nem são usadas no filme atual.
 
 Instrument Sans Medium conduz os títulos do filme por solicitação do usuário. Newsreader permanece na marca e nas capas; o painel continua com Newsreader/Manrope conforme DESIGN.md. Arquivos locais e licenças são preservados.
-Mantenha a mesma história nos dois temas: altere o componente compartilhado, não copie a composição.
+Os temas compartilham componentes e tempos, mas o roteiro escuro é uma apresentação de portfólio para recrutadores e clientes de desenvolvimento. Seus textos e enquadramento diferem do claro, que permanece preservado. O filme apresenta um projeto demonstrativo com dados fictícios, sem promessa de produto lançado ou avaliação jurídica. Mantenha essas diferenças explícitas por tema no componente compartilhado. Veja o [incremento de portfólio](../../docs/FILM-CORRECTION-V7.md).
 O estágio lógico e a separação por cena facilitam outra proporção; **1080 x 1920 ainda exige reenquadramento próprio**. A escala atual preserva proporções, mas não é uma versão vertical pronta.
 
 ## Assets, licenças e regeneração
@@ -78,3 +78,7 @@ Capas abrem em sequência; câmera chega antes para leitura; mensagens de IA tê
 Para medir playback, abra a composição com `?playbackQA=1`, vá ao início e recarregue **antes de cada passagem**. Use 1x, volume 1, loop desligado e aba em primeiro plano. O JSON surge no canto ao terminar. Sem o parâmetro, não há observador Web Audio. Não use esse modo durante uso cotidiano ou para exportação.
 
 O validador `scripts/analyze-playback.py` requer Python e NumPy. Ele compara os buffers realmente agendados com o WAV original; não substitui o player por um relógio simulado. Métodos, critérios, resultados, limites e exercício: [FILM-PLAYBACK-V6.md](../../docs/FILM-PLAYBACK-V6.md). Referências recentes de Anthropic/OpenAI e literatura: [FILM-RESEARCH-MOTION-SOUND.md](../../docs/FILM-RESEARCH-MOTION-SOUND.md).
+
+## Filme 1.1.1 - orçamento sem relatório técnico
+
+A cena de 7 a 11 s agora usa a capa original de orçamento e um título único, sem gráfico, datas, valores, eixos ou nota técnica. A trilha e a duração permanecem iguais. Esta correção substitui a cena financeira descrita nas revisões anteriores. Evidências e decisão editorial: [FILM-CORRECTION-V7.md](../../docs/FILM-CORRECTION-V7.md).
