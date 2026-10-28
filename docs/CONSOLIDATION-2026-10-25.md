@@ -1,5 +1,12 @@
 # Consolidação - 25/10/2026
 
+> **Registro histórico.** O corpo abaixo preserva os resultados e limites da rodada
+> local de 25/10/2026, inclusive estados anteriores à publicação. Em 28/10/2026,
+> o repositório está público e a [CI 40225403720](https://github.com/thomaszstrvm/legalgrowth-ai/actions/runs/40225403720)
+> já passou para `7b9b90d8934bbc666e192acc24a41550af25eada` em 25/10/2026.
+> Isso não transforma testes excluídos ou verificações históricas não executadas em aprovações.
+> Consulte [CURRENT-STATE](CURRENT-STATE.md) para o resumo vigente.
+
 Base: `main`, `036ba1f26d08011729e15727eda2641d2c9ce4d4`. Incremento local, sem
 commit, push, deploy ou alteração de visibilidade. Não há nova versão publicada.
 

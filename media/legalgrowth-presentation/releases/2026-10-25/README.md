@@ -1,6 +1,10 @@
 # LegalGrowth — filmes em desenvolvimento
 
-**25/10/2026 · Portfólio · Dados fictícios · Repositório privado**
+**25/10/2026 · Portfólio · Dados fictícios · Em desenvolvimento**
+
+Atualização de contexto em 28/10/2026: o repositório está público. A avaliação
+de publicação privada citada abaixo descreve a revisão original de 25/10;
+a mudança de visibilidade não representa uma nova revisão audiovisual.
 
 Apresento duas versões de trabalho. A publicação registra o desenvolvimento;
 não representa lançamento comercial, prontidão para produção ou aceite estético final.
@@ -92,6 +96,7 @@ para −14 LUFS. Medidas não certificam musicalidade ou sincronismo percebido.
 Não certifico escuta humana, playback contínuo, compreensão em uma passagem,
 telefone físico ou uso em produção. A revisão externa original, logs e capturas
 permanecem localmente nos projetos separados; publico somente esta síntese e
-identidades sanitizadas. A CI do commit desta publicação deve ser conferida pelo
-SHA no GitHub Actions; uma execução antiga não valida este commit. O workflow
-existente verifica backend/contratos de frontend e não renderiza o filme.
+identidades sanitizadas. A [CI 40225403720](https://github.com/thomaszstrvm/legalgrowth-ai/actions/runs/40225403720)
+passou em 25/10/2026 para o commit `7b9b90d8934bbc666e192acc24a41550af25eada`.
+Esse resultado é específico daquele SHA. O workflow verifica backend/contratos
+de frontend, não renderiza nem valida a reprodução do filme.

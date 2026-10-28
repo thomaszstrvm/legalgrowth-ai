@@ -6,8 +6,8 @@ formal de correção. A existência de testes não equivale a auditoria de segur
 ## Relatar vulnerabilidades
 
 Não abra uma issue pública com credenciais, dados pessoais ou informações de clientes.
-Quando o repositório estiver publicado, use **Report a vulnerability** na aba Security,
-se o mantenedor tiver habilitado o recurso. Caso indisponível, solicite um canal
+O repositório está público. Use **Report a vulnerability** na aba Security
+se o mantenedor tiver habilitado o recurso; esta documentação não confirma sua ativação. Caso indisponível, solicite um canal
 privado ao mantenedor sem divulgar detalhes sensíveis. Não foi inventado endereço
 de contato nesta documentação.
 

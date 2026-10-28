@@ -1,7 +1,9 @@
 # Versões e privacidade
 
-Escolhi manter meu repositório `thomaszstrvm/legalgrowth-ai` **privado** desde sua criação. A licença MIT não muda a visibilidade no GitHub. Tornar público
-depende de uma decisão futura, após uma nova revisão de arquivos e permissões.
+O repositório `thomaszstrvm/legalgrowth-ai` está **público**, conforme conferência
+em 28/10/2026. Os registros de entregas anteriores preservam o contexto em que ele
+era privado. A licença MIT e a visibilidade são aspectos distintos; código público
+não significa aplicativo hospedado, liberação de dados reais ou prontidão para produção.
 
 ## Convenção
 
@@ -24,8 +26,8 @@ históricos que nunca existiram.
 3. Rode os testes apropriados. Mudança visual exige captura desktop/celular,
    claro/escuro, e revisão conforme `AGENTS.md`.
 4. Atualize documentação e changelog. Revise `git diff --cached` antes do commit.
-5. Confirme que `origin` aponta para o repositório privado correto e que arquivos
-   de segredos/bancos não estão no índice. Só então faça commit e push.
+5. Confirme que `origin` aponta para o repositório correto e que arquivos
+   de segredos/bancos não estão no índice. Faça commit e push somente com autorização do proprietário.
 6. Depois do envio, confira o SHA remoto e a visibilidade no GitHub.
 
 Não use `git add .` sem revisar a lista de arquivos. `.gitignore` evita inclusões

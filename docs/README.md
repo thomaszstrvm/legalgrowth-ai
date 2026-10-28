@@ -1,4 +1,4 @@
-# Guia da documentação
+# Documentation guide / Guia da documentação
 
 Comece pelo [estado atual e mapa de contratos](CURRENT-STATE.md). Ele separa o
 vigente do histórico, sem substituir instruções globais ou apagar conhecimento.
@@ -9,10 +9,12 @@ vigente do histórico, sem substituir instruções globais ou apagar conheciment
 
 ## Começar
 
-- [README principal](../README.md): instalação, execução, acesso e recursos.
+- [English README](../README.md) · [README em português](../README.pt-BR.md): visão geral, instalação e limites.
+- [Guia detalhado de operação em português](USAGE.pt-BR.md): CSVs, configuração, relatórios, IA e Docker.
+- [Marcos preservados do README anterior](PROJECT-HISTORY.pt-BR.md): histórico visual e evidências datadas.
 - [Contribuição](../CONTRIBUTING.md): desenvolvimento e verificações.
 - [Cidades e cobertura](localidades.md): configuração, isolamento, código explicado e exercício.
-- [Versionamento privado](VERSIONING.md) e [histórico de versões](../CHANGELOG.md).
+- [Versionamento e visibilidade](VERSIONING.md) e [histórico de versões](../CHANGELOG.md).
 - [Segurança](../SECURITY.md): limites e comunicação de vulnerabilidades.
 - [MIT](../LICENSE) e [avisos de terceiros](../THIRD_PARTY_NOTICES.md).
 
@@ -53,4 +55,4 @@ vigente do histórico, sem substituir instruções globais ou apagar conheciment
 EDITORIAL-V*, THE-CRITIC e outros registros de revisão documentam versões históricas.
 Uma nota ou captura antiga não valida a versão atual. Caminhos absolutos nesses
 registros descrevem a máquina de desenvolvimento; `output/` é local e não acompanha
-o clone. As instruções atuais são as do README principal. Prévias públicas em `docs/images/`.
+o clone. As instruções atuais são as dos READMEs principais e do guia de operação. Prévias públicas em `docs/images/`.
