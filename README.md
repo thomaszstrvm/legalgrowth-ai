@@ -1,316 +1,130 @@
 # LegalGrowth AI
 
-## Vídeos em desenvolvimento — 25/10/2026
+**English** · [Português (Brasil)](README.pt-BR.md)
 
-Disponibilizo duas versões para revisão no repositório privado: a apresentação
-de produto de 20 segundos a 60 fps e a R7 histórica que selecionei para preservar.
-Ambas são **Em desenvolvimento**, com dados fictícios e limitações explícitas.
-[Assistir às versões, conferir hashes e ler a revisão](media/legalgrowth-presentation/releases/2026-10-25/README.md).
+A local dashboard that brings campaign spending, results and recommendations together so a law firm can decide what to review next.
 
+**The problem:** spending, campaign metrics and weekly reporting can be disconnected, making it difficult to understand what a result means and which action needs human review.
 
-Apresento neste repositório meu projeto de portfólio, com dados fictícios e validação explícita de limites; não representa prontidão para produção. Estado e evidências atuais: [mapa do projeto](docs/CURRENT-STATE.md).
+**The approach:** import aggregate data, calculate traceable metrics and review recommendations before making changes outside the app. Built with Python, FastAPI, SQLAlchemy, Jinja2 and vanilla JavaScript.
 
-MVP local de inteligência de marketing jurídico, com FastAPI, SQLAlchemy 2, Alembic, Pandas, Jinja2 e APScheduler. Sem serviços pagos obrigatórios e sem publicação automática. Interface em português, temas claro/escuro e API autenticada. O estado detalhado da nova especificação está em [docs/EVOLUTION-2026-10-22.md](docs/EVOLUTION-2026-10-22.md).
+> **Portfolio project · In development.** The interface is in Brazilian Portuguese. Screenshots and examples use fictional data. This is a local MVP, not a production-ready service or evidence of client results.
 
-Projeto sob [licença MIT](LICENSE), em desenvolvimento em repositório privado;
-a publicação pública será uma decisão separada. [Documentação](docs/README.md) ·
-[Como contribuir](CONTRIBUTING.md) · [Segurança](SECURITY.md) ·
-[Licenças de terceiros](THIRD_PARTY_NOTICES.md).
+## Three core capabilities
 
-![Abertura do LegalGrowth no tema claro, com dados fictícios](docs/images/opening-light.png)
+1. **Campaign and budget analysis:** validated CSV imports, date filters, aggregate funnel metrics and monthly spending views.
+2. **Explainable recommendations:** rule-based analysis with supporting data and human approval; optional OpenAI/Claude integrations for prioritization and insights.
+3. **Weekly reporting:** saved weekly snapshots with PDF/JSON exports, keeping fictional examples separate from the user's data.
 
-<details><summary>Ver o modo escuro</summary>
+No automatic ad publishing or budget changes. The dashboard works without a paid AI connection.
 
-![Abertura do LegalGrowth no tema escuro, com dados fictícios](docs/images/opening-dark.png)
+## Screenshots and product film
+
+Existing application screenshot, light theme, with explicitly fictional data:
+
+![LegalGrowth dashboard in the light theme, showing fictional campaign metrics and navigation cards](docs/images/opening-light.png)
+
+<details>
+<summary>View the dark theme</summary>
+
+![LegalGrowth dashboard in the dark theme, using the same fictional data](docs/images/opening-dark.png)
 
 </details>
 
-O Resumo começa pelo contexto e pelos indicadores. A coleção de dossiês aparece
-logo depois, antes das análises detalhadas. Campanhas, orçamento,
-relatórios e análises também permanecem no menu principal.
+The [20-second product film and historical R7](media/legalgrowth-presentation/releases/2026-10-25/README.md) are work in progress. The product film is an **editorial representation**, not a recording of live navigation. Its fictional scenario, sources and review limits are documented with the files.
 
-Marco atual: **v0.1.7**, encerramento v60. A legenda dos dossiês só aparece após
-inicialização bem-sucedida; as capas continuam links se o script não carregar.
-O design v59 foi preservado. A investigação limitada de ViewTransition terminou
-com causa residual não demonstrada, sem supressão de erros.
-[Encerramento técnico](docs/CLOSURE-V60.md) ·
-[PDF técnico](docs/releases/LegalGrowth_Encerramento_Tecnico_v0.1.7.pdf) ·
-[Apresentação para o cliente](docs/releases/LegalGrowth_Apresentacao_Cliente_v0.1.7.pdf).
+## My role and AI-assisted development
 
-Filme editável de 20 segundos, em versões clara e escura: [como abrir o Remotion](media/legalgrowth-presentation/README.md) · [pesquisa e validação](docs/REMOTION-PRESENTATION.md) · [relatório PDF](docs/releases/LegalGrowth_Filme_20s_Dois_Temas.pdf). A mídia não altera o aplicativo.
+I define the product goals, constraints and visual direction, and review the work as it evolves. Development is AI-assisted, using Codex and separate implementation/review agents. The implementation and review process includes documented checks and limitations.
 
-Base preservada da **v0.1.6/v59**. Capas, arte, interação 3D,
-fontes e temas preservados. A coleção começa na primeira tela de 1440×900 com
-o conjunto sintético documentado. Consulte a [decisão e evidências](docs/DOSSIER-POSITION-V59.md),
-o [parecer independente](docs/THE-CRITIC-DOSSIER-V59.md) e o
-[PDF da entrega](docs/releases/LegalGrowth_Dossies_v0.1.6.pdf).
+The [product brief](PRODUCT.md) records my decisions; the [engineering workflow](docs/ENGINEERING-WORKFLOW.md), [consolidation record](docs/CONSOLIDATION-2026-10-25.md) and [architecture decisions](docs/decisions/) document implementation, review, corrections and limitations. These records distinguish measured results from claims that have not been verified.
 
-Base preservada da **v0.1.5/v58**. Datas de indicadores aparecem
-nos cartões; avisos demonstrativos foram reduzidos e o CSS de conexão consolidado,
-com paridade verificada nos dois temas. Consulte a [manutenção v58](docs/MAINTENANCE-V58.md),
-o [parecer independente](docs/THE-CRITIC-MAINTENANCE-V58.md), a
-[investigação dos abortos no Chrome](docs/VIEW-TRANSITION-CHROME.md) e o
-[PDF desta manutenção](docs/releases/LegalGrowth_Manutencao_v0.1.5.pdf).
-O Impeccable foi sincronizado sem alterar DESIGN.md; a Taste foi avaliada seletivamente,
-sem instalar outro estilo ou dependência. Os abortos nativos continuam documentados,
-sem causa raiz confirmada. O OCR permanece apenas uma interface técnica opcional.
+## Architecture
 
-Base preservada da **v0.1.4/v57**. O período acompanha a navegação; o
-orçamento tem seleção de mês e os relatórios mostram a semana completa. Exemplos
-estáticos explicam Notícias, Oportunidades e Insights sem chamar provedores.
-Veja a [revisão implementada](docs/VALIDATOR-REVIEW.md), o
-[parecer independente](docs/THE-CRITIC-VALIDATOR-REVIEW.md) e a
-[avaliação opcional do Unlimited-OCR](docs/UNLIMITED-OCR.md).
-OCR continua desativado e contratos reais continuam bloqueados.
-[Baixar o relatório desta entrega em PDF](docs/releases/LegalGrowth_Revisao_Implementada_v0.1.4.pdf):
-o que foi analisado, mudanças, antes/depois, testes, limitações e material de estudo.
-As referências [Arc](docs/ARC-INTERACTION-STUDY.md) e
-[Cartier](docs/CARTIER-REFERENCE.md) orientam a identidade, sem substituir
-clareza operacional. O ciclo de perseguir uma nota foi encerrado; esta versão
-é apresentada com evidências e limitações, sem alegação de perfeição.
+```text
+Browser: Jinja2 templates + CSS + vanilla JavaScript
+    |
+FastAPI routes + HTTP Basic authentication
+    |
+Validated imports -> metrics / recommendations / reports
+    |                               |
+SQLAlchemy + Alembic          privacy gateway -> optional AI providers
+    |
+SQLite locally / PostgreSQL in Docker Compose
+```
 
-## Início rápido no Windows / PowerShell
+| Area | Entry points |
+|---|---|
+| API, access control and input validation | `app/api.py`, `app/security.py`, `app/schemas.py` |
+| Data and migrations | `app/models.py`, `app/repositories.py`, `migrations/` |
+| Analysis and reporting | `app/agents/`, `app/services/` |
+| Integrations | `app/integrations/`, `app/services/gateway.py` |
+| Interface | `app/templates/`, `app/static/` |
+| Synthetic tests and CI | `tests/`, `scripts/`, `.github/workflows/checks.yml` |
 
-Redesign e manutenção visual: [sistema de design atual](DESIGN.md),
-[implementação atual](docs/VALIDATOR-REVIEW.md) e [skills e origens](docs/DESIGN-SKILLS.md).
-Capturas completas ficam em `output/design-review/` na máquina de desenvolvimento;
-essa pasta é ignorada pelo Git. As prévias acima acompanham o repositório.
+One installation serves one office. `scope=demo/real` separates datasets, **not organizations**. APScheduler runs in the application process, so use one worker. The optional Remotion film project is separate from the app.
 
-Requisito: Python 3.12+. Na pasta do projeto:
+## Quick start
+
+Requires **Python 3.12+**. From a local clone of this repository:
+
+```sh
+python -m venv .venv
+# Windows PowerShell: use .\.venv\Scripts\python.exe below
+# macOS/Linux: use .venv/bin/python below
+```
+
+Windows / PowerShell:
 
 ```powershell
-py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m app.cli init
 .\.venv\Scripts\python.exe -m app.cli seed
 .\.venv\Scripts\python.exe -m uvicorn app.api:app --host 127.0.0.1 --port 8000 --workers 1
 ```
 
-Mantenha esse terminal aberto enquanto usa o painel. Após reiniciar o computador,
-execute novamente apenas o comando `uvicorn` acima, na pasta do projeto. Não é
-necessário recriar o ambiente, apagar o banco ou gerar outra senha.
+macOS / Linux:
 
-Abra http://127.0.0.1:8000. Usuário `admin`, senha no campo `ADMIN_PASSWORD` do arquivo local `.env`. O comando `init` gera senhas aleatórias se o arquivo ainda não existir. Não imprime nem versiona as senhas. Usuário `viewer`, com `VIEWER_PASSWORD`, pode consultar, mas não importar, aprovar ou modificar configurações. Se copiar `.env.example` manualmente, preencha as senhas antes de iniciar.
-
-O navegador usa autenticação HTTP Basic. Apenas loopback em desenvolvimento; ao hospedar, HTTPS e limitação de tentativas no proxy são obrigatórios. Fechar todas as janelas do navegador encerra o cache usual de credenciais Basic; não há gestão de contas ou logout de sessão no MVP.
-
-Selecione **Exemplo fictício** no topo para visualizar 90 dias fictícios. O padrão é **Meus dados**, inicialmente vazio. A marcação `scope` é obrigatória em cada linha e validada contra o ambiente escolhido. Nomes, fontes e indicadores demonstrativos são inventados e rotulados. Nunca remova o rótulo para apresentar esses resultados como reais.
-
-## Período, orçamento e relatórios
-
-- Em Resumo, Campanhas, Recomendações e Insights, escolha datas e clique em **Aplicar**.
-  O intervalo aplicado acompanha os links, a recarga e o histórico. Editar um campo
-  sem aplicar não muda a análise. Cada ambiente mantém seu próprio último período
-  na sessão; URLs explícitas têm precedência.
-- **Orçamento e gastos** consulta um mês. Ao vir da análise, começa pelo mês da
-  data final. A lista de despesas mostra até 100 registros recentes de todos os
-  meses; os totais acima são mensais. Ferramentas e IA ficam fora do saldo de mídia.
-- **Relatórios** usa uma segunda-feira e cobre até domingo. O arquivo salvo é um
-  retrato daquele momento, não se atualiza sozinho. Baixe PDF para ler ou JSON para
-  analisar em outra ferramenta. Revise o conteúdo antes de compartilhá-lo.
-- Conexões e limite de IA são compartilhados por toda a instalação. Uma análise
-  solicitada com dados fictícios pode ter cobrança; abrir um exemplo estático não.
-
-## Personalizar sua instalação
-
-Uma instalação corresponde a um escritório. Não é necessário usar Cruzeiro:
-essa cidade permanece apenas nos exemplos fictícios e em configurações antigas
-que você já tenha salvo.
-
-| O que personalizar | Onde | Efeito |
-|---|---|---|
-| Cidades atendidas | **Configurações → Sua região de atuação** | Novas importações e coletas usam a seleção salva no ambiente atual. |
-| Claro ou escuro | Botão de tema no painel | Preferência salva neste navegador; as duas paletas são mantidas. |
-| Provedor e limite de IA | **Configurações → Conectar IA** | OpenAI ou Claude; chaves guardadas cifradas, sem editar código. |
-| Orçamento | **Gastos → Ajustar orçamento** | Limites e distribuição mensal do próprio escritório. |
-| Período de análise | Filtros do painel | Consulta dados existentes, sem reescrever o histórico. |
-| Horário dos relatórios | `.env`: `REPORT_DAY`, `REPORT_HOUR`, `REPORT_MINUTE`, `TIMEZONE` | Requer reiniciar o servidor; veja Agendamento. |
-| Fontes jornalísticas | Catálogo `SOURCES` em `app/integrations/news.py` | Personalização pelo mantenedor, com revisão e testes; veja abaixo. |
-| Identidade visual | `DESIGN.md`, fundações em `app/static/tokens.css`; componentes em `style.css` e `arc.css` | Altere os pares claro/escuro e confira contraste e celular. |
-
-### Escolher sua região, passo a passo
-
-1. No topo, escolha **Meus dados**. **Exemplo fictício** tem configuração separada.
-2. Em **Configurações**, preencha uma cidade e selecione sua UF.
-3. Use **Adicionar cidade** para incluir outros municípios; **Remover** tira uma
-   linha da seleção. A alteração só é persistida ao clicar em **Salvar região**.
-4. No CSV, use exatamente a grafia salva seguida de hífen e UF: `Curitiba-PR`.
-   A validação aceita as 27 unidades federativas e limita a lista a 20 cidades, mas não consulta
-   o IBGE nem comprova que um município existe. Confira a grafia.
-5. Em **Notícias regionais**, confira a região mostrada antes da coleta.
-
-Mudar a seleção não apaga campanhas, não muda cidades de registros antigos e
-não refaz relatórios existentes. Uma coleta antiga continua associada à seleção
-original. Uma nova região começa sem notícias salvas daquela combinação.
-
-### Fontes de notícias e cobertura
-
-Os jornais incluídos inicialmente cobrem o Vale do Paraíba, em SP. Escolher outra
-cidade não acrescenta um jornal automaticamente. O sistema não substitui a região
-escolhida por Cruzeiro quando não encontra notícias.
-
-Para adaptar a instalação a outro local, um mantenedor deve revisar o catálogo
-`SOURCES` em `app/integrations/news.py`: identificador, nome, domínio HTTPS,
-caminho do RSS, limite de páginas e estados cobertos. Use apenas fontes públicas
-conhecidas, com permissão de leitura, e teste com RSS fictício antes de coletar.
-Não coloque URLs de usuários diretamente nesse catálogo, nem habilite redirects
-ou leitura de endereços internos. Esses limites reduzem o risco de SSRF, quando
-uma URL induz o servidor a acessar serviços privados da rede.
-
-O gateway também mantém uma lista dos identificadores permitidos das fontes;
-atualize-a junto do catálogo. O roteiro técnico completo está em
-[Cidades e cobertura](docs/localidades.md), com a função central explicada linha
-por linha e um exercício sobre isolamento do histórico.
-
-A coleta lê títulos e trechos, não todo o site. Município e estado devem ser
-compatíveis com a fonte; mesmo assim, a identificação por texto pode ser ambígua.
-Ausência de notícia não prova ausência de acontecimentos. O agendamento de
-notícias no Codex é separado do agendamento de relatórios em `.env`; quem clonar
-o projeto precisa configurar sua própria execução de `python -m app.cli news`.
-
-### Atualizar e aprender com as versões
-
-O repositório de desenvolvimento é [thomaszstrvm/legalgrowth-ai](https://github.com/thomaszstrvm/legalgrowth-ai),
-**privado**. Cada entrega verificada recebe um commit; marcos recebem tags.
-O número da versão identifica uma entrega, não uma nota de design.
-Consulte [CHANGELOG.md](CHANGELOG.md) e [guia de versionamento](docs/VERSIONING.md).
-
-Para estudar as decisões de interface, veja também a
-[avaliação das skills de front-end](docs/LLM-SKILLS-REVIEW.md), incluindo o
-tratamento acessível de erros e a proteção dos valores digitados.
-
-Antes de atualizar, preserve `.env`, `.secrets/` e o banco em um backup local
-protegido. Com o servidor parado, atualize o código e execute:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m alembic upgrade head
-.\.venv\Scripts\python.exe -m pytest -q
+```sh
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python -m app.cli init
+.venv/bin/python -m app.cli seed
+.venv/bin/python -m uvicorn app.api:app --host 127.0.0.1 --port 8000 --workers 1
 ```
 
-Migrações evoluem a estrutura do banco sem recriá-lo. O cadastro de cidades usa
-uma configuração existente; a chave geográfica separa históricos de notícias.
-**Exercício:** em Exemplo fictício, cadastre uma segunda cidade, volte a Meus
-dados e explique por que a seleção não deveria mudar. Não use dados de clientes.
+Open **http://127.0.0.1:8000**. Sign in as `admin` using `ADMIN_PASSWORD` from your local `.env`. `init` creates random credentials only when `.env` does not exist, then applies migrations. If you copy `.env.example` manually, fill in the passwords before starting. Never commit `.env`, `.secrets/` or databases.
 
-## Conectar uma IA pelo painel
+Choose **Exemplo fictício** (fictional example) to view the seeded 90-day dataset. The default **Meus dados** (my data) starts empty. Keep the terminal running; on later starts, run only the `uvicorn` command. No paid AI connection is needed for this demo. Do not use confidential client data.
 
-1. Abra **Configurações → Conectar IA**.
-2. Escolha OpenAI ou Claude, cole sua chave e clique em **Testar e conectar**. Há um link na própria tela para criar a chave.
-3. Volte ao **Resumo** ou às **Recomendações** e clique em **Analisar com IA**.
+### Docker and PostgreSQL
 
-O botão de conexão testa a chave antes de salvá-la. Não precisa editar `.env` nem reiniciar para conectar. A chave fica criptografada no banco e nunca é devolvida ao navegador. Para remover a conexão, clique em **Desconectar**.
+Before `docker compose up --build -d`, set the following in your protected local `.env`:
 
-A IA seleciona até cinco prioridades entre recomendações fundamentadas nos dados; não cria métricas, fontes, anúncios ou decisões financeiras. O painel permanece utilizável sem IA. Apenas totais numéricos, categorias predefinidas e IDs internos são enviados. Nomes de campanhas, palavras-chave e textos de clientes não são enviados.
-
-As consultas podem ser cobradas pelas contas OpenAI e Anthropic. O painel reserva R$ 1 por tentativa, com limite mensal inicial de R$ 60 para novas conexões, ajustável em **Limite de uso**. Essa reserva conservadora bloqueia chamadas adicionais, mas não é a fatura nem uma cotação em tempo real. Confira o consumo no provedor e registre a despesa efetiva em **Gastos**, sem somar a reserva como despesa paga. Detalhes e limites: `docs/AI.md`.
-
-## Fluxo de utilização
-
-1. **Configurações → Sua região de atuação:** escolha de uma a vinte cidades, informando nome e UF, e clique em **Salvar região**. Instalações novas não presumem uma cidade para os dados reais. Configurações já salvas são preservadas. O plano mensal fica em **Gastos → Ajustar orçamento**.
-2. **Campanhas:** importe CSV UTF-8 no formato de `examples/campaigns_demo.csv`. Os filtros de período e área afetam as métricas e gráficos de campanhas. O financeiro sempre considera todas as áreas no mês da data final.
-3. **Recomendações → Ver ideias de conteúdo:** importe indicadores agregados com origem, data, unidade e URL oficial. O CSV de exemplo contém somente indicadores sintéticos.
-4. **Recomendações:** clique em **Revisar resultados** (sem IA) ou **Analisar com IA** (quando conectada), abra **Ver dados** e aprove/descarte recomendações. O motor analisa todas as áreas; o filtro de área só aparece em Campanhas. Aprovar registra a decisão, sem executar mudanças externas.
-5. **Gastos:** registre despesas de ferramentas e anúncios não incluídos em importações. Não registre manualmente anúncios já importados. Compare com o mês anterior e acompanhe alertas de 80%, 90% e 100%.
-6. **Relatórios:** escolha uma segunda-feira e gere o relatório; exporte PDF ou JSON. Uma semana corresponde a segunda a domingo, inclusivos. Relatórios são snapshots imutáveis por ambiente e semana. Importar dados atrasados não atualiza automaticamente um relatório já gerado.
-
-Também é possível gerar a última semana completa pela linha de comando:
-
-```powershell
-.\.venv\Scripts\python.exe -m app.cli report --scope demo
-```
-
-Os arquivos ficam em `output/pdf/`. Para gerar com dados reais, use `--scope real`.
-
-## CSV de campanhas
-
-Separador: vírgula; codificação UTF-8 (BOM aceito); decimal com ponto; datas ISO `AAAA-MM-DD`. Arquivo até 2 MB e 10.000 linhas. Todos os campos são obrigatórios; colunas extras são rejeitadas. Não importar linhas de totais nem diferentes níveis de agregação juntos.
-
-| Coluna | Contrato |
+| Variable | Requirement |
 |---|---|
-| scope | `demo` ou `real` |
-| date | Dia do registro |
-| campaign_id | ID agregado estável; letras, números, hífen ou sublinhado |
-| campaign | Nome agregado, até 120 caracteres |
-| area | `trabalhista` ou `previdenciario` |
-| locality | Cidade habilitada em Configurações, no formato `Nome-UF`, por exemplo `Curitiba-PR` |
-| keyword | Palavra-chave agregada; não incluir termos de pesquisa com dados pessoais |
-| impressions, clicks | Inteiros não negativos; cliques <= impressões |
-| cost | Reais, não micros; até duas casas decimais |
-| conversions | Contagem inteira de conversões configuradas no anúncio |
-| contacts, qualified, appointments, hires | Contagens agregadas do funil; decrescentes nessa ordem |
+| `POSTGRES_PASSWORD` | A strong URL-safe database password. |
+| `ADMIN_PASSWORD` | Keep the local credential created by `init`; Compose runs in production mode, which requires at least 20 characters. |
+| `AI_ENCRYPTION_KEY` | A persistent Fernet key for stored AI credentials. |
+| `DATA_ENCRYPTION_KEY` | A **different, persistent Fernet key** for local identity labels. Mandatory in Compose, even if AI is not connected. |
 
-**Grão:** campanha × dia × localidade × palavra-chave. Contatos e contratações precisam estar atribuídos exatamente a esse grão, sem repetir totais em cada palavra-chave. Defina um modelo de atribuição antes de juntar Google Ads e controles internos. Este esquema assume um funil da mesma coorte; outros modelos exigem adaptação. Conversões fracionárias do Google Ads não são aceitas nesta versão; não arredonde silenciosamente.
+Keep `VIEWER_PASSWORD` if you need read-only access. For a **new installation only**, generate each Fernet key independently in your own secure environment; the [Portuguese operations guide](docs/USAGE.pt-BR.md#docker-e-postgresql) includes the command. Do not replace existing keys without a recovery/migration plan: encrypted data may become unreadable. Back up the keys securely alongside your database recovery plan.
 
-O CSV é um formato normalizado, não uma aceitação universal de exportações brutas do Google. Renomeie e transforme as colunas conforme o contrato. Nome e área da campanha são estáveis por ID. Uma reimportação idêntica é ignorada; valores diferentes para a mesma chave são rejeitados em transação integral. Não há atualização silenciosa. A origem `real` é declaração do responsável, não certificação automática de veracidade.
+Compose binds the app to `127.0.0.1:8000`, does not publish a database port and persists PostgreSQL in `pgdata`. See [compose.yaml](compose.yaml) for the exact contract. **Docker/PostgreSQL runtime validation remains outstanding**; these setup instructions are not a claim that this path has been tested. Public hosting requires separate TLS, access controls, rate limiting and backup/restore work.
 
-**Métricas:** CTR = cliques/impressões × 100; CPC = gasto/cliques; CPQ = gasto/qualificados; custo por contratação = gasto/contratações. São razões de totais, não médias de razões. Denominador zero produz `N/D`, nunca infinito. Conversão não é contrato. Zero importado é zero informado; ausência de dias é cobertura incompleta. O relatório informa dias presentes, mas não conhece campanhas que deixaram de ser exportadas.
+## Verification and limits
 
-## CSV de mercado
+- [Synthetic checks run 40225403720](https://github.com/thomaszstrvm/legalgrowth-ai/actions/runs/40225403720) succeeded on **2026-10-25** for commit [`7b9b90d`](https://github.com/thomaszstrvm/legalgrowth-ai/commit/7b9b90d8934bbc666e192acc24a41550af25eada): pytest, disposable SQLite migrations, native JavaScript contracts and JavaScript syntax checks.
+- That result applies to that exact commit. It does **not** validate PostgreSQL, Docker, browser interaction, paid AI calls or audiovisual playback. Historical local test counts are recorded separately, not presented as a new run.
+- Google Ads has a CSV importer and read-only interface contract, not a live OAuth/API adapter. OCR is an optional technical interface; real contract uploads remain blocked.
+- Compliance checks are preliminary heuristics, not legal advice. AI calls can incur provider charges; the app's reservation limit is not a billing statement. See [AI boundaries](docs/AI.md) and [security](SECURITY.md).
 
-Campos: `scope,date,source,source_url,accessed,topic,area,locality,value,unit`. Mesmos formatos básicos. Dados reais exigem URL HTTPS em domínio oficial `gov.br`; a URL é armazenada como proveniência e não é acessada pelo servidor. A fonte deve permitir o uso e os valores devem ser verificados pelo responsável. Não presumimos API universal ou estabilidade de scraping.
+See [CONTRIBUTING](CONTRIBUTING.md) for reproducible check commands and [current state](docs/CURRENT-STATE.md) for the evidence map and open items.
 
-Evolução compara as duas observações mais recentes da mesma fonte, tema, localidade e unidade, até o fim do período. Contexto demográfico não é volume de buscas, propensão individual nem prova de demanda comercial. Nenhum dado público foi fabricado para preencher o ambiente real. O exemplo sintético usa `example.invalid`.
+## Documentation
 
-## Arquitetura
+- [Documentation index](docs/README.md) · [Detailed operations guide (Portuguese)](docs/USAGE.pt-BR.md)
+- [Project milestones and preserved history (Portuguese)](docs/PROJECT-HISTORY.pt-BR.md) · [Changelog](CHANGELOG.md)
+- [Product goals](PRODUCT.md) · [Design system](DESIGN.md) · [Architecture decisions](docs/decisions/)
+- [MIT license](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 
-```text
-app/api.py                 rotas, autenticação e páginas
-app/models.py              entidades e restrições SQL
-app/repositories.py        consultas com isolamento explícito de scope
-app/schemas.py             validação Pydantic
-app/services/              importação, métricas, financeiro e relatórios
-app/agents/                regras de análise e triagem de conformidade
-app/integrations/          contratos de Google Ads e provedor generativo
-app/scheduler.py           agendamento no fuso de Brasília
-app/templates/, static/    Jinja2, CSS e JavaScript sem framework
-migrations/                migração Alembic versionada
-tests/                     regras, importação, API, aprovação e relatórios
-```
-
-O ambiente local usa SQLite; o Compose usa PostgreSQL. Valores monetários persistem como Numeric/Decimal. Não há multitenancy de escritórios: `scope` separa real/demo, não organizações. Uma instalação atende um escritório; futuro SaaS precisa tenant_id, permissões e isolamento de ponta a ponta.
-
-## Agendamento
-
-No `.env`, configure `SCHEDULER_ENABLED=true`, `REPORT_DAY=mon`, `REPORT_HOUR=9`, `REPORT_MINUTE=0`, `TIMEZONE=America/Sao_Paulo` e reinicie. Use **um worker**. APScheduler roda no processo, exige aplicação ligada e não repõe execuções perdidas enquanto a aplicação esteve desligada; gere manualmente nesse caso. Jobs simultâneos são limitados e há unicidade SQL de semana/ambiente. Erros são registrados sem prompts ou chaves. Não há envio por e-mail nesta versão.
-
-## Docker e PostgreSQL
-
-Defina `POSTGRES_PASSWORD` no `.env` com uma senha aleatória URL-safe e mantenha as credenciais administrativas geradas. Configure também `AI_ENCRYPTION_KEY` com uma chave Fernet. Gere-a com `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`, copie para o `.env` e proteja esse arquivo. Ela deve permanecer estável para abrir as chaves de API salvas. Execute:
-
-```powershell
-docker compose up --build -d
-```
-
-O banco não expõe porta; a aplicação fica em `127.0.0.1:8000`. Migrações são aplicadas na inicialização. O volume `pgdata` persiste o banco. Para dados demo use `docker compose exec app python -m app.cli seed`. Faça backups antes de alterações de schema. Para hospedagem externa, configure TLS, firewall, rate limit, backup/restauração e gestão de segredos; o Compose local não resolve esses itens.
-
-## Integrações e limitações deliberadas
-
-- Google Ads: importador funcional e contrato `GoogleAdsReader` somente leitura. Adaptador OAuth/API real ainda não implementado; exige conta autorizada, developer token e definição do relatório. Não existem métodos de alteração de verba ou publicação.
-- IA: OpenAI e Claude conectados pelo painel; prioridades, insights e cenários públicos. Gateway obrigatório antes da geração. Detalhes de privacidade, reservas e limitações em [docs/AI.md](docs/AI.md). Testes usam respostas simuladas; não foram executados benchmarks pagos.
-- Conformidade: triagem lexical preliminar, sem parecer jurídico. Não armazena o texto avaliado. Pode falhar para paráfrases e gerar falsos positivos. Toda publicação exige revisão de advogado; a aprovação de recomendação não aprova automaticamente qualquer anúncio.
-- Privacidade: somente esquema agregado; regex de rótulos bloqueia alguns padrões evidentes, mas não é DLP completo. Não inserir dados pessoais em campos de texto. Sem scraping de processos, pessoas, idosos vulneráveis ou listas de prospecção.
-- Orçamento: mídia padrão de R$ 2.000, distribuída inicialmente em R$ 1.400 trabalhista e R$ 600 previdenciário. Ferramentas e IA têm consumo separado. Planos já salvos são preservados e a interface avisa sobre alocações antigas. Alertas não bloqueiam gastos no Google Ads.
-- Análises: limiares de 20% para aumento de CPC/CPQ, R$ 50 sem qualificado e 100 cliques/10 qualificados são heurísticas operacionais, não significância estatística. Não geramos estimativas de ROI.
-
-## Testes e verificação
-
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m alembic check
-```
-
-Consulte `docs/VALIDATION.md` para o que foi efetivamente executado neste ambiente, incluindo limitações de PostgreSQL/Docker. `requirements-lock.txt` registra as versões usadas na validação. Não execute seed em dados reais; o comando só grava `demo`.
-
-## Normas e fontes
-
-Revisão documental em 21/10/2026: ver `docs/COMPLIANCE.md`. Fontes oficiais foram consultadas, mas propostas de atualização não foram consolidadas como regras vigentes. Revalidação jurídica antes do uso externo é necessária.
-
-## Novas áreas
-
-- **Notícias da região → Análise estratégica:** impacto social e potencial financeiro independentes. Sem base suficiente, nenhuma nota é inventada.
-- **Configurações → Contratos e clientes:** demonstração fictícia do extrator; upload real bloqueado até verificar os controles de segurança.
-- **Relatórios → Testar a conferência de erros:** seis mutações conhecidas em cópias fictícias, sem alterar relatórios ou usar APIs pagas.
-- **Relatórios → Arquivo para outra IA:** exportação estruturada com dados selecionados e nomes de grupos substituídos por códigos.
-
-Decisões arquiteturais em `docs/decisions/`; estudo guiado em [docs/MENTORIA-2026-10-22.md](docs/MENTORIA-2026-10-22.md). O projeto permanece um MVP local, não um sistema liberado para documentos confidenciais.
+The repository is public. Public source availability does not imply a hosted deployment or production readiness.

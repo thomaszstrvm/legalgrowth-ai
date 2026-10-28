@@ -16,10 +16,15 @@ Novas regressões devem falhar antes da correção quando viável. A fixture de 
 bloqueia transportes HTTP reais do httpx; use `MockTransport` e dados sintéticos.
 Isso não é um firewall para outras bibliotecas ou para scripts fora do pytest.
 
-CI preparada em `.github/workflows/checks.yml`: pytest, migrações SQLite descartáveis
-e contratos JavaScript nativos. Não foi executada remotamente nesta rodada.
-Não há chaves, serviços pagos ou publicação. O disparo por PR/manual depende da
-publicação autorizada do workflow e pode consumir a franquia de Actions do proprietário.
+CI publicada em [.github/workflows/checks.yml](.github/workflows/checks.yml): pytest,
+migrações SQLite descartáveis, contratos JavaScript nativos e sintaxe dos arquivos JS.
+A [execução 40225403720](https://github.com/thomaszstrvm/legalgrowth-ai/actions/runs/40225403720)
+passou em **25/10/2026**, para `7b9b90d8934bbc666e192acc24a41550af25eada`.
+Esse resultado vale para aquele SHA; não valida alterações posteriores, PostgreSQL,
+Docker, navegador, chamadas pagas de IA ou o filme. O workflow usa dados sintéticos,
+sem chaves de provedores. É acionado por PR ou manualmente, não por todo push.
+Novas execuções podem consumir a franquia de Actions do proprietário e devem seguir
+as autorizações do projeto. Não houve nova execução na revisão documental de 28/10.
 
 Comandos adicionais de consolidação:
 
@@ -29,7 +34,7 @@ Comandos adicionais de consolidação:
   falha em PostgreSQL offline na migração de dados `9b27d3e1a102`; não ignore a falha.
   PostgreSQL real continua exigindo ambiente descartável e validação própria.
 
-No sandbox Windows desta rodada, `TestClient` travou em `socketpair()` antes do app.
+Historicamente, no sandbox Windows da rodada de 25/10, `TestClient` travou em `socketpair()` antes do app.
 O diagnóstico foi obtido com `-o faulthandler_timeout=15`; execução autorizada fora
 dessa restrição passou. Não remova asserções nem dependências para contornar o sintoma.
 

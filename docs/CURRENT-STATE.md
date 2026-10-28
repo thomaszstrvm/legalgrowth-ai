@@ -1,49 +1,53 @@
-# Estado atual e mapa de leitura
+# Current state and reading map
 
-Atualizado em 25/10/2026. Base `main` / `036ba1f26d08011729e15727eda2641d2c9ce4d4`.
-Consolidação local ainda sem commit/push; resultados no [registro da rodada](CONSOLIDATION-2026-10-25.md).
+Updated **2026-10-28**. Reviewed public `main` at
+[`7b9b90d8934bbc666e192acc24a41550af25eada`](https://github.com/thomaszstrvm/legalgrowth-ai/commit/7b9b90d8934bbc666e192acc24a41550af25eada).
+This is a portfolio project with fictional examples, not a production-readiness claim.
 
-Projeto de **portfólio**, com dados fictícios e engenharia cuidadosa; não é uma
-declaração de prontidão para produção. Revisão externa recebida em 25/10: limite
-local ausente da assinatura do cache reproduzido e corrigido no incremento local;
-resultados e limites no registro da rodada. O pacote/manifesto anterior é histórico
-e não representa os arquivos posteriores à correção.
+## Verified repository state
 
-## Vigente
+- The repository is public. Earlier references to a private repository describe historical delivery conditions.
+- [Synthetic checks 40225403720](https://github.com/thomaszstrvm/legalgrowth-ai/actions/runs/40225403720) completed successfully on **2026-10-25** for the exact commit above. The successful job includes pytest, disposable SQLite migrations, three native JavaScript contracts and JavaScript syntax checks.
+- The workflow is triggered by pull requests or manual dispatch, not every push. A successful run on one SHA does not validate later commits.
+- CI does **not** cover a running PostgreSQL instance, Docker startup, interactive browser flows, paid provider calls, video rendering or audiovisual playback.
+- The [25 October consolidation](CONSOLIDATION-2026-10-25.md) preserves local results, excluded tests, environment restrictions and review limits. Its earlier statements about pending publication/remote CI are historical. Do not combine those counts into a new test run.
+- The [published film files](../media/legalgrowth-presentation/releases/2026-10-25/README.md) contain the product film and preserved historical R7, both in development. The product film is an editorial representation, not live navigation. Backend CI does not validate it.
 
-- Produto e limites: [PRODUCT.md](../PRODUCT.md), [AI.md](AI.md), [SECURITY.md](../SECURITY.md).
-- Identidade visual: [DESIGN.md da raiz](../DESIGN.md); v59/v60 encerram o ciclo de design.
-  Estudos EDITORIAL/OPENING e notas do crítico são históricos, não novos pedidos de redesenho.
-- Trabalho: [AGENTS](../AGENTS.md), [CONTRIBUTING](../CONTRIBUTING.md), [fluxo mínimo](ENGINEERING-WORKFLOW.md).
-- Backend: IDs estáveis no agrupamento; Decimal validado antes da importação;
-  cache de insights estendido com exclusão concorrente; metadados de chamadas sem conteúdo.
-- Vídeo independente: [Remotion](../media/legalgrowth-presentation/README.md).
-  Filme 1.1.0 publicado na base; alterações locais 1.1.1 e FILM-CORRECTION-V7
-  precedem esta rodada e foram preservadas. Não declarar a validação audiovisual
-  pendente como concluída pela consolidação do backend.
-- Ferramentas: [inventário verificado](skill-inventory-2026-10-25.json) e
-  [triagem do PDF](PLUGIN-SELECTION-2026-10-25.md). Nenhum novo pacote necessário.
+The 28 October documentation review inspected source/configuration and existing CI evidence; it did not rerun application tests, Docker, PostgreSQL or audiovisual checks.
 
-## Mapa de fluxos e contratos
+## Start here
 
-| Fluxo | Arquivos centrais | Contrato / verificação |
+- Product and setup: [English README](../README.md), [Portuguese README](../README.pt-BR.md), [detailed operations guide in Portuguese](USAGE.pt-BR.md).
+- Product boundaries: [PRODUCT](../PRODUCT.md), [AI](AI.md), [SECURITY](../SECURITY.md).
+- Design: root [DESIGN.md](../DESIGN.md); v59/v60 close the documented design cycle. EDITORIAL/OPENING studies and critic notes are historical evidence, not new redesign requests.
+- Engineering: [AGENTS](../AGENTS.md), [CONTRIBUTING](../CONTRIBUTING.md), [workflow](ENGINEERING-WORKFLOW.md).
+- Historical milestones: [preserved README history](PROJECT-HISTORY.pt-BR.md), [CHANGELOG](../CHANGELOG.md).
+- Optional media project: [Remotion instructions](../media/legalgrowth-presentation/README.md). It is independent of the application.
+- Tooling research: [dated inventory](skill-inventory-2026-10-25.json) and [plugin evaluation](PLUGIN-SELECTION-2026-10-25.md), not a claim about every machine's installed tools.
+
+## Flows and contracts
+
+All paths below are relative to the repository root.
+
+| Flow | Main files | Contract / evidence |
 |---|---|---|
-| API autenticada | `app/api.py`, `app/security.py` | Perfil e escopo; `tests/test_api.py` |
-| CSV → indicadores/campanhas | `schemas.py`, `services/imports.py` | Validação integral antes de gravar; `test_data_integrity.py`, `test_core.py` |
-| Resumo → UI | `services/metrics.py`, `static/app.js` | campaigns indexado por ID, label separado e escapado; `test-campaign-labels.cjs` |
-| Recomendações | `agents/analysis.py`, `services/reports.py` | Comparações por identidade, revisão humana; `test_core.py`, `test_insights.py` |
-| Insights | `services/insights.py`, `services/ai.py` | Cache/claim → reserva → análise → revisão; `test_insight_concurrency.py` |
-| Gateway → provedores | `services/gateway.py`, `integrations/openai.py`, `integrations/claude.py` | Campos aprovados e endpoints fixos; `test_security_evolution.py`, `test_ai.py` |
-| Observações operacionais | `services/ai_observability.py`, `models.py` | Sem conteúdo, NULL não significa zero; `test_ai_observability.py` |
-| Notícias | `services/news.py`, `integrations/news.py` | Coleta e unicidade próprias; `test_news.py`, `test_localities.py` |
-| Migrações | `migrations/versions`, `scripts/verify-migrations.py` | SQLite descartável; PostgreSQL com limitação documentada |
-| OCR / contratos | `app/vault`, `docs/UNLIMITED-OCR.md` | Contrato técnico parcial; engine e produção não validados, dados reais bloqueados |
+| Authenticated API | `app/api.py`, `app/security.py` | Roles and scope; `tests/test_api.py` |
+| CSV imports | `app/schemas.py`, `app/services/imports.py` | Full validation before writing; data-integrity/core tests |
+| Dashboard metrics | `app/services/metrics.py`, `app/static/app.js` | Campaigns keyed by ID, labels separate and escaped; `scripts/test-campaign-labels.cjs` |
+| Recommendations | `app/agents/analysis.py`, `app/services/reports.py` | Identity-based comparisons and human review; core/insight tests |
+| Insights | `app/services/insights.py`, `app/services/ai.py` | Cache/claim, reservation, analysis and review; concurrency tests |
+| Privacy gateway | `app/services/gateway.py`, `app/integrations/` | Approved fields and fixed endpoints; security/AI tests |
+| Operational metadata | `app/services/ai_observability.py`, `app/models.py` | No prompt content; NULL is not zero; observability tests |
+| News | `app/services/news.py`, `app/integrations/news.py` | Separate collection/uniqueness; news/locality tests |
+| Migrations | `migrations/versions/`, `scripts/verify-migrations.py` | Disposable SQLite checked; PostgreSQL limits remain |
+| OCR / contracts | `app/vault/`, `docs/UNLIMITED-OCR.md` | Partial technical interface; real uploads blocked; engine/production not validated |
 
-## Pendências delimitadas
+## Open items and limits
 
-1. Validar PostgreSQL real; compilação offline histórica não suporta migração de dados 9b27d3e1a102.
-2. Executar CI remota somente após autorização de publicação; nenhum resultado remoto presumido.
-3. Revisão final estática recebida em 25/10 às 07:15 UTC: recorte cache/docs liberado
-   para preparação de commit, sem novo teste independente; ressalvas no registro.
-4. Retomar vídeo 1.1.1 no seu escopo: movimento, áudio e entrega audiovisual não são cobertos por pytest.
-5. OCR, novos modelos, proxies, marketing ampliado e novas funcionalidades seguem no backlog.
+1. Validate PostgreSQL in a disposable live instance. The historical offline check cannot compile data migration `9b27d3e1a102`; this failure is documented, not silently waived. Docker runtime remains unverified.
+2. Back up an existing installation before applying migrations. Tests on disposable databases do not update or validate the user's database.
+3. Preserve both encryption keys. Compose requires `AI_ENCRYPTION_KEY` and a separate persistent `DATA_ENCRYPTION_KEY`, plus database/admin credentials. See the [setup contract](USAGE.pt-BR.md#docker-e-postgresql); replacing keys without migration can make encrypted data unreadable.
+4. Keep audiovisual review separate. The film release documents sampled-frame and technical audio checks, not certified human listening, continuous playback or production use.
+5. OCR, a live Google Ads adapter, new models and broader marketing features remain outside the current implementation scope. One installation serves one office; `demo/real` is not tenant isolation.
+
+The original consolidation-era map remains available in [Git history](https://github.com/thomaszstrvm/legalgrowth-ai/blob/7b9b90d8934bbc666e192acc24a41550af25eada/docs/CURRENT-STATE.md). Historical reviews are not retroactively described as new independent validation.
