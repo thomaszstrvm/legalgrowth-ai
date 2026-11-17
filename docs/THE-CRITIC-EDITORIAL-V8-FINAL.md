@@ -10,7 +10,7 @@ A nota é um julgamento contextual do escopo observado, não uma certificação 
 
 ## Evidências e limites
 
-**Versão:** v42, identificada pelo [manifesto congelado](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/manifest.json), datado de 23/10/2026. Conferi os SHA-256 dos três arquivos congelados — CSS, dashboard e partial da galeria — e correspondem ao manifesto. Isso identifica os arquivos examinados; não comprova independentemente a geração das imagens.
+**Versão:** v42, identificada pelo [manifesto congelado](/output/design-review/editorial-v8/final/manifest.json), datado de 23/10/2026. Conferi os SHA-256 dos três arquivos congelados — CSS, dashboard e partial da galeria — e correspondem ao manifesto. Isso identifica os arquivos examinados; não comprova independentemente a geração das imagens.
 
 Inspecionei efetivamente **54 novas capturas do produto**:
 
@@ -40,7 +40,7 @@ Nenhum arquivo foi alterado.
 | Seta diagonal no destino interno | **Resolvido.** A abertura agora utiliza →. |
 | Indicadores desalinhados em 320 px | **Resolvido nessa largura**, nos dois temas. Há uma pendência intermediária em 768 px, descrita abaixo. |
 
-A comparação entre a [cena histórica](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/before/scene-detail-light-1366.png) e a [nova cena](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/cover-Campanhas-1366-light.png) mostra o avanço: os volumes mais altos acomodam melhor o espaço negativo, enquanto a redução dos controles retangulares elimina uma interrupção visual desnecessária.
+A comparação entre a [cena histórica](/output/design-review/editorial-v8/before/scene-detail-light-1366.png) e a [nova cena](/output/design-review/editorial-v8/final/cover-Campanhas-1366-light.png) mostra o avanço: os volumes mais altos acomodam melhor o espaço negativo, enquanto a redução dos controles retangulares elimina uma interrupção visual desnecessária.
 
 ## Problemas críticos
 
@@ -50,7 +50,7 @@ A comparação entre a [cena histórica](/C:/Users/KABUM/Documents/ChatGPT/teste
 
 **Localização:** Campanhas → síntese de resultados → Contatos qualificados / Contratações.
 
-**Evidência:** capturas de [768 px clara](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/campaigns-light-768.png) e [768 px escura](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/campaigns-dark-768.png).
+**Evidência:** capturas de [768 px clara](/output/design-review/editorial-v8/final/campaigns-light-768.png) e [768 px escura](/output/design-review/editorial-v8/final/campaigns-dark-768.png).
 
 **Gravidade:** baixa.  
 **Natureza:** achado visual objetivo, com explicação compatível no CSS.
@@ -69,7 +69,7 @@ O CSS congelado reserva `2lh` aos rótulos de Campanhas dentro da regra móvel; 
 
 **Localização:** título da capa Oportunidades.
 
-**Evidência:** capa central em [1366 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/cover-Oportunidades-1366-light.png) e [320 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/cover-Oportunidades-320-light.png).
+**Evidência:** capa central em [1366 px](/output/design-review/editorial-v8/final/cover-Oportunidades-1366-light.png) e [320 px](/output/design-review/editorial-v8/final/cover-Oportunidades-320-light.png).
 
 **Gravidade:** baixa, estética.  
 **Natureza:** julgamento óptico; não é falha de legibilidade.
@@ -86,7 +86,7 @@ A escolha é defensável. Sua consequência é tornar esse volume discretamente 
 
 ### Uma grade comum não produz, sozinha, uma linguagem gráfica própria
 
-**Componente e evidência:** conjunto das [cinco capas no desktop](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/cover-Relatórios-1366-light.png).
+**Componente e evidência:** conjunto das [cinco capas no desktop](/output/design-review/editorial-v8/final/cover-Relatórios-1366-light.png).
 
 O equilíbrio melhorou o suficiente para encerrar o problema anterior como uma deficiência relevante de composição. Entretanto, livro de contas, páginas, volumes entrelaçados e curvas ainda utilizam associações gráficas familiares. Campanhas mantém a ligação mais direta com a marca.
 
@@ -96,7 +96,7 @@ O que falta para excepcional é uma regra de construção mais distintiva entre 
 
 ### O subtítulo de Campanhas muda o ritmo no celular
 
-**Evidência:** [Campanhas em 390 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/final/cover-Campanhas-390-light.png).
+**Evidência:** [Campanhas em 390 px](/output/design-review/editorial-v8/final/cover-Campanhas-390-light.png).
 
 O subtítulo ocupa duas linhas; os demais cabem em uma. O alinhamento inferior mantém a base da coleção estável, mas aproxima esse texto da gravura.
 
@@ -104,9 +104,9 @@ O subtítulo ocupa duas linhas; os demais cabem em uma. O alinhamento inferior m
 
 ## Comparação com as referências
 
-A [Arc](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/references/arc.png) integra objetos, seleção e comandos em uma encenação única. A v42 se aproxima desse princípio pela composição dos controles e pela lombada discreta, preservando a luminosidade adequada ao produto.
+A [Arc](/output/design-review/editorial-v8/references/arc.png) integra objetos, seleção e comandos em uma encenação única. A v42 se aproxima desse princípio pela composição dos controles e pela lombada discreta, preservando a luminosidade adequada ao produto.
 
-A [Unit Editions](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v8/references/unit-system-process-form.png) demonstra como uma regra gráfica pode sustentar uma capa inteira. O LegalGrowth já possui organização editorial; sua gravura ainda atua principalmente como ilustração central. É nessa autoria gráfica que existe espaço para avançar.
+A [Unit Editions](/output/design-review/editorial-v8/references/unit-system-process-form.png) demonstra como uma regra gráfica pode sustentar uma capa inteira. O LegalGrowth já possui organização editorial; sua gravura ainda atua principalmente como ilustração central. É nessa autoria gráfica que existe espaço para avançar.
 
 Boc oferece uma comparação útil de consistência entre peças diferentes. Attio, na captura promocional fornecida, permite discutir separação de contexto e operação, mas não fundamenta conclusões sobre experiência funcional.
 

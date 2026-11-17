@@ -16,7 +16,7 @@ Abri efetivamente as capturas de Resumo em 1366, 1920, 768, 390 e 320 px, nos te
 
 As referências inspecionadas foram as capturas locais de Arc Marumo, Standards, Herman Miller e Nova Dental. A comparação se limita às composições capturadas.
 
-**Limite de rastreabilidade:** [overview-light-320.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/overview-light-320.png) mostra estado vazio com fundo e botão preenchido; a captura de 390 px mostra apresentação aberta e botão contornado. A primeira tem horário de modificação **01:00:02**, enquanto a segunda registra **01:21:53**, em 23/10/2026. Isso não prova a origem de cada imagem, mas impede tratar o conjunto como evidência uniforme da v28. **Não considero essa diferença uma regressão responsiva confirmada.**
+**Limite de rastreabilidade:** [overview-light-320.png](output/design-review/editorial-v4/round1/overview-light-320.png) mostra estado vazio com fundo e botão preenchido; a captura de 390 px mostra apresentação aberta e botão contornado. A primeira tem horário de modificação **01:00:02**, enquanto a segunda registra **01:21:53**, em 23/10/2026. Isso não prova a origem de cada imagem, mas impede tratar o conjunto como evidência uniforme da v28. **Não considero essa diferença uma regressão responsiva confirmada.**
 
 Não testei aplicação ao vivo, teclado, leitor de tela, motion ou desempenho. Essas dimensões não receberam nota.
 
@@ -27,7 +27,7 @@ Não testei aplicação ao vivo, teclado, leitor de tela, motion ou desempenho. 
 **1. A síntese numérica virou a parte inferior de uma coluna de controles**
 
 - **Localização:** Resumo desktop, margem esquerda, abaixo de período, seleção de dados e aviso demonstrativo.
-- **Evidência:** [Resumo claro, 1366 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/overview-light-1366.png) e [escuro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/overview-dark-1366.png).
+- **Evidência:** [Resumo claro, 1366 px](output/design-review/editorial-v4/round1/overview-light-1366.png) e [escuro](output/design-review/editorial-v4/round1/overview-dark-1366.png).
 - **Gravidade:** média.
 - **Natureza:** achado visual, com julgamento de hierarquia.
 - **Justificativa:** os três resultados centrais ficam subordinados a uma sequência de controles. O valor gasto perde escala, enquanto “Contatos qualificados” e as explicações precisam quebrar em colunas estreitas. A leitura continua possível, mas o resumo parece terminar em pequenos indicadores auxiliares.
@@ -37,7 +37,7 @@ Não testei aplicação ao vivo, teclado, leitor de tela, motion ou desempenho. 
 **2. O estado vazio perdeu peso cromático, mas ainda consome espaço demais em telas menores**
 
 - **Localização:** Resumo, “Pontos para revisar”, abaixo do gráfico em 390 e 768 px.
-- **Evidência:** [390 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/overview-light-390.png) e [768 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/overview-light-768.png).
+- **Evidência:** [390 px](output/design-review/editorial-v4/round1/overview-light-390.png) e [768 px](output/design-review/editorial-v4/round1/overview-light-768.png).
 - **Gravidade:** média.
 - **Natureza:** achado visual; o impacto sobre tempo de tarefa exige teste.
 - **Justificativa:** título, mensagem de ausência, atualização e configuração continuam distribuídos em várias faixas verticais. Uma seção sem conteúdo analítico ainda posterga bastante a chegada às campanhas.
@@ -48,17 +48,17 @@ Não testei aplicação ao vivo, teclado, leitor de tela, motion ou desempenho. 
 
 - **Rótulos dos indicadores excessivamente fragmentados.** No Resumo desktop, “Contatos qualificados” e sua explicação quebram repetidamente, enquanto “Contratações” recebe outra distribuição. A linha de números está alinhada, mas o texto produz ritmo irregular. Gravidade baixa; revisar a distribuição interna após reorganizar a margem.
 
-- **Configuração de IA com quebra pouco elegante no estado preenchido.** Na [recomendação em 1366 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/states/recommendation-light-1366.png), o link aparece isolado e recuado em relação ao texto de apoio. Gravidade baixa; tornar explícita a escolha entre uma linha compartilhada ou uma segunda linha alinhada ao mesmo eixo.
+- **Configuração de IA com quebra pouco elegante no estado preenchido.** Na [recomendação em 1366 px](output/design-review/editorial-v4/round1/states/recommendation-light-1366.png), o link aparece isolado e recuado em relação ao texto de apoio. Gravidade baixa; tornar explícita a escolha entre uma linha compartilhada ou uma segunda linha alinhada ao mesmo eixo.
 
 ### Decisões questionáveis
 
-**A mudança tipográfica dos mesmos nomes de campanha precisa de uma regra clara.** No Resumo, recebem tratamento editorial; na [tela de Campanhas](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/round1/campaigns-light-1366.png), aparecem em sans-serif, menores. Pode ser defensável distinguir síntese de operação. Sem uma regra consistente, porém, parece uma exceção local. É uma questão de coerência, não um erro objetivo.
+**A mudança tipográfica dos mesmos nomes de campanha precisa de uma regra clara.** No Resumo, recebem tratamento editorial; na [tela de Campanhas](output/design-review/editorial-v4/round1/campaigns-light-1366.png), aparecem em sans-serif, menores. Pode ser defensável distinguir síntese de operação. Sem uma regra consistente, porém, parece uma exceção local. É uma questão de coerência, não um erro objetivo.
 
 **A margem esquerda pode funcionar, mas precisa assumir seu papel.** A referência Herman Miller distingue claramente navegação e conteúdo. Aqui, identificação, filtros e resultados dividem a mesma superfície. Copiar a existência de uma margem não transfere automaticamente a precisão da referência: a hierarquia interna precisa justificar essa mistura.
 
 ### Qualidades reais
 
-- **O avanço no desktop é concreto.** Comparando [antes](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/before/overview-light-1366.png) e depois, gráfico e campanhas chegam muito mais cedo. Há ganho funcional de composição.
+- **O avanço no desktop é concreto.** Comparando [antes](output/design-review/editorial-v4/before/overview-light-1366.png) e depois, gráfico e campanhas chegam muito mais cedo. Há ganho funcional de composição.
 - **O estado vazio recebeu a hierarquia correta.** Atualizar recomendações deixou de dominar uma seção que informa ausência de pendências.
 - **O orçamento foi melhor recomposto.** Título, ação, valor disponível e utilização agora têm espaço próprio e relação legível.
 - **O estado preenchido preserva prioridade.** “Ver recomendação” se distingue de “Atualizar recomendações” nos dois temas.

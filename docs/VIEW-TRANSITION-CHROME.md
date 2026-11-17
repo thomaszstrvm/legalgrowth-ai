@@ -106,7 +106,7 @@ listeners, captura de erros, chamadas de skip ou alterações CSS ao produto.
 Servidor local ativo e ambiente de teste com Playwright/Chrome instalados:
 
 ```powershell
-$env:NODE_PATH='C:/Users/KABUM/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
+$env:NODE_PATH='~/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
 $env:MOTION_CHANNEL='chrome'
 $env:MOTION_NAVIGATION_ONLY='1'
 $env:MOTION_OUTPUT='output/maintenance-v58/motion'

@@ -148,7 +148,7 @@ sem cache/normal: foco no dossiê Insights e destino com período e demo correto
 Isso não representa uma nova revisão visual de todas as telas.
 
 ```powershell
-$env:NODE_PATH='C:/Users/KABUM/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
+$env:NODE_PATH='~/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
 node scripts/browser-view-transition-final.cjs
 ```
 

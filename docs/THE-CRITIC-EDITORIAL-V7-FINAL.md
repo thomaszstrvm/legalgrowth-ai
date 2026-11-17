@@ -10,7 +10,7 @@ A nota é um julgamento qualitativo do **escopo visual observado**, sem certific
 
 ## Evidências e limites
 
-Versão identificada pelo [manifesto v40](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/manifest.json), datado de **23/10/2026**. Origem declarada: `http://127.0.0.1:8000/painel/{page}`, com dados sintéticos, Playwright/Edge e movimento reduzido.
+Versão identificada pelo [manifesto v40](/output/design-review/editorial-v7/final/manifest.json), datado de **23/10/2026**. Origem declarada: `http://127.0.0.1:8000/painel/{page}`, com dados sintéticos, Playwright/Edge e movimento reduzido.
 
 Abri efetivamente:
 
@@ -32,10 +32,10 @@ A comparação com referências usa as capturas públicas fornecidas. Não visit
 
 | Ponto | Resultado observado |
 |---|---|
-| Indicadores em 601 px | **Resolvido.** Os números 70 e 8 compartilham a mesma linha nos temas [claro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/overview-light-601.png) e [escuro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/overview-dark-601.png). A diferença perante a captura anterior é visível. |
+| Indicadores em 601 px | **Resolvido.** Os números 70 e 8 compartilham a mesma linha nos temas [claro](/output/design-review/editorial-v7/final/overview-light-601.png) e [escuro](/output/design-review/editorial-v7/final/overview-dark-601.png). A diferença perante a captura anterior é visível. |
 | Orçamento móvel disperso | **Resolvido nas amostras.** Informação utilizada, saldo, percentual e medidor constituem uma síntese mais concentrada. Conferido em 390 e 320 px, nos dois temas, no Resumo e em Finanças. |
 | Continuidade das auxiliares | **Melhoria comprovada.** Os cabeçalhos compactos e as gravuras relacionam os destinos às capas sem colocar a navegação artística sobre os dados. |
-| Arquivo de relatórios | **Melhoria comprovada.** Datas ganharam presença; downloads permanecem agrupados por registro. A [lista fictícia desktop](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/chapters/reports-light-1366.png) mantém ritmo e associação claros. |
+| Arquivo de relatórios | **Melhoria comprovada.** Datas ganharam presença; downloads permanecem agrupados por registro. A [lista fictícia desktop](/output/design-review/editorial-v7/final/chapters/reports-light-1366.png) mantém ritmo e associação claros. |
 | Conexões de IA | **Coerência melhorada.** O título editorial organiza a seção; nomes dos serviços, estados e controles mantêm tipografia operacional. |
 | Recomendações e foco | **Preservados nas amostras.** Abrir a recomendação continua sendo a ação primária. Os indicadores de foco observados são distinguíveis nos dois temas. |
 
@@ -62,7 +62,7 @@ Não recomendo preencher os espaços das páginas vazias com decoração ou cont
 
 **Localização:** Configurações → Adicionar ou trocar chave → Chave da API.
 
-**Evidência:** capturas de [320 px claro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/settings-light-320.png) e [320 px escuro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/settings-dark-320.png).
+**Evidência:** capturas de [320 px claro](/output/design-review/editorial-v7/final/settings-light-320.png) e [320 px escuro](/output/design-review/editorial-v7/final/settings-dark-320.png).
 
 **Gravidade:** baixa.  
 **Natureza:** achado visual.
@@ -77,7 +77,7 @@ O texto “Cole sua chave aqui” perde o final na largura disponível ao lado d
 
 **Localização:** evidências → `chapters/reports-empty-dark-320.png`.
 
-**Evidência:** a [imagem aberta](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/chapters/reports-empty-dark-320.png) possui fundo claro e controle “Modo escuro”, sem indicar ativação.
+**Evidência:** a [imagem aberta](/output/design-review/editorial-v7/final/chapters/reports-empty-dark-320.png) possui fundo claro e controle “Modo escuro”, sem indicar ativação.
 
 **Gravidade:** baixa para documentação.  
 **Natureza:** divergência observada entre nome e conteúdo da evidência; **não é defeito comprovado da interface**.
@@ -94,7 +94,7 @@ Essa imagem demonstra o estado vazio claro. Não comprova o estado vazio escuro.
 
 **Localização:** Campanhas → Importar resultados, comparado a Relatórios → Criar relatório e Configurações → Adicionar ou trocar chave.
 
-**Evidências:** [importação](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/campaigns-light-1366.png), [criação de relatório](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/reports-light-1366.png) e [edição de conexão](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/settings-light-1366.png).
+**Evidências:** [importação](/output/design-review/editorial-v7/final/campaigns-light-1366.png), [criação de relatório](/output/design-review/editorial-v7/final/reports-light-1366.png) e [edição de conexão](/output/design-review/editorial-v7/final/settings-light-1366.png).
 
 **Gravidade:** baixa.  
 **Natureza:** julgamento de consistência, não erro funcional.
@@ -107,7 +107,7 @@ A importação conserva moldura completa, cantos arredondados e título operacio
 
 ### Percurso até o editor no celular
 
-Em [Configurações, 320 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/final/settings-light-320.png), serviços, estados e explicação antecedem o formulário. A ordem é compreensível, mas produz uma página longa.
+Em [Configurações, 320 px](/output/design-review/editorial-v7/final/settings-light-320.png), serviços, estados e explicação antecedem o formulário. A ordem é compreensível, mas produz uma página longa.
 
 **Natureza:** hipótese que exige teste. Não classifiquei como defeito.
 
@@ -115,11 +115,11 @@ O ponto a observar em uma sessão interativa é se “Conectar OpenAI/Claude” 
 
 ## Comparação com as referências
 
-Na [Arc Marumo](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/arc.png), objeto, identificação e controles pertencem à mesma cena. O LegalGrowth desenvolve esse princípio com seus dossiês. A v40 fortalece a interpretação ao conservar sinais das capas dentro dos destinos.
+Na [Arc Marumo](/output/design-review/editorial-v7/references/arc.png), objeto, identificação e controles pertencem à mesma cena. O LegalGrowth desenvolve esse princípio com seus dossiês. A v40 fortalece a interpretação ao conservar sinais das capas dentro dos destinos.
 
-A [Boc Work](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/boc-work.png) demonstra agrupamentos reconhecíveis entre conteúdo e metadados. O arquivo de relatórios aplica um princípio compatível: data e ações formam uma unidade repetível, sem depender de cartões individuais.
+A [Boc Work](/output/design-review/editorial-v7/references/boc-work.png) demonstra agrupamentos reconhecíveis entre conteúdo e metadados. O arquivo de relatórios aplica um princípio compatível: data e ações formam uma unidade repetível, sem depender de cartões individuais.
 
-A [captura promocional da Attio](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/attio-product.png) apresenta camadas distintas de contexto e operação. O LegalGrowth consegue separação semelhante por tipografia, linhas e campos suaves, com linguagem própria.
+A [captura promocional da Attio](/output/design-review/editorial-v7/references/attio-product.png) apresenta camadas distintas de contexto e operação. O LegalGrowth consegue separação semelhante por tipografia, linhas e campos suaves, com linguagem própria.
 
 Essas imagens não comprovam superioridade funcional das referências nem equivalência do produto a elas. A diferença restante de maturidade está principalmente na explicitação das regras entre componentes e na demonstração interativa da experiência.
 

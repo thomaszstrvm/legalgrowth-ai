@@ -57,6 +57,9 @@ def bounded_get(client, url, limit=2_000_000):
 
 def parse_feed(content, source, start, end, cities):
     cities = [city for city in cities if not source.get('states') or city.rsplit('-', 1)[-1] in source['states']]
+    # UTF-16/UTF-32 escondem '<!DOCTYPE' da busca por bytes abaixo; aceitar só codificações compatíveis com ASCII.
+    if b'\x00' in content or content[:2] in (b'\xff\xfe', b'\xfe\xff'):
+        raise ValueError('Codificação de feed não permitida')
     if b'<!DOCTYPE' in content.upper() or b'<!ENTITY' in content.upper():
         raise ValueError('Estrutura XML não permitida')
     root = ET.fromstring(content)

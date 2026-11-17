@@ -8,7 +8,7 @@ A v33 corrige os principais problemas de composição da primeira rodada e apres
 
 ### Evidências e limites
 
-Revisão independente da **v33**, congelada em [final/](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final), conforme o [manifesto](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/manifest.json), de 23/10/2026.
+Revisão independente da **v33**, congelada em [final/](output/design-review/editorial-v5/final), conforme o [manifesto](output/design-review/editorial-v5/final/manifest.json), de 23/10/2026.
 
 Conferi a correspondência dos hashes atuais do CSS e do template com o manifesto. Li integralmente a persona permanente, DESIGN.md, o parecer da primeira rodada e a documentação da implementação.
 
@@ -24,7 +24,7 @@ A origem declarada é `http://127.0.0.1:8000/painel/{page}`, com dados sintétic
 
 Relatórios e Configurações são evidências preservadas da matriz v31, cuja equivalência visual com a v33 é declarada no manifesto; não as apresento como capturas regeneradas.
 
-**Não operei a aplicação nem executei novamente os testes.** Não atribuo nota a motion, teclado, menus, tooltips, acessibilidade assistiva ou preservação funcional integral. Os resultados documentados em [EDITORIAL-V5.md](C:/Users/KABUM/Documents/ChatGPT/testejuridico/docs/EDITORIAL-V5.md) são evidência fornecida pelo implementador.
+**Não operei a aplicação nem executei novamente os testes.** Não atribuo nota a motion, teclado, menus, tooltips, acessibilidade assistiva ou preservação funcional integral. Os resultados documentados em [EDITORIAL-V5.md](docs/EDITORIAL-V5.md) são evidência fornecida pelo implementador.
 
 A Impeccable serviu como apoio heurístico; seu protocolo completo com detector e agentes adicionais não foi executado nesta revisão restrita.
 
@@ -48,10 +48,10 @@ Não identifiquei defeitos de gravidade **crítica**. Há um achado de gravidade
 **1. O saldo monetário se fragmenta em 768 px**
 
 - **Localização:** Resumo → “Orçamento do mês” → “Saldo estimado”, largura de 768 px, temas claro e escuro.
-- **Evidência:** [768 px claro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-light-768.png) e [768 px escuro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-dark-768.png). O valor aparece como **“R$ 886,0”**, seguido de **“0” isolado na linha seguinte**. A falha também aparece nos estados preenchidos de 768 px.
+- **Evidência:** [768 px claro](output/design-review/editorial-v5/final/overview-light-768.png) e [768 px escuro](output/design-review/editorial-v5/final/overview-dark-768.png). O valor aparece como **“R$ 886,0”**, seguido de **“0” isolado na linha seguinte**. A falha também aparece nos estados preenchidos de 768 px.
 - **Gravidade:** **alta**.
 - **Natureza:** achado visual confirmado, com suporte no código.
-- **Justificativa:** um número financeiro precisa ser percebido como unidade. A quebra dentro dos centavos compromete leitura e credibilidade. Na [v31 de 768 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-dark-768.png), o valor permanecia inteiro: trata-se de regressão.
+- **Justificativa:** um número financeiro precisa ser percebido como unidade. A quebra dentro dos centavos compromete leitura e credibilidade. Na [v31 de 768 px](output/design-review/editorial-v5/round1/overview-dark-768.png), o valor permanecia inteiro: trata-se de regressão.
 - **Referência ao componente:** a grade de `.budget-workspace .budget-line`, entre 601 e 900 px, distribui espaço em `2fr 1fr 1fr`. A coluna do saldo fica insuficiente para sua escala tipográfica.
 - **Correção específica:** reservar ao saldo largura compatível com seu conteúdo. Nessa faixa, permitir que o medidor ocupe outra linha ou antecipar a disposição vertical. Impedir a quebra deve acompanhar a correção da largura; aplicar apenas `nowrap` pode produzir transbordamento.
 - **Impacto esperado:** restaurar a integridade visual dos valores e a estabilidade do orçamento intermediário.
@@ -59,7 +59,7 @@ Não identifiquei defeitos de gravidade **crítica**. Há um achado de gravidade
 **2. A ausência de recomendações ainda recebe atenção desproporcional**
 
 - **Localização:** sequência entre gráfico e campanhas, sobretudo no Resumo de 1366 px.
-- **Evidência:** [desktop claro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-light-1366.png) e [desktop escuro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-dark-1366.png). “Ver valores por dia”, o estado vazio e a configuração de IA formam uma sequência de faixas e divisórias antes da tabela.
+- **Evidência:** [desktop claro](output/design-review/editorial-v5/final/overview-light-1366.png) e [desktop escuro](output/design-review/editorial-v5/final/overview-dark-1366.png). “Ver valores por dia”, o estado vazio e a configuração de IA formam uma sequência de faixas e divisórias antes da tabela.
 - **Gravidade:** **média**.
 - **Natureza:** julgamento de composição apoiado nas capturas. O efeito sobre velocidade de uso exige teste.
 - **Justificativa:** houve compactação, mas a informação ausente ainda interrompe bastante a passagem da síntese para os resultados concretos. A repetição de separadores aproxima visualmente funções distintas.
@@ -69,10 +69,10 @@ Não identifiquei defeitos de gravidade **crítica**. Há um achado de gravidade
 ### Problemas sutis
 
 **Alinhamento dos indicadores em 901 px — gravidade baixa.**  
-Na [captura de 901 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-light-901.png), “Contatos qualificados” ocupa duas linhas e desloca o número 70 em relação ao 8 de contratações. O valor financeiro também segue outra altura visual. Reservar uma faixa equivalente aos rótulos ajudaria os números a formar uma linha de leitura mais precisa.
+Na [captura de 901 px](output/design-review/editorial-v5/final/overview-light-901.png), “Contatos qualificados” ocupa duas linhas e desloca o número 70 em relação ao 8 de contratações. O valor financeiro também segue outra altura visual. Reservar uma faixa equivalente aos rótulos ajudaria os números a formar uma linha de leitura mais precisa.
 
 **A navegação intermediária perde coesão — gravidade baixa.**  
-Entre [900 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-light-900.png) e [901 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/final/overview-light-901.png), o menu compacto dá lugar a duas linhas de destinos. Não há corte evidente, mas a abertura ganha uma faixa adicional de navegação justamente quando os indicadores ficam mais estreitos. É uma adaptação funcional, ainda pouco refinada.
+Entre [900 px](output/design-review/editorial-v5/final/overview-light-900.png) e [901 px](output/design-review/editorial-v5/final/overview-light-901.png), o menu compacto dá lugar a duas linhas de destinos. Não há corte evidente, mas a abertura ganha uma faixa adicional de navegação justamente quando os indicadores ficam mais estreitos. É uma adaptação funcional, ainda pouco refinada.
 
 Esses pontos não têm o peso da quebra monetária e não justificam, isoladamente, reprovar a interface.
 
@@ -89,9 +89,9 @@ Ela merece ser preservada como assinatura. Entretanto, uma capa bem composta nã
 
 ### Comparação com as referências
 
-Na captura de [Boc Work](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/references/boc-work.png), projetos, legendas e ações obedecem a relações repetíveis; a interface de apoio permanece subordinada. A [página pública](https://boc.studio/work) também foi consultada. O princípio útil ao LegalGrowth é a consistência dessas relações, não a quantidade de imagens ou sua linguagem de marca.
+Na captura de [Boc Work](output/design-review/editorial-v5/references/boc-work.png), projetos, legendas e ações obedecem a relações repetíveis; a interface de apoio permanece subordinada. A [página pública](https://boc.studio/work) também foi consultada. O princípio útil ao LegalGrowth é a consistência dessas relações, não a quantidade de imagens ou sua linguagem de marca.
 
-Na [captura de Nova Dental](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/references/nova.png), a diferença entre elemento dominante e apoio é inequívoca. A abertura do LegalGrowth já apresenta hierarquia, mas o percurso posterior ainda distingue pouco suas pausas. A tentativa de consultar o site público nesta revisão falhou; a comparação visual se limita à captura fornecida.
+Na [captura de Nova Dental](output/design-review/editorial-v5/references/nova.png), a diferença entre elemento dominante e apoio é inequívoca. A abertura do LegalGrowth já apresenta hierarquia, mas o percurso posterior ainda distingue pouco suas pausas. A tentativa de consultar o site público nesta revisão falhou; a comparação visual se limita à captura fornecida.
 
 Arc, Herman Miller e Standards foram examinados como **referências históricas**. Os dossiês assimilam de maneira convincente o princípio de objeto, título e controle pertencentes à mesma composição. O orçamento de 768 px demonstra onde a grade operacional ainda deixa de responder ao conteúdo.
 

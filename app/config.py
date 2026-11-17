@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     def secure_production(self):
         if self.app_env == 'production' and len(self.admin_password.get_secret_value()) < 20:
             raise ValueError('Produção exige senha administrativa com pelo menos 20 caracteres')
+        viewer = self.viewer_password.get_secret_value()
+        if self.app_env == 'production' and viewer and len(viewer) < 20:
+            raise ValueError('Produção exige senha de leitura com pelo menos 20 caracteres, ou vazia para desativar o acesso')
         return self
 
 
