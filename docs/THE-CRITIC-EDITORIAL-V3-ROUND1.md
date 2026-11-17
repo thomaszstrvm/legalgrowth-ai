@@ -12,7 +12,7 @@ A nota é um julgamento contextual das imagens observadas, não certificação d
 
 Versão **v26**, identificada pelo coordenador. Não verifiquei a correspondência das capturas com commit ou aplicação executada.
 
-Base dos caminhos: `C:\Users\KABUM\Documents\ChatGPT\testejuridico\`.
+Base dos caminhos: raiz do repositório.
 
 Inspecionei efetivamente os pixels, usando `view_image`, destas capturas:
 

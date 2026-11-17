@@ -13,7 +13,7 @@ instaladas na pasta global de skills do Codex, após autorização explícita.
 [Triagem do tweet, fontes e aplicação contextual](DESIGN-TWEET-REVIEW.md).
 O restante deste documento registra o estado histórico de 22/10.
 
-Data: 22/10/2026. Raiz: `C:/Users/KABUM/Documents/ChatGPT/testejuridico`.
+Data: 22/10/2026. Raiz: raiz do repositório.
 
 ## Ambiente e instalação
 

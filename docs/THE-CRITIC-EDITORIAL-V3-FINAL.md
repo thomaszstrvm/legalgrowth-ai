@@ -14,7 +14,7 @@ Versão **v27**, identificada pelo coordenador. Não verifiquei sua correspondê
 
 Base dos caminhos:
 
-`C:\Users\KABUM\Documents\ChatGPT\testejuridico\`
+raiz do repositório
 
 Examinei efetivamente os pixels, com `view_image`, dos nove arquivos abaixo em `output/design-review/editorial-v3/final/`. Também examinei os nove arquivos correspondentes em `output/design-review/editorial-v3/round1/`.
 

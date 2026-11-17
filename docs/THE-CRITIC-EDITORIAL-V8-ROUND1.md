@@ -12,7 +12,7 @@ Esta nota considera também esse acabamento de identidade. **Não representa uma
 
 Inspecionei efetivamente **32 capturas do produto e três referências salvas**, além da persona integral, `DESIGN.md`, documentação v7, parecer anterior e arquivos de apresentação.
 
-- **Versão:** v41, conforme [manifesto congelado](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/manifest.json), datado de 23/10/2026.
+- **Versão:** v41, conforme [manifesto congelado](/output/design-review/editorial-v7/post-review/manifest.json), datado de 23/10/2026.
 - **Origem declarada:** `http://127.0.0.1:8000/painel/{page}`, dados sintéticos, Playwright/Edge, página inteira e movimento reduzido.
 - **v41 regenerada:** Campanhas, Configurações, Relatórios e capturas de capítulos.
 - **Evidência herdada:** Resumo v40, com regras declaradas idênticas. Não apresento essas imagens como novas capturas v41.
@@ -29,9 +29,9 @@ As referências Arc, Boc e Attio são capturas de ciclo anterior. Não foram rev
 
 | Correção | Resultado observado |
 |---|---|
-| Campo de chave em 320 px | **Resolvido visualmente.** “Cole sua chave aqui” aparece inteiro; “Mostrar” ocupa a linha seguinte nos temas [claro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/settings-light-320.png) e [escuro](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/settings-dark-320.png). |
-| Importação alinhada às tarefas editoriais | **Resolvido.** [Campanhas desktop](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/campaigns-light-1366.png) mostra superfície tonal, marca lateral e título editorial compatíveis com as outras tarefas principais. |
-| Arquivo vazio escuro | **Evidência corrigida.** A [nova captura escura](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/chapters/reports-empty-dark-320.png) efetivamente mostra o tema escuro. A [clara](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/chapters/reports-empty-light-320.png) demonstra o outro estado. |
+| Campo de chave em 320 px | **Resolvido visualmente.** “Cole sua chave aqui” aparece inteiro; “Mostrar” ocupa a linha seguinte nos temas [claro](/output/design-review/editorial-v7/post-review/settings-light-320.png) e [escuro](/output/design-review/editorial-v7/post-review/settings-dark-320.png). |
+| Importação alinhada às tarefas editoriais | **Resolvido.** [Campanhas desktop](/output/design-review/editorial-v7/post-review/campaigns-light-1366.png) mostra superfície tonal, marca lateral e título editorial compatíveis com as outras tarefas principais. |
+| Arquivo vazio escuro | **Evidência corrigida.** A [nova captura escura](/output/design-review/editorial-v7/post-review/chapters/reports-empty-dark-320.png) efetivamente mostra o tema escuro. A [clara](/output/design-review/editorial-v7/post-review/chapters/reports-empty-light-320.png) demonstra o outro estado. |
 
 ## Problemas críticos
 
@@ -43,7 +43,7 @@ Não encontrei fundamento para reprovar a estrutura do produto ou recomendar out
 
 **Localização:** Campanhas → síntese de resultados → Contatos qualificados / Contratações.
 
-**Evidência:** [claro, 320 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/campaigns-light-320.png) e [escuro, 320 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/campaigns-dark-320.png).
+**Evidência:** [claro, 320 px](/output/design-review/editorial-v7/post-review/campaigns-light-320.png) e [escuro, 320 px](/output/design-review/editorial-v7/post-review/campaigns-dark-320.png).
 
 **Gravidade:** baixa.  
 **Natureza:** achado visual objetivo.
@@ -60,7 +60,7 @@ A informação permanece legível. O problema é a perda de precisão em um conj
 
 **Localização:** Resumo → Dossiês do escritório → coleção de cinco capas.
 
-**Evidência:** galeria nas capturas de [1366 px clara](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-light-1366.png), [1366 px escura](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-dark-1366.png) e [1920 px clara](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-light-1920.png).
+**Evidência:** galeria nas capturas de [1366 px clara](/output/design-review/editorial-v7/post-review/overview-light-1366.png), [1366 px escura](/output/design-review/editorial-v7/post-review/overview-dark-1366.png) e [1920 px clara](/output/design-review/editorial-v7/post-review/overview-light-1920.png).
 
 **Gravidade:** média para a ambição de identidade e portfólio.  
 **Natureza:** julgamento de direção de arte fundamentado na composição; não é erro funcional.
@@ -79,7 +79,7 @@ A diversidade faz sentido. **O equilíbrio óptico entre essas soluções ainda 
 
 **Localização:** galeria → botões anterior/próximo e link central de abertura.
 
-**Evidência:** [desktop, 1366 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-light-1366.png), [celular, 390 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-light-390.png) e [celular escuro, 320 px](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-dark-320.png).
+**Evidência:** [desktop, 1366 px](/output/design-review/editorial-v7/post-review/overview-light-1366.png), [celular, 390 px](/output/design-review/editorial-v7/post-review/overview-light-390.png) e [celular escuro, 320 px](/output/design-review/editorial-v7/post-review/overview-dark-320.png).
 
 **Gravidade:** baixa.  
 **Natureza:** julgamento de acabamento e hierarquia.
@@ -98,7 +98,7 @@ Não recomendo inventar outro mecanismo de navegação ou esconder os rótulos p
 
 ### Originalidade da execução versus originalidade da linguagem
 
-**Componente e evidência:** gravuras de livro, livro de contas, campos de curvas e volumes sobrepostos na [coleção desktop](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/post-review/overview-light-1366.png).
+**Componente e evidência:** gravuras de livro, livro de contas, campos de curvas e volumes sobrepostos na [coleção desktop](/output/design-review/editorial-v7/post-review/overview-light-1366.png).
 
 Essas imagens são compatíveis com um arquivo editorial. Entretanto, livro para relatório e formas geométricas sobrepostas para inteligência são associações familiares. O fato de terem sido desenhadas especificamente para o projeto não basta para torná-las distintivas.
 
@@ -125,11 +125,11 @@ Convém justificar seu uso ou adotar um sinal de navegação interna consistente
 | Distribuição de peso | **Ressalva menor.** A UI operacional é equilibrada; a coleção de gravuras tem pesos desiguais. |
 | Ênfase | **Adequada.** Ações principais de criação/conexão se distinguem das consultas. A faixa de controles da galeria merece composição mais precisa. |
 
-Na [referência Arc](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/arc.png), objetos, títulos, metadados e comandos pertencem a uma mesma encenação. A lição útil é essa integração. O LegalGrowth já interpreta a ideia de objeto editorial, mas resolve com mais cuidado as capas que os comandos ao redor delas. **Não precisa reproduzir o CRT, a textura ou a baixa luminosidade da referência.**
+Na [referência Arc](/output/design-review/editorial-v7/references/arc.png), objetos, títulos, metadados e comandos pertencem a uma mesma encenação. A lição útil é essa integração. O LegalGrowth já interpreta a ideia de objeto editorial, mas resolve com mais cuidado as capas que os comandos ao redor delas. **Não precisa reproduzir o CRT, a textura ou a baixa luminosidade da referência.**
 
-A [Boc](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/boc-work.png) demonstra consistência de agrupamento mesmo com imagens muito diferentes. O equivalente aqui seria uma arquitetura de capa que absorva títulos e gravuras diferentes sem parecer ajustada por exceções.
+A [Boc](/output/design-review/editorial-v7/references/boc-work.png) demonstra consistência de agrupamento mesmo com imagens muito diferentes. O equivalente aqui seria uma arquitetura de capa que absorva títulos e gravuras diferentes sem parecer ajustada por exceções.
 
-A [Attio](/C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v7/references/attio-product.png) fornecida é uma apresentação promocional. Permite discutir separação entre contexto e operação, mas não sustenta uma comparação de experiência funcional. O LegalGrowth já possui separação visual defensável entre títulos editoriais e controles operacionais.
+A [Attio](/output/design-review/editorial-v7/references/attio-product.png) fornecida é uma apresentação promocional. Permite discutir separação entre contexto e operação, mas não sustenta uma comparação de experiência funcional. O LegalGrowth já possui separação visual defensável entre títulos editoriais e controles operacionais.
 
 ## Qualidades reais
 

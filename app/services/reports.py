@@ -121,7 +121,7 @@ def report_data(payload):
         'strategic_analysis': payload.get('strategic_analysis'),
         'metric_dictionary': {k: {'label': v, 'unit': 'BRL' if k in ('cost', 'cpc', 'cpq', 'cph') else 'percent' if k == 'ctr' else 'count'} for k, v in METRIC_LABELS.items()},
         'reading_rules': ['null significa que não é possível calcular ou não há informação.', 'Zero significa nenhum registro; não prova ausência de atividade.', 'Ações marcadas no anúncio não equivalem a contratações.', 'Sem receita e custos completos, não calcule lucro nem retorno financeiro.', 'Sugestões não são fatos nem previsões. Dados parciais limitam comparações.'],
-        'privacy': {'campaign_and_city_names': 'replaced_with_report_local_aliases', 'identity_mapping_included': False, 'personal_records_included': False, 'note': 'Contém números reais agrupados; não é criptografia dos números nem garantia de anonimato absoluto.'}}
+        'privacy': {'campaign_and_city_names': 'replaced_with_report_local_aliases', 'regional_news_city_names': 'included_in_clear_when_regional_news_present', 'identity_mapping_included': False, 'personal_records_included': False, 'note': 'Contém números reais agrupados; não é criptografia dos números nem garantia de anonimato absoluto.'}}
 
 
 def report_pdf(payload):
