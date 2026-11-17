@@ -8,7 +8,7 @@ Há uma direção de arte reconhecível, com tipografia editorial, verde contido
 
 ### Escopo e evidências
 
-Revisão independente da **v29**, identificada no [manifesto final](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/manifest.json), em comparação com a **v27**, em `before`, e a **v28**, em `round1`.
+Revisão independente da **v29**, identificada no [manifesto final](output/design-review/editorial-v4/final/manifest.json), em comparação com a **v27**, em `before`, e a **v28**, em `round1`.
 
 Abri efetivamente:
 
@@ -38,7 +38,7 @@ Não executei a aplicação ao vivo, os 113 testes ou a matriz automatizada. Nã
 | Diferença tipográfica entre campanhas | **Questão esclarecida.** Síntese editorial e operação densa constituem uma regra defensável, compatível com as capturas observadas. |
 | Evidência divergente em 320 px | **Superada para a versão atual.** As novas capturas permitem avaliar diretamente a v29. |
 
-Evidências principais: [Resumo desktop](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/overview-light-1366.png), [tablet](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/overview-light-768.png), [celular de 320 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/overview-light-320.png) e [recomendação preenchida](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/states/recommendation-dark-1366.png).
+Evidências principais: [Resumo desktop](output/design-review/editorial-v4/final/overview-light-1366.png), [tablet](output/design-review/editorial-v4/final/overview-light-768.png), [celular de 320 px](output/design-review/editorial-v4/final/overview-light-320.png) e [recomendação preenchida](output/design-review/editorial-v4/final/states/recommendation-dark-1366.png).
 
 ### Problemas críticos
 
@@ -58,7 +58,7 @@ A avaliação de hierarquia ficou assim:
 **1. O cabeçalho do gráfico chega apertado ao limite da composição lateral**
 
 - **Localização:** Resumo, título “Gastos ao longo do período” e link “Explorar resultados”, em 1181 px.
-- **Evidência:** [captura de 1181 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/overview-light-1181.png), comparada à [de 1180 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/overview-light-1180.png).
+- **Evidência:** [captura de 1181 px](output/design-review/editorial-v4/final/overview-light-1181.png), comparada à [de 1180 px](output/design-review/editorial-v4/final/overview-light-1180.png).
 - **Gravidade:** baixa.
 - **Natureza:** achado visual de acabamento responsivo.
 - **Justificativa:** título e link quebram simultaneamente. O título tolera duas linhas, mas o link também dividido produz um cabeçalho com dois blocos estreitos concorrentes. O conteúdo permanece legível; falta folga compositiva.
@@ -81,18 +81,18 @@ Ela é a parte mais expressiva e reconhecível da interface. Também repete dest
 
 ### Crítica comparativa
 
-A referência [“Using the grid”](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/references/herman-miller-grid.png) importa pela relação entre conteúdo, hierarquia e composição. A v29 se aproxima desse princípio ao reorganizar os indicadores, em vez de apenas acrescentar divisórias ou efeitos.
+A referência [“Using the grid”](output/design-review/editorial-v4/references/herman-miller-grid.png) importa pela relação entre conteúdo, hierarquia e composição. A v29 se aproxima desse princípio ao reorganizar os indicadores, em vez de apenas acrescentar divisórias ou efeitos.
 
-A [captura de Arc Marumo](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/references/arc.png) utiliza objetos como experiência central. LegalGrowth limita essa expressividade a uma seção posterior aos dados. Essa adaptação é apropriada ao contexto operacional.
+A [captura de Arc Marumo](output/design-review/editorial-v4/references/arc.png) utiliza objetos como experiência central. LegalGrowth limita essa expressividade a uma seção posterior aos dados. Essa adaptação é apropriada ao contexto operacional.
 
-[Standards](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/references/standards.png) demonstra economia de elementos; [Nova Dental](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/references/nova.png), contraste tipográfico. A lição útil é a clareza das relações. O produto não precisa reproduzir suas escalas, imagens ou composições.
+[Standards](output/design-review/editorial-v4/references/standards.png) demonstra economia de elementos; [Nova Dental](output/design-review/editorial-v4/references/nova.png), contraste tipográfico. A lição útil é a clareza das relações. O produto não precisa reproduzir suas escalas, imagens ou composições.
 
 ### Qualidades reais
 
 - **A reorganização da margem melhorou a informação.** Os três indicadores são encontrados antes dos filtros, e seus rótulos deixaram de quebrar artificialmente no desktop.
 - **Os estados vazio e preenchido têm hierarquias diferentes.** “Ver recomendação” recebe destaque quando existe conteúdo; atualizar permanece uma ação secundária.
 - **O apoio de IA está recomposto.** A quebra em 320 px mantém o eixo de leitura e não cria recuo arbitrário.
-- **Os valores longos observados permanecem íntegros.** `R$ 1.234.567,89` cabe nas [evidências abertas](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v4/final/states/large-amount-dark-320.png), sem truncamento visível.
+- **Os valores longos observados permanecem íntegros.** `R$ 1.234.567,89` cabe nas [evidências abertas](output/design-review/editorial-v4/final/states/large-amount-dark-320.png), sem truncamento visível.
 - **Os temas preservam a mesma linguagem.** O escuro mantém relações reconhecíveis entre superfícies, texto, gráfico e ações.
 - **A expressão visual não invade as tabelas operacionais.** A diferença entre o Resumo e Campanhas possui justificativa de densidade e leitura.
 

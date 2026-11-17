@@ -12,7 +12,7 @@ A nota é um julgamento qualitativo das superfícies observadas, sem equivalênc
 
 ## Evidências e limites
 
-Versão avaliada: **v35**, congelada em [round1/manifest.json](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/manifest.json), de 23/10/2026.
+Versão avaliada: **v35**, congelada em [round1/manifest.json](output/design-review/editorial-v6/round1/manifest.json), de 23/10/2026.
 
 Origem declarada: `http://127.0.0.1:8000/painel/{page}`. Método declarado: Playwright com Edge headless, página inteira, movimento reduzido e dados sintéticos.
 
@@ -36,7 +36,7 @@ As larguras auxiliares declaradas históricas foram excluídas da avaliação at
 
 **Localização:** Resumo → “Campanhas no período”, em 601 px, nos temas claro e escuro.
 
-**Evidência:** [overview-light-601.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/overview-light-601.png) e sua correspondente escura. A comparação com [600 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/overview-light-600.png) torna a transição evidente.
+**Evidência:** [overview-light-601.png](output/design-review/editorial-v6/round1/overview-light-601.png) e sua correspondente escura. A comparação com [600 px](output/design-review/editorial-v6/round1/overview-light-600.png) torna a transição evidente.
 
 **Gravidade:** médio.  
 **Natureza:** achado visual; já existia na v34.
@@ -53,7 +53,7 @@ O conteúdo permanece completo, mas o ritmo da tabela se deteriora. A adaptaçã
 
 **Localização:** Resumo → `.review-desk` com conteúdo, sobretudo em 1280 e 1366 px.
 
-**Evidência:** [recommendation-light-1366.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/states/recommendation-light-1366.png), [recommendation-dark-1280.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/states/recommendation-dark-1280.png) e estados equivalentes de valor longo.
+**Evidência:** [recommendation-light-1366.png](output/design-review/editorial-v6/round1/states/recommendation-light-1366.png), [recommendation-dark-1280.png](output/design-review/editorial-v6/round1/states/recommendation-dark-1280.png) e estados equivalentes de valor longo.
 
 **Gravidade:** médio para acabamento de portfólio.  
 **Natureza:** achado visual com julgamento de composição.
@@ -74,7 +74,7 @@ A assimetria entre colunas é aceitável. A pendência está na quantidade de al
 
 **Localização:** `.overview-board`, em 1280 e 1281 px.
 
-**Evidência:** [overview-light-1280.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/overview-light-1280.png), correspondente de 1281 px e variantes escuras.
+**Evidência:** [overview-light-1280.png](output/design-review/editorial-v6/round1/overview-light-1280.png), correspondente de 1281 px e variantes escuras.
 
 **Gravidade:** baixo.  
 **Natureza:** achado visual; causa técnica não determinada.
@@ -91,7 +91,7 @@ O recuo não identifica outro nível de informação e enfraquece a percepção 
 
 **Localização:** estado sem recomendação → frase de apoio e link “Configurar IA”, entre 768 e 900 px.
 
-**Evidência:** [overview-light-768.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/overview-light-768.png), além de 800, 801 e 900 px, nos dois temas.
+**Evidência:** [overview-light-768.png](output/design-review/editorial-v6/round1/overview-light-768.png), além de 800, 801 e 900 px, nos dois temas.
 
 **Gravidade:** baixo.  
 **Natureza:** achado visual de agrupamento.
@@ -124,7 +124,7 @@ O tratamento é coerente se campanhas representam o núcleo da leitura e o gráf
 
 ### “Testar a conferência de erros” em Relatórios
 
-O rótulo aparece como uma seção permanente em [reports-light-390.png](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/round1/reports-light-390.png).
+O rótulo aparece como uma seção permanente em [reports-light-390.png](output/design-review/editorial-v6/round1/reports-light-390.png).
 
 **Classificação:** hipótese de clareza textual.
 

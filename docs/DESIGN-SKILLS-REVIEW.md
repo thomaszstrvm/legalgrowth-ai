@@ -6,7 +6,7 @@ Fonte: https://composio.dev/content/top-design-skills
 
 ## Seleção
 
-1. **Impeccable** — instalada em `C:/Users/KABUM/.codex/skills/impeccable`, versão declarada 4.7.0. Melhor ajuste para composição, tipografia, hierarquia e crítica de uma interface existente. Para este painel, o modo pertinente é Operate; relatórios seguem Read. Fonte: https://github.com/pbakaus/impeccable
+1. **Impeccable** — instalada em `~/.codex/skills/impeccable`, versão declarada 4.7.0. Melhor ajuste para composição, tipografia, hierarquia e crítica de uma interface existente. Para este painel, o modo pertinente é Operate; relatórios seguem Read. Fonte: https://github.com/pbakaus/impeccable
 2. **AccessLint** — avaliada, não instalada. Complemento para contraste, foco, teclado, zoom e regressões de acessibilidade. O repositório mudou para https://github.com/AccessLint/skills. A versão atual separa scan, inspect, audit, fix e diff; algumas funções dependem de CLI/MCP e navegador. Não define identidade visual nem prova acessibilidade completa automaticamente.
 3. **Frontend Design** — orientação já consultada na revisão anterior. Útil como base, mas sobrepõe parte do Impeccable; não priorizar mais uma instalação com a mesma função. Fonte: https://github.com/anthropics/skills/tree/main/skills/frontend-design
 4. **Theme Factory** — avaliada, não instalada. Fornece dez combinações de cores e fontes; seu fluxo é centrado em temas de artefatos/apresentações. Pode ajudar a manter relatórios consistentes, mas trocar paleta não resolve a composição do painel. Fonte: https://github.com/composio-community/awesome-codex-skills/tree/master/theme-factory

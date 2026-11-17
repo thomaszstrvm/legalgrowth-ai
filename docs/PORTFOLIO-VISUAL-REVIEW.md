@@ -12,7 +12,7 @@ O [comparador local](../output/design-review/reference-comparison.html) reúne s
 
 ## Pesquisa e skills
 
-- [Emil Kowalski — skills](https://github.com/emilkowalski/skills): `emil-design-eng` instalado com o instalador oficial e lido nesta rodada. Aplicação: acabamento de controles, feedback discreto de pressão, foco previsível, movimento reduzido e avaliação por evidências visuais. A skill fica em `C:/Users/KABUM/.codex/skills/emil-design-eng`; não executa no site.
+- [Emil Kowalski — skills](https://github.com/emilkowalski/skills): `emil-design-eng` instalado com o instalador oficial e lido nesta rodada. Aplicação: acabamento de controles, feedback discreto de pressão, foco previsível, movimento reduzido e avaliação por evidências visuais. A skill fica em `~/.codex/skills/emil-design-eng`; não executa no site.
 - [Discussão no Reddit sobre UI/UX com IA](https://www.reddit.com/r/claudeskills/comments/1vhz1ol/web_uiux_design_with_ai_what_skills_prompts_or/): relatos reforçam usar referências concretas e revisão, em vez de depender de um pedido genérico. São experiências pessoais, não prova de eficácia.
 - [Taste Skill](https://github.com/Leonxlnx/taste-skill): avaliada, sem instalação adicional. Seu foco em páginas públicas não justificou adicionar outro conjunto de regras ao produto operacional.
 - Skills existentes `frontend-design` e `critique-visual-hierarchy` orientaram direção e crítica. A pesquisa também consultou Impeccable e UI UX Pro Max. Instalar uma skill, isoladamente, não garante qualidade.

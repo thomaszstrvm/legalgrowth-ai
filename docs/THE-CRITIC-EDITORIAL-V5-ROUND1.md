@@ -8,7 +8,7 @@ A v31 melhora a comparação dos resultados no desktop largo, mas introduz uma r
 
 ### Evidências e limites
 
-Revisão independente, somente leitura, da **v31**, identificada pelo [manifesto da rodada](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/manifest.json), datado de 23/10/2026. Conferi que os hashes do CSS e do template atuais correspondem aos registrados no manifesto.
+Revisão independente, somente leitura, da **v31**, identificada pelo [manifesto da rodada](output/design-review/editorial-v5/round1/manifest.json), datado de 23/10/2026. Conferi que os hashes do CSS e do template atuais correspondem aos registrados no manifesto.
 
 Examinei visualmente:
 
@@ -29,7 +29,7 @@ Não identifiquei um problema de gravidade **crítico** nas evidências examinad
 **1. O título principal quebra dentro da palavra ao entrar no layout desktop**
 
 - **Localização:** abertura do Resumo, largura de 901 px, temas claro e escuro.
-- **Evidência:** [901 px claro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-901.png) e [901 px escuro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-dark-901.png). “Resumo” aparece como **“Resum” / “o”**. Em [900 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-900.png), a palavra permanece íntegra.
+- **Evidência:** [901 px claro](output/design-review/editorial-v5/round1/overview-light-901.png) e [901 px escuro](output/design-review/editorial-v5/round1/overview-dark-901.png). “Resumo” aparece como **“Resum” / “o”**. Em [900 px](output/design-review/editorial-v5/round1/overview-light-900.png), a palavra permanece íntegra.
 - **Gravidade:** **alta**.
 - **Natureza:** achado visual confirmado, com suporte no código. A regra a partir de 901 px reserva uma coluna mínima de 210 px para a identificação, incluindo gravura e intervalo, e mantém o título em 52 px.
 - **Justificativa:** a composição passa a funcionar pior quando ganha um pixel. A quebra não constitui uma decisão editorial defensável: fragmenta uma palavra curta e desorganiza a abertura mais importante do produto.
@@ -49,7 +49,7 @@ Não identifiquei um problema de gravidade **crítico** nas evidências examinad
 **3. O gráfico ampliado reduz a eficiência do Resumo no desktop**
 
 - **Localização:** sequência gráfico → detalhes diários → estado sem recomendações → campanhas, em 1366 px.
-- **Evidência:** [v31 clara](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-1366.png) versus [v30 clara](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/before/overview-light-1366.png). Na v31, o título de campanhas começa aproximadamente em **y=1010**; na v30, aproximadamente em **y=590**. Com viewport de 900 px, os registros de campanhas saem da primeira tela. A página inteira cresce de **1745 para 1933 px**.
+- **Evidência:** [v31 clara](output/design-review/editorial-v5/round1/overview-light-1366.png) versus [v30 clara](output/design-review/editorial-v5/before/overview-light-1366.png). Na v31, o título de campanhas começa aproximadamente em **y=1010**; na v30, aproximadamente em **y=590**. Com viewport de 900 px, os registros de campanhas saem da primeira tela. A página inteira cresce de **1745 para 1933 px**.
 - **Gravidade:** **média**.
 - **Natureza:** distribuição visual confirmada; o efeito sobre velocidade de uso é hipótese que exige teste.
 - **Justificativa:** o gráfico ganha muito espaço para apresentar a mesma série pouco variável. A faixa vazia é menos dominante que a antiga coluna, mas continua participando de uma sequência longa de divisórias e intervalos antes dos próximos resultados concretos.
@@ -59,10 +59,10 @@ Não identifiquei um problema de gravidade **crítico** nas evidências examinad
 ### Problemas sutis
 
 **Orçamento intermediário com distribuição instável — gravidade baixa.**  
-Em [900 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-900.png), o título do orçamento quebra em duas linhas, o link fica isolado abaixo e o percentual forma outra linha. Em [768 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-768.png), o bloco apresenta uma organização mais clara. A largura maior não deveria produzir a leitura menos resolvida. Recomendo manter título e ação em uma faixa superior e distribuir os dados abaixo nessa configuração intermediária.
+Em [900 px](output/design-review/editorial-v5/round1/overview-light-900.png), o título do orçamento quebra em duas linhas, o link fica isolado abaixo e o percentual forma outra linha. Em [768 px](output/design-review/editorial-v5/round1/overview-light-768.png), o bloco apresenta uma organização mais clara. A largura maior não deveria produzir a leitura menos resolvida. Recomendo manter título e ação em uma faixa superior e distribuir os dados abaixo nessa configuração intermediária.
 
 **Ainda existe uma descontinuidade desnecessária entre 1180 e 1181 px — gravidade baixa.**  
-Compare [1180 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-1180.png) e [1181 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/overview-light-1181.png): mudam as margens laterais, a presença de ícones na navegação e as quebras das explicações dos indicadores. Não há quebra impeditiva, mas o breakpoint conserva uma mudança de tratamento pouco relacionada à nova composição. Recomendo harmonizar espaçamentos e verificar se essa transição ainda tem função.
+Compare [1180 px](output/design-review/editorial-v5/round1/overview-light-1180.png) e [1181 px](output/design-review/editorial-v5/round1/overview-light-1181.png): mudam as margens laterais, a presença de ícones na navegação e as quebras das explicações dos indicadores. Não há quebra impeditiva, mas o breakpoint conserva uma mudança de tratamento pouco relacionada à nova composição. Recomendo harmonizar espaçamentos e verificar se essa transição ainda tem função.
 
 ### Decisões questionáveis
 
@@ -92,7 +92,7 @@ A referência da **Herman Miller** é especialmente pertinente: a grade deve exp
 ### Qualidades reais
 
 - **Indicadores mais comparáveis no desktop.** Gasto, contatos e contratações formam uma síntese horizontal clara em 1180–1920 px. É uma melhoria sobre a sequência vertical da margem antiga.
-- **Hierarquia correta na recomendação preenchida.** Em [1366 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v5/round1/states/recommendation-light-1366.png), o título explica a questão e “Ver recomendação” prevalece sobre atualizar. A distinção se mantém no celular.
+- **Hierarquia correta na recomendação preenchida.** Em [1366 px](output/design-review/editorial-v5/round1/states/recommendation-light-1366.png), o título explica a questão e “Ver recomendação” prevalece sobre atualizar. A distinção se mantém no celular.
 - **Valor monetário longo preservado.** `R$ 1.234.567,89` aparece inteiro nas capturas examinadas de 320, 390, 768 e 1366 px, nos dois temas. Isso demonstra adaptação visual para esse caso específico.
 - **Temas com identidade compartilhada.** O escuro preserva a estrutura editorial e as relações cromáticas das capas; não parece uma versão obtida apenas por inversão de cores.
 - **Dossiês com personalidade e coerência.** Tipografia, lombadas, gravuras e matizes constituem o elemento mais distintivo do produto. A posição posterior aos dados é adequada.

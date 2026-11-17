@@ -10,7 +10,7 @@ Esta nota é um julgamento qualitativo do **Resumo v38 observado**. A página au
 
 ## Evidências e limites da inspeção
 
-Identificação pelo [manifesto v38](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/manifest.json), datado de 23/10/2026.
+Identificação pelo [manifesto v38](output/design-review/editorial-v6/post-review/manifest.json), datado de 23/10/2026.
 
 Origem declarada: `http://127.0.0.1:8000/painel/{page}`. Capturas declaradas como Playwright/Edge, página inteira, movimento reduzido e dados sintéticos.
 
@@ -30,8 +30,8 @@ Li a persona integral, `DESIGN.md`, a documentação da rodada, o parecer v37 e 
 
 | Pendência da v37 | Resultado |
 |---|---|
-| Separadores com alturas diferentes | **Resolvida.** Na [v38 em 1280 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-light-1280.png), os divisores terminam juntos apesar da quebra diferente dos textos de apoio. A diferença é visível no confronto com a [v37](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/final/overview-light-1280.png). |
-| Link de salto sobre o gráfico nas imagens de foco | **Resolvida como problema de documentação nas amostras atuais.** A [captura neutra v38](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/states/recommendation-light-1280.png) está limpa. O [viewport com foco](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/states/focus-viewport-light-1366.png) preserva o indicador no botão sem a sobreposição. Confirmação também no tema escuro. |
+| Separadores com alturas diferentes | **Resolvida.** Na [v38 em 1280 px](output/design-review/editorial-v6/post-review/overview-light-1280.png), os divisores terminam juntos apesar da quebra diferente dos textos de apoio. A diferença é visível no confronto com a [v37](output/design-review/editorial-v6/final/overview-light-1280.png). |
+| Link de salto sobre o gráfico nas imagens de foco | **Resolvida como problema de documentação nas amostras atuais.** A [captura neutra v38](output/design-review/editorial-v6/post-review/states/recommendation-light-1280.png) está limpa. O [viewport com foco](output/design-review/editorial-v6/post-review/states/focus-viewport-light-1366.png) preserva o indicador no botão sem a sobreposição. Confirmação também no tema escuro. |
 
 Isso comprova a qualidade das novas evidências observadas. A causa interna do artefato antigo continua indeterminada; não há base para afirmar uma correção universal do mecanismo de captura.
 
@@ -47,14 +47,14 @@ A recomendação preenchida conserva uma ação primária clara. Metadados e mú
 
 **Localização:** Resumo → cabeçalho → “Contatos qualificados” e “Contratações”.
 
-**Evidências:** [601 px claro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-light-601.png) e [601 px escuro](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-dark-601.png).
+**Evidências:** [601 px claro](output/design-review/editorial-v6/post-review/overview-light-601.png) e [601 px escuro](output/design-review/editorial-v6/post-review/overview-dark-601.png).
 
 **Gravidade:** baixo.  
 **Natureza:** achado visual, compatível com o CSS examinado.
 
 “Contatos qualificados” quebra em duas linhas; “Contratações” ocupa uma. Os números **70 e 8 ficam em alturas diferentes**. A faixa deixa de apresentar resultados diretamente comparáveis sobre uma mesma linha.
 
-Em [600 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-light-600.png), a composição mais larga dos indicadores evita esse efeito. Em 901 px há tratamento específico para reservar altura aos rótulos. O acabamento ficou incompleto na composição intermediária observada.
+Em [600 px](output/design-review/editorial-v6/post-review/overview-light-600.png), a composição mais larga dos indicadores evita esse efeito. Em 901 px há tratamento específico para reservar altura aos rótulos. O acabamento ficou incompleto na composição intermediária observada.
 
 **Correção específica:** compartilhar a altura da linha de rótulos entre os dois indicadores nessa composição, mantendo números e apoios em linhas correspondentes. Evitar deslocamentos individuais por margem.
 
@@ -68,7 +68,7 @@ Em [600 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/
 
 **Localização:** Resumo → “Orçamento do mês”; auxiliar Orçamento e gastos → síntese inicial.
 
-**Evidências:** [Resumo v38, 390 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-light-390.png) e [Finanças v35, 390 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/finance-light-390.png).
+**Evidências:** [Resumo v38, 390 px](output/design-review/editorial-v6/post-review/overview-light-390.png) e [Finanças v35, 390 px](output/design-review/editorial-v6/post-review/finance-light-390.png).
 
 **Gravidade:** baixo.  
 **Natureza:** julgamento de composição; o ganho de usabilidade exige teste.
@@ -83,15 +83,15 @@ O problema não é existir espaço negativo. É a relação entre o espaço ocup
 
 ### Menu compacto até 1180 px
 
-Na [captura de 1180 px](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/post-review/overview-light-1180.png), os destinos ficam recolhidos mesmo com bastante largura disponível.
+Na [captura de 1180 px](output/design-review/editorial-v6/post-review/overview-light-1180.png), os destinos ficam recolhidos mesmo com bastante largura disponível.
 
 O compromisso está documentado. Sua adequação depende da frequência de troca entre áreas. **Não o classifico como erro comprovado**, nem recomendo mudá-lo apenas para preencher o cabeçalho.
 
 ## Comparação e prioridades de maior impacto
 
-A [referência visual da Arc](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/references/arc.png) integra objeto, identificação e controles numa cena única. O LegalGrowth desenvolve uma interpretação própria desse princípio: os dossiês possuem títulos, ilustrações e destinos coerentes. A [página pública da Arc](https://www.arcmarumo.com/) também explicita navegação por setas e abertura do projeto central; consultei seu texto, sem testar esse comportamento.
+A [referência visual da Arc](output/design-review/editorial-v6/references/arc.png) integra objeto, identificação e controles numa cena única. O LegalGrowth desenvolve uma interpretação própria desse princípio: os dossiês possuem títulos, ilustrações e destinos coerentes. A [página pública da Arc](https://www.arcmarumo.com/) também explicita navegação por setas e abertura do projeto central; consultei seu texto, sem testar esse comportamento.
 
-A [composição da Herman Miller](C:/Users/KABUM/Documents/ChatGPT/testejuridico/output/design-review/editorial-v6/references/herman-miller-grid.png) oferece o fundamento mais útil para o trabalho operacional: relações entre informações determinam a grade. A dupla página do Resumo atende bem a esse princípio. A síntese financeira móvel poderia aplicá-lo com maior concentração.
+A [composição da Herman Miller](output/design-review/editorial-v6/references/herman-miller-grid.png) oferece o fundamento mais útil para o trabalho operacional: relações entre informações determinam a grade. A dupla página do Resumo atende bem a esse princípio. A síntese financeira móvel poderia aplicá-lo com maior concentração.
 
 Nova Dental e Boc Work demonstram contraste de escala e agrupamento, mas suas capturas promocionais não comprovam superioridade funcional sobre um painel analítico.
 
