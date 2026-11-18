@@ -39,7 +39,7 @@ Pygments==2.21.0
 pymupdf==2.0
 pymupdf4llm==2.0
 pymupdf_layout==2.0
-pypdf==6.21.2
+pypdf==6.21.4
 pytest==9.1.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.4

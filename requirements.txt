@@ -12,4 +12,4 @@ httpx>=0.27,<1
 psycopg[binary]>=3.2,<4
 tzdata
 cryptography>=50.0.2,<51
-pypdf>=5,<7
+pypdf>=6.21.4,<7
